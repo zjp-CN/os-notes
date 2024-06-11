@@ -3,6 +3,8 @@ name: Mdbook build
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -10,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # To push a branch 
-      pages: write  # To push to a GitHub Pages site
-      id-token: write # To update the deployment status
+      pull-requests: write  # To create a PR from that branch
     env:
       MDBOOK_VERSION: '0.4.40'
       MDBOOK_LINKCHECK_VERSION: '0.7.7'
@@ -38,13 +39,7 @@ jobs:
         echo ~/tools >> $GITHUB_PATH
     - name: Build 
       run: mdbook build
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+    - uses: JamesIves/github-pages-deploy-action@4.1.7
       with:
-        # Upload entire repository
-        path: 'book'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+        branch: gh-pages # The branch the action should deploy to.
+        folder: book # The folder the action should deploy.
