@@ -13,9 +13,9 @@ jobs:
       MDBOOK_LINKCHECK_VERSION: '0.7.7'
       MDBOOK_MERMAID_VERSION: '0.13.0'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
-        submodules: true
+        submodules: false
     - name: Install mdbook
       run: |
         mkdir ~/tools
@@ -34,7 +34,7 @@ jobs:
     - name: Build
       run: mdbook build
     # share between different jobs
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: book
         path: book/
