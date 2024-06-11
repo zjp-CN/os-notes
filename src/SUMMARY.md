@@ -13,7 +13,7 @@
     - [tmux](2024-04-29-rcore-tmux.md)
     - [qemu](2024-04-29-rcore-qemu.md)
 
-- [项目六：异步操作系统]()
+- [项目六：异步操作系统](async-os.md)
   - [Rust 的 Future](2024-05-19-async-os-rust-futures.md)
   - [rCore-N (共享调度器 fork) 搭建和踩坑](2024-05-28-async-os-dev-log.md)
   - [embassy: TaskStorage](2024-06-03-async-os-dev-log_embassy-executor.md)
