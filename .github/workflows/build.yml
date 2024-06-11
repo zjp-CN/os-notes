@@ -8,6 +8,10 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # To push a branch 
+      pages: write  # To push to a GitHub Pages site
+      id-token: write # To update the deployment status
     env:
       MDBOOK_VERSION: '0.4.40'
       MDBOOK_LINKCHECK_VERSION: '0.7.7'
