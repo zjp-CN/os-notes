@@ -15,6 +15,9 @@ git-repository-url = ""
 additional-css = ["theme/pagetoc.css"]
 additional-js = ["theme/pagetoc.js"]
 
+# Michael-F-Bryan/mdbook-linkcheck
+[output.linkcheck]
+
 [output.html.fold]
 enable = false
 level = 1
