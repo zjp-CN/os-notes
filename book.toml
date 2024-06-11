@@ -3,7 +3,7 @@ authors = ["zjp <jiping_zhou@foxmail.com>"]
 language = "zh"
 multilingual = false
 src = "src"
-title = "book-name"
+title = "开源操作系统训练营笔记"
 
 [preprocessor.theme]
 pagetoc = true
@@ -11,7 +11,8 @@ sidebar-width = "250px"
 
 [output.html]
 default-theme = "ayu"
-git-repository-url = ""
+git-repository-url = "https://github.com/zjp-CN/os-notes"
+edit-url-template = "https://github.com/zjp-CN/os-notes/edit/main/{path}"
 additional-css = ["theme/pagetoc.css"]
 additional-js = ["theme/pagetoc.js"]
 

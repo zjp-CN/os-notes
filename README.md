@@ -1,13 +1,3 @@
-# mdbook-template
+# 开源操作系统训练营笔记
 
-Yield a mdbook demo with [mdbook-theme](https://github.com/zjp-CN/mdbook-theme)
-and a yml file for github action automation and page publication.
-
-You just need to creat md files in `src/` dir, then add the filenames in `SUMMARY.md`,
-and everything is ready to go.
-
-But for the first time after pushing to github, set the source of github page to 
-`gh-pages` branch and `/(root)` in `Settings`.
-
-Have fun with mdbook!
-
+时间：2024 年 4 月至 6 月
