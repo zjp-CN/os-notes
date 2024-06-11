@@ -31,8 +31,10 @@ jobs:
                | wget -qi -
         tar -xzf mdbook-theme_linux.tar.gz -C ~/tools
         echo ~/tools >> $GITHUB_PATH
-    - name: Deploy
+    - name: Build and Deploy
       run: |
+        # Build the book
+        mdbook build
         # If the gh-pages branch already exists, this will overwrite it
         # so that the history is not kept, which can be very expensive.
         git worktree add --orphan -B gh-pages gh-pages
