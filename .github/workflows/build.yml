@@ -21,7 +21,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: false
-        fetch-depth: 0
     - name: Install mdbook
       run: |
         mkdir ~/tools
