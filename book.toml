@@ -9,6 +9,10 @@ title = "开源操作系统训练营笔记"
 pagetoc = true
 sidebar-width = "250px"
 
+pagetoc-width = "15%"
+content-max-width = "78%"
+content-main-margin-left = "5%"
+
 [output.html]
 default-theme = "ayu"
 git-repository-url = "https://github.com/zjp-CN/os-notes"
