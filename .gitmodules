@@ -1,3 +1,6 @@
 [submodule "rCore-Tutorial-Code-2024S-embassy"]
 	path = rCore-Tutorial-Code-2024S-embassy
 	url = https://gitee.com/ZIP97/rCore-tutorial-code-2024S-embassy.git
+[submodule "cortex-m-quickstart"]
+	path = cortex-m-quickstart
+	url = https://gitee.com/ZIP97/cortex-m-quickstart.git
