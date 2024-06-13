@@ -7,12 +7,13 @@
 ```text
 .
 ├── src (笔记)
+├── cortex-m-quickstart (submodule)
 └─┬ rCore-Tutorial-Code-2024S-embassy (submodule)
   ├── user (submodule)
   ├── ...                                             
 ```
 
-如果要获取 rCore embassy 子模块在内的项目，使用以下命令
+如果要获取 cortex-m-quickstart、rCore-embassy 子模块在内的项目，使用以下命令
 
 ```console
 git clone --recurse-submodules https://github.com/zjp-CN/os-notes.git
