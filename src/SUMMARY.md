@@ -17,3 +17,4 @@
   - [Rust 的 Future](2024-05-19-async-os-rust-futures.md)
   - [rCore-N (共享调度器 fork) 搭建和踩坑](2024-05-28-async-os-dev-log.md)
   - [embassy: TaskStorage](2024-06-03-async-os-dev-log_embassy-executor.md)
+  - [embassy: timer](embassy-timer.md)
