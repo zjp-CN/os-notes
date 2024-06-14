@@ -1,5 +1,7 @@
 # rCore-N (共享调度器 fork) 搭建和踩坑
 
+时间：2024-05-28
+
 > 注意，这是运行 <https://github.com/CtrlZ233/rCore-N> （开源操作系统训练营项目 6，共享调度器 rCore-N）的教程，而不是
 > [rv-n-ext-impl](https://github.com/Gallium70/rv-n-ext-impl) 内的 rCore-N
 > <https://github.com/duskmoon314/rCore-N> 的教程。
@@ -72,7 +74,7 @@ targets = ["riscv64gc-unknown-none-elf"]
 在 tmux 中，使用 `Ctrl-b` 快捷键触发 tmux 相关的功能，比如 `Ctrl-b` + `%` 向右分割一个新终端 pane，`Ctrl-b` + `"`
 在这个右终端 pane 中向下分割一个终端 pane，此时你可以直接控制三个终端。使用 `Ctrl-b` + `方向键` 聚焦于一个终端。
 
-关于 tmux 的简单使用介绍，见我的 [博客](./2024-04-29-rcore-tmux.md)。
+关于 tmux 的简单使用介绍，见我的 [博客](./rcore-tmux.md)。
 
 在右侧的两个终端中，它们的当前目录继承了父进程，即 `async-os/rCore-N`，聚焦它们，并运行 sleep.sh 脚本（比如 `./sleep.sh`），
 它会将终端清除，并打印当前 pts 设备文件路径。这两个终端作为内核的输出和用户态输出（和输入）。

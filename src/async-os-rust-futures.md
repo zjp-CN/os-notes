@@ -1,5 +1,7 @@
 # 《200 行代码讲透 Rust Futures》
 
+时间：2024-05-19
+
 ## 背景/唠嗑
 
 《[200 行代码讲透 Rust Futures](https://stevenbai.top/rust/futures_explained_in_200_lines_of_rust/) 》

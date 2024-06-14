@@ -1,5 +1,6 @@
 # 安装 GDB
 
+时间：2024-04-25
 
 GDB 需要针对 riscv64 平台编译的版本才能用来调试内核，其二进制文件为 `riscv64-unknown-elf-gdb`。
 

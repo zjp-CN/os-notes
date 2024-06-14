@@ -1,3 +1,7 @@
+# rCore 特权级
+
+时间：2024-04-28
+
 > src: <https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter2/1rv-privilege.html>
 
 # Why
@@ -95,7 +99,7 @@ RISC-V 架构中，只有 M 模式是必须实现的，剩下的特权级则可�
 
 对所有 RISC-V 系统来说，一个共性问题是如何处理异常和屏蔽中断。见 [中断]。
 
-[中断]: ./2024-05-02-rcore-os-multiprograms.md#中断
+[中断]: ./rcore-os-multiprograms.md#中断
 
 RISC-V 的异常是精确的：在异常点之前的所有指令都执行完毕，而异常点之后的指令则都未开始执行。
 

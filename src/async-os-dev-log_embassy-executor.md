@@ -1,5 +1,7 @@
 # embassy 使用记录之 TaskStorage
 
+时间：2024-06-03
+
 ## 定时打印 (std/本机系统)
 
 FYI: 这里使用 std 的原因在于更快地了解和测试 embassy。
