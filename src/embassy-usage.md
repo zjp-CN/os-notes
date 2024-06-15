@@ -195,6 +195,7 @@ fn pender(context: *mut ()) {
 </details>
 
 
+这个顺序是因为 embassy-executor 的任务队列采用单向链表结构，而不是环形队列，并使用后进先出的方式取出任务。
 
 ```rust
 // src: https://github.com/embassy-rs/embassy/blob/6bbb870bfade23e814169eb48e42e8bc55d9ff8f/embassy-executor/src/raw/run_queue_atomics.rs#L70
