@@ -9,6 +9,7 @@
 ├── src (笔记)
 ├── cortex-m-quickstart (submodule)
 ├── embassy (submodule)
+├── embassy-usage (submodule)
 └─┬ rCore-Tutorial-Code-2024S-embassy (submodule)
   ├── user (submodule)
   ├── ...                                             

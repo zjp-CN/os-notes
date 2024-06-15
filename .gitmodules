@@ -7,3 +7,6 @@
 [submodule "embassy"]
 	path = embassy
 	url = https://gitee.com/ZIP97/embassy.git
+[submodule "embassy-usage"]
+	path = embassy-usage
+	url = https://gitee.com/ZIP97/embassy-usage.git
