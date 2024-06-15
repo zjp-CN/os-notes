@@ -4,3 +4,6 @@
 [submodule "cortex-m-quickstart"]
 	path = cortex-m-quickstart
 	url = https://gitee.com/ZIP97/cortex-m-quickstart.git
+[submodule "embassy"]
+	path = embassy
+	url = https://gitee.com/ZIP97/embassy.git

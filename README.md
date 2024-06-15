@@ -8,6 +8,7 @@
 .
 ├── src (笔记)
 ├── cortex-m-quickstart (submodule)
+├── embassy (submodule)
 └─┬ rCore-Tutorial-Code-2024S-embassy (submodule)
   ├── user (submodule)
   ├── ...                                             
@@ -19,4 +20,4 @@
 git clone --recurse-submodules https://github.com/zjp-CN/os-notes.git
 ```
 
-如果只获取单独的子模块，见 [.gitmodules](https://github.com/zjp-CN/os-notes/blob/main/.gitmodules) 内的仓库 url。
+这些子模块内的代码都修改过；如果只获取单独的子模块，见 [.gitmodules](https://github.com/zjp-CN/os-notes/blob/main/.gitmodules) 内的仓库 url。
