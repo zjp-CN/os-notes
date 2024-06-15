@@ -25,20 +25,23 @@ pub trait Driver: Send + Sync + 'static {
   * alarm 应该有自己的数据结构（比如 AlarmState），存储来自执行器设置的回调函数和执行器实例
   * alarm 的功能：适时执行回调函数
   * 分配 alarm 的数量通常是有上限的，该数量尤其是编译时已知的，比如 `[AlarmState; N]`，其中索引为 AlarmHandle 
-  * AlarmHandle 实际上是一个整数编号的包装器类型，所以分配一个 alarm，就是分配一个编号（当然，也可能包含一些设置 AlarmState 的逻辑）
+  * AlarmHandle 实际上是一个整数编号的包装器类型，所以分配一个 alarm，就是分配一个索引/编号（当然，也可能包含一些设置 AlarmState 的逻辑）
 * `set_alarm_callback` 函数其实就是对第 n 个 alarm 在运行时进行初始化，通常由执行器设置
-* `set_alarm` 函数用于安排执行回调函数，通过告知第 n 个 alram，以及一个给定的 tick 时刻
+* `set_alarm` 函数通过告知第 n 个 alram，以及一个给定的 tick 时刻来安排执行回调函数
   * 当这个给定的时刻处于将来，那么它返回 true，以非同步方式安排回调函数执行，这意味着不要在 set_alarm 函数内直接运行回调函数！
   * 当这个给定的时刻已经过去，那么它返回 false，无需安排回调函数执行
-  * `embassy-executor` 开启 `integrated-timers` feature 之后，一旦 set_alarm 返回 true，那么结束一轮 poll 结束；如果 set_alarm 
-    一直返回 false，那么将这轮 poll 一直持续下去
+  * `embassy-executor` 开启 `integrated-timers` feature 之后，一旦 set_alarm 返回 true，那么结束一轮 poll；如果 set_alarm 
+    一直返回 false，那么将这轮 poll 会一直持续下去
 
 这个 [回调函数] 目前仅仅是调用 `__pender` 函数，相应的代码如下：
 
 [回调函数]: https://github.com/embassy-rs/embassy/blob/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-executor/src/raw/mod.rs#L359
 
 ```rust
-#[export_name = "__pender"] // 每个编译目标提供：embassy 在 arch* feature 上提供默认的 __pender
+// 每个编译目标提供：
+// * embassy 在 arch* feature 上提供默认的 __pender
+// * 如果自己提供，不要开启 embassy 任何 arch 开头的 feature
+#[export_name = "__pender"]
 fn __pender(context: *mut ()) { ... } // context 实际上是 *mut SyncExecutor
 
 impl SyncExecutor { // Executor 的内部结构
