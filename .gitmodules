@@ -10,3 +10,6 @@
 [submodule "embassy-usage"]
 	path = embassy-usage
 	url = https://gitee.com/ZIP97/embassy-usage.git
+[submodule "ch32-hal"]
+	path = ch32-hal
+	url = https://gitee.com/ZIP97/ch32-hal.git
