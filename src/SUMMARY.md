@@ -20,6 +20,7 @@
   - [embassy: timer](embassy-timer.md)
 
 - [子模块项目]()
+  - [embassy](./embassy.md)
   - [embassy-usage](embassy-usage.md)
   - [cortex-m-quickstart](cortex-m-quickstart.md)
 
