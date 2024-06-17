@@ -22,3 +22,8 @@
 - [子模块项目]()
   - [embassy-usage](embassy-usage.md)
   - [cortex-m-quickstart](cortex-m-quickstart.md)
+
+- [基础知识]()
+  - [专业名词集锦](./terminology.md)
+  - [专业名词集锦 2](./terminology2.md)
+
