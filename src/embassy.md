@@ -134,8 +134,7 @@ RA 是如何识别到 `#[cfg(time_driver_tim1)] type T = peripherals::TIM1;` 被
 这是 cargo 一个巧妙的设计：使用者可以只需要指定 `time-driver-tim1` feature，而无需再指定 `time_driver_tim1` cfg flag ——
 这相当于向使用者隐藏了 cfg flag（使用者可以对它毫不知情），但同时给予库的编写者编写更复杂的条件编译的余地。虽然使用者依然可以设置
 cfg flag（如果他们知道名称的话），但在实际情况中，这个设计减少了版本不兼容的风险，因为库会告知和鼓励使用 features，而不是 cfg 
-flags。从这个角度看，单个 feature 可以视为包含多个 cfg flags 的条件编译功能。
-
+flags。从这个角度看，单个 feature 可以视为多个 cfg flags 的集合（但 embassy-stm32 似乎并没有完全利用这一点，它只关联了一个 cfg flag）。
 
 ```rust
 // src: https://github.com/embassy-rs/embassy/blob/86c48dde4192cabcad22faa10cabb4dc5f035c0a/embassy-stm32/build.rs#L182
@@ -180,3 +179,38 @@ impl CfgSet {
     }
 }
 ```
+
+# features
+
+首先要明确的是，当我们在 Rust 种谈论 feature，需要确定上下文：
+
+* nightly/unstable feature 通常指 nightly Rust 中才可用的、实验性的功能，你可以在 [unstable book]
+  查阅到这个列表。它可以划分为 language feature 和 library feature 两部分，但都使用 `#![feature(...)]` 语法启用功能。
+    * language feature：由 [lang team] 负责来设计 Rust 语言（语法、语义、规范），比如 [`#![feature(lang_items)]`][lang_items]
+    * library feature：由 [library team] 负责，在标准库（含 core lib）添加新的 APIs，比如 [`#![feature(waker_getters)]`][waker_getters]
+* 在使用一个库的时候，[feature] 通常指这个 [crate] （库或者可执行程序） 在其 Cargo.toml 文件中定义的内容，用于条件编译或者指定可选依赖 
+    * features 的定义具有两部分来源：
+        * `[features]` 中定义的键：因此一个 feature 可以是多个其他 feature 的集合
+        * 被指定为 `optional = true` 的依赖
+    * 库的编写者在源码中使用 `#[cfg(feature = "...")]` 将代码进行条件编译控制，而库的使用者在 Cargo.toml 中，在这个依赖声明时指定 features 
+    * 示例：库 a 包含 `#[cfg(feature = "gated")] pub fn f() {}` 函数，使用者想使用 `a::f()`，必须在配置文件中启用（比如直接写
+      `[dependencies] a = { version = "...", features = ["gated"] }]` 或者其他间接方式）
+    * 所以库的 features 改动应该视为公共 API 的一部分，需要进行版本兼容性的考虑 ([SemVer][featuers-SemVer])
+        * 在 embassy 中，存在一些 `_` 开头的 features，这是一种社区做法，用于表明这些 features 不应被使用者直接使用，从而作为库内部的细节而不遵循版本语义
+    * 可以说 features 是 [cfg][cfg-vs-features] 在 Cargo 的一个特殊化：
+        * features 被设计为累加式的，这意味着库应该尽量将默认开启的 features 降到最低
+        * cargo 有一系列 features 的细节设计：不限于
+            * 命令行选择参数 `--features a,b,c`、`--all-features`、`--no-default-features`
+            * `[features]` 中支持的 `dep:` 和 `?` 语法
+
+
+[unstable book]: https://doc.rust-lang.org/unstable-book/the-unstable-book.html
+[lang team]: https://github.com/rust-lang/lang-team
+[lang_items]: https://doc.rust-lang.org/unstable-book/language-features/lang-items.html
+[library team]: https://github.com/rust-lang/libs-team
+[waker_getters]: https://doc.rust-lang.org/unstable-book/library-features/waker-getters.html
+
+[crate]: https://doc.rust-lang.org/cargo/appendix/glossary.html#crate
+[featuers-SemVer]: https://doc.rust-lang.org/cargo/reference/features.html#semver-compatibility
+[cfg-vs-features]: https://doc.rust-lang.org/reference/conditional-compilation.html#set-configuration-options
+[feature]: https://doc.rust-lang.org/cargo/reference/features.html
