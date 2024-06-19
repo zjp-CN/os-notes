@@ -18,6 +18,7 @@
   - [rCore-N (共享调度器 fork) 搭建和踩坑](async-os-dev-log_rCore-N.md)
   - [embassy: TaskStorage](async-os-dev-log_embassy-executor.md)
   - [embassy: timer](embassy-timer.md)
+  - [embassy: interrupt](./embassy-interrupt.md)
 
 - [子模块项目]()
   - [embassy](./embassy.md)
