@@ -7,7 +7,7 @@ title = "开源操作系统训练营笔记"
 
 [preprocessor.theme]
 pagetoc = true
-sidebar-width = "250px"
+sidebar-width = "260px"
 
 pagetoc-width = "15%"
 content-max-width = "78%"
