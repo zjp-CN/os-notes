@@ -10,6 +10,7 @@
 ├── cortex-m-quickstart (submodule)
 ├── embassy (submodule)
 ├── embassy-usage (submodule)
+├── green-thread (submodule)
 └─┬ rCore-Tutorial-Code-2024S-embassy (submodule)
   ├── user (submodule)
   ├── ...                                             
