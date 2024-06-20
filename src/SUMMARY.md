@@ -19,6 +19,7 @@
   - [embassy: TaskStorage](async-os-dev-log_embassy-executor.md)
   - [embassy: timer](embassy-timer.md)
   - [embassy: interrupt](./embassy-interrupt.md)
+  - [embassy: sync](./embassy-sync.md)
 
 - [子模块项目]()
   - [embassy](./embassy.md)
