@@ -158,7 +158,7 @@ recv: val=7
 
 [embassy-net-driver-channel]: https://github.com/embassy-rs/embassy/blob/b0172bb58217d625a13fed8122827b8d0b03c46a/embassy-net-driver-channel/src/lib.rs#L81
 
-[zero-copy example]: https://github.com/embassy-rs/embassy/blob/b0172bb58217d625a13fed8122827b8d0b03c46a/examples/rp/src/bin/zerocopy.rs#L2
+[zerocopy example]: https://github.com/embassy-rs/embassy/blob/b0172bb58217d625a13fed8122827b8d0b03c46a/examples/rp/src/bin/zerocopy.rs#L2
 
 ## 背压示例
 
