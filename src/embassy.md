@@ -197,12 +197,6 @@ impl CfgSet {
       `[dependencies] a = { version = "...", features = ["gated"] }]` 或者其他间接方式）
     * 所以库的 features 改动应该视为公共 API 的一部分，需要进行版本兼容性的考虑 ([SemVer][featuers-SemVer])
         * 在 embassy 中，存在一些 `_` 开头的 features，这是一种社区做法，用于表明这些 features 不应被使用者直接使用，从而作为库内部的细节而不遵循版本语义
-    * 可以说 features 是 [cfg][cfg-vs-features] 在 Cargo 的一个特殊化：
-        * features 被设计为累加式的，这意味着库应该尽量将默认开启的 features 降到最低
-        * cargo 有一系列 features 的细节设计：不限于
-            * 命令行选择参数 `--features a,b,c`、`--all-features`、`--no-default-features`
-            * `[features]` 中支持的 `dep:` 和 `?` 语法
-
 
 [unstable book]: https://doc.rust-lang.org/unstable-book/the-unstable-book.html
 [lang team]: https://github.com/rust-lang/lang-team
@@ -214,3 +208,63 @@ impl CfgSet {
 [featuers-SemVer]: https://doc.rust-lang.org/cargo/reference/features.html#semver-compatibility
 [cfg-vs-features]: https://doc.rust-lang.org/reference/conditional-compilation.html#set-configuration-options
 [feature]: https://doc.rust-lang.org/cargo/reference/features.html
+
+这里讨论库的 features（也指 Cargo features）。
+
+可以说 features 是 [cfg][cfg-vs-features] 在 Cargo 的一个特殊化：
+* features 被设计为累加式的，这意味着库应该尽量将默认开启的 features 降到最低
+* cargo 有一系列 features 的细节设计：不限于
+    * 命令行选择参数 `--features a,b,c`、`--all-features`、`--no-default-features`
+    * `[features]` 中支持的 `dep:` 和 `?` 语法
+    * [check-cfg]：这是 2024 年 Cargo 重点推进的一个大功能（对应于 2020 年创建的 [RFC#3013]）
+
+`check-cfg` 解决的问题很直观：检查 cfg 选项的 key 和 value 是否有效，即如果源码中写了 `cfg(key)` 或 `cfg(key = value)`，那么 `name` 和 `value` 应该被定义。
+
+[RFC#3013]: https://github.com/rust-lang/rfcs/pull/3013
+[check-cfg]: https://blog.rust-lang.org/inside-rust/2024/06/19/this-development-cycle-in-cargo-1.80.html#-zcheck-cfg
+
+比如当你过去直接写 `#[cfg(aaa)]`，Rust 不会对这个 `aaa` 选项名做任何检查，显然这会带来风险；现在（目前在 nightly Rust
+中），你会碰到来自 rustc 友好的提示（也会出现在 IDE 中），告知你当前有效的名称和处理它的方式：
+
+```rust
+#[cfg(aaa)] // 自定义的 cfg flag
+fn f() {}
+
+warning: unexpected `cfg` condition name: `aaa`
+  --> src/bin/borrow.rs:38:7
+   |
+38 | #[cfg(aaa)]
+   |       ^^^
+   |
+   = help: expected names are: `clippy`, `debug_assertions`, `doc`, `docsrs`, `doctest`, `feature`, `miri`, `overflow_checks`, `panic`, `proc_macro`, `relocation_model`, `r
+ustfmt`, `sanitize`, `sanitizer_cfi_generalize_pointers`, `sanitizer_cfi_normalize_integers`, `target_abi`, `target_arch`, `target_endian`, `target_env`, `target_family`, `
+target_feature`, `target_has_atomic`, `target_has_atomic_equal_alignment`, `target_has_atomic_load_store`, `target_os`, `target_pointer_width`, `target_thread_local`, `targ
+et_vendor`, `test`, `ub_checks`, `unix`, and `windows`
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(aaa)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(aaa)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+```
+
+查找这个选项定义的地方有：
+* rustc's list of "well known" cfgs (generally first party compilation toolchains)：比如上面 target 开头和相关的名称
+* cargo's list of "well known" cfgs：比如 clippy、doc、docsrs、miri
+* [`[features]`](https://doc.rust-lang.org/cargo/reference/features.html)：在 Cargo.toml 中定义
+* [`cargo::rustc-check-cfg`](https://doc.rust-lang.org/nightly/cargo/reference/build-scripts.html#rustc-check-cfg)：通过 build.rs 传递编译时的环境变量
+* Passing `--check-cfg` through `RUSTFLAGS`
+
+如果你确认想忽略这个检查 cfg 选项的噪音，则采用以下一种方式：
+* 模块内使用 `#![allow(unexpected_cfgs)]` （貌似暂不能识别 item 上的 `#[allow(unexpected_cfgs)]`）
+* 在 Cargo.toml 中 `[lints.rust]` 定义 `unexpected_cfgs`，help 信息已经给了示例
+
+目前这是一个夜间功能，不过预计在 7 月 Rust 1.80 上稳定。（见 [cargo 1.80 开发报告][cargo-1.80]）
+
+[cargo-1.80]: https://blog.rust-lang.org/inside-rust/2024/06/19/this-development-cycle-in-cargo-1.80.html#-zcheck-cfg
+
+embassy 在 5 月合并了添加 check-cfg 功能的 [PR#3005]，它是一个很好的示例，尤其值得学习在 build.rs 中把
+`cargo::rustc-check-cfg` （定义选项） 和 `cargo::rustc-cfg` （开启选项）结合起来使用的技巧。
+
+[PR#3005]: https://github.com/embassy-rs/embassy/pull/3005
