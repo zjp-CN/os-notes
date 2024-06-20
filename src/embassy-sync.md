@@ -30,7 +30,8 @@
   * 接收方必须通过调用 receive_done 来通知完成接受完成，才能让发送方继续发送
 * 双向通道：接收方也可以通过 `&mut T` 写入值让发送方看到，也就是说，消费者和生产者可以原地转换角色，这不同于传统的 SPSC 
 * `Channel<'_, M, T>::split(&mut self) -> (Sender<'_, M, T>, Receiver<'_, M, T>)` 使用了一个巧妙的技巧来实现内部可变性：通过将生命周期转移到
-  PhantomData，利用裸指针构造 Sender 和 Receiver，它们内部的 channel 为 `&Channel` 而不是 `&mut Channel`（因为借用规则）。
+  PhantomData，利用裸指针构造 Sender 和 Receiver，它们内部的 channel 为 `&Channel` 而不是 `&mut Channel`（因为借用规则）。此外，还可以注意到
+  Sender 和 Receiver 在发送和接收等函数上使用 `&mut self`，这是因为 SPSC 每次只能从缓冲区/切片上对一个元素进行操作（获取、修改、通知），这自然是独占的。
   
 
 ```rust
@@ -44,6 +45,17 @@ impl<'a, M: RawMutex, T> Channel<'a, M, T> {
     pub fn split(&mut self) -> (Sender<'_, M, T>, Receiver<'_, M, T>) {
         (Sender { channel: self }, Receiver { channel: self })
     }
+}
+
+impl<'a, M: RawMutex, T> Sender<'a, M, T> {
+    /// Attempts to send a value over the channel.
+    pub fn try_send(&mut self) -> Option<&mut T> { ... }
+
+    /// Asynchronously send a value over the channel.
+    pub async fn send(&mut self) -> &mut T { ... }
+
+    /// Notify the channel that the sending of the value has been finalized.
+    pub fn send_done(&mut self) { ... }
 }
 ```
 
@@ -339,6 +351,54 @@ async fn consumer(mut receiver: Receiver<'_>) {
 >
 > src: [embassy_sync::channel::Channel](https://docs.embassy.dev/embassy-sync/git/default/channel/struct.Channel.html) 文档
 
+一个有趣的设计是，`Channel` 具有动态分发的形式 `&dyn DynamicChannel<T>`（比如基于此的 `DynamicSender` 和 `DynamicReceiver`），
+它擦除了两个类型参数 M （互斥锁类型） 和 N （队列大小），只与 T （传递的数据）有关，这会带来使用上的便利。
+
+
+```rust
+pub struct Channel<M, T, const N: usize>
+where
+    M: RawMutex,
+{
+    inner: Mutex<M, RefCell<ChannelState<T, N>>>,
+}
+
+impl<M: RawMutex, T, const N: usize> Channel<M, T, N>
+{
+    /// Get a sender for this channel using dynamic dispatch.
+    pub fn dyn_sender(&self) -> DynamicSender<'_, T> {
+        DynamicSender { channel: self }
+    }
+
+    /// Get a receiver for this channel using dynamic dispatch.
+    pub fn dyn_receiver(&self) -> DynamicReceiver<'_, T> {
+        DynamicReceiver { channel: self }
+    }
+}
+
+// trait object: 擦除 Channel 上的 M （互斥锁类型） 和 N （队列大小）
+pub(crate) trait DynamicChannel<T> {
+    fn try_send_with_context(&self, message: T, cx: Option<&mut Context<'_>>) -> Result<(), TrySendError<T>>;
+
+    fn try_receive_with_context(&self, cx: Option<&mut Context<'_>>) -> Result<T, TryReceiveError>;
+
+    fn poll_ready_to_send(&self, cx: &mut Context<'_>) -> Poll<()>;
+    fn poll_ready_to_receive(&self, cx: &mut Context<'_>) -> Poll<()>;
+
+    fn poll_receive(&self, cx: &mut Context<'_>) -> Poll<T>;
+}
+impl<M: RawMutex, T, const N: usize> Channel<M, T, N> { ... }
+
+/// Send-only access to a [`Channel`] without knowing channel size.
+pub struct DynamicSender<'ch, T> {
+    pub(crate) channel: &'ch dyn DynamicChannel<T>,
+}
+
+/// Receive-only access to a [`Channel`] without knowing channel size.
+pub struct DynamicReceiver<'ch, T> {
+    pub(crate) channel: &'ch dyn DynamicChannel<T>,
+}
+```
 
 # 名词解释
 
