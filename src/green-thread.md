@@ -20,7 +20,7 @@
 
 <details>
 
-<summary>点击展开/收起原作者更新贴的截图</summary>
+<summary>点击展开/收起原作者发布代码更新的帖子的截图</summary>
 
 ![](./img/green-thread-update.png)
 
@@ -71,7 +71,7 @@ linux-only 位于 `src/bin/linux-only.rs`，是参照未更新的代码（来自
 
 [RFC#2972: naked]: https://github.com/rust-lang/rfcs/blob/master/text/2972-constrained-naked.md
 
-`#[naked]` 用于声明一个裸函数 (naked function) ，它其实一直就存在于 Rust 编译器中，但它至今仍是需要通过开启 `#![feature(naked_functions)]` 才能使用。
+`#[naked]` 用于声明一个裸函数 (naked function) ，它其实一直就存在于 Rust 编译器中，但它至今仍需要通过开启 `#![feature(naked_functions)]` 才能使用。
 
 历史上，由于缺少 prologue 和 epilogue 的函数会带来许多复杂的问题，Rust 编译器需要解决这些问题，开发人员需要解决这些问题。长期以来，编译器和开发人员都犯了错误。
 
