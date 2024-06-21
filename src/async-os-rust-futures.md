@@ -63,6 +63,8 @@ Future/Promise + async/await 语法：
 * [RFC 2873: `asm!`](https://rust-lang.github.io/rfcs/2873-inline-asm.html)：内联汇编，将手写的汇编嵌入编译器生成的汇编输出中
   * 官方示例：[Rust By Example: `asm!`](https://doc.rust-lang.org/stable/rust-by-example/unsafe/asm.html)
   * `global_asm!` 与 `asm!` 识别一样的语法，前者可以写在模块内，后者写在函数内
+* [Reference: inline assembly](https://doc.rust-lang.org/stable/reference/inline-assembly.html)：这是最新的内容，应该重点阅读，因为有时 RFC
+  会过时（比如当时的 RFC 2873 没有设计 clobber_abi，但这已经实现，在 Reference 中有介绍）
 
 ## 基础写法
 
