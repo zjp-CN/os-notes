@@ -1,5 +1,12 @@
 # embassy: interrupt
 
+预选资料：
+
+* [embedded-book interrupts]
+* [cortex_m_rt::interrupt]
+* [embedded-book exceptions]
+* [cortex_m_rt::exception]
+
 [embedded-book interrupts]: https://docs.rust-embedded.org/book/start/interrupts.html
 [cortex_m_rt::interrupt]: https://docs.rs/cortex-m-rt/latest/cortex_m_rt/attr.interrupt.html
 [embedded-book exceptions]: https://docs.rust-embedded.org/book/start/exceptions.html
