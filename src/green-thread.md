@@ -65,7 +65,7 @@ linux-only 位于 `src/bin/linux-only.rs`，是参照未更新的代码（来自
 [RBE: asm!]: https://doc.rust-lang.org/stable/rust-by-example/unsafe/asm.html
 [Reference: inline assembly]: https://doc.rust-lang.org/stable/reference/inline-assembly.html
 
-# `#[naked]` 宏
+# `#[naked]` 属性
 
 > 这部分内容整理自 [RFC#2972: naked]
 
