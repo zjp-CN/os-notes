@@ -21,7 +21,7 @@
   - [embassy: interrupt](./embassy-interrupt.md)
   - [embassy: sync](./embassy-sync.md)
 
-- [子模块项目]()
+- [子模块项目](./submodules.md)
   - [embassy](./embassy.md)
   - [embassy-usage](embassy-usage.md)
   - [cortex-m-quickstart](cortex-m-quickstart.md)
