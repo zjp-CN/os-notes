@@ -16,3 +16,6 @@
 [submodule "green-thread"]
 	path = green-thread
 	url = https://gitee.com/ZIP97/green-thread.git
+[submodule "cortex-m"]
+	path = cortex-m
+	url = https://gitee.com/ZIP97/cortex-m.git
