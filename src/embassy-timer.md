@@ -42,7 +42,9 @@ pub trait Driver: Send + Sync + 'static {
 // * embassy 在 arch* feature 上提供默认的 __pender
 // * 如果自己提供，不要开启 embassy 任何 arch 开头的 feature
 //
-// context 实际上是 raw::Executor::new(context) 中的参数，由自己构造
+// context 实际上是 raw::Executor::new(context) 中的参数，由自己构造，
+// 比如在 embassy-executor 的实现中可能为 (Sync)Executor 实例，
+// 在我写的 embassy-usage 中为一个类似唤醒的状态
 #[export_name = "__pender"]
 fn __pender(context: *mut ()) { ... } 
 
