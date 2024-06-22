@@ -4,17 +4,17 @@
 由于原作者 cfsamson 写这些代码的时候依赖当时不稳定的 Rust 功能（比如
 `asm!`、`#[naked]`），这些功能已经随着时间而发生了巨大的变化。
 
-而原文链接已经逐渐消失在网上（由原作者自己删除[^1]），这导致回看当时一些文章翻译提供的代码是过时的
+这导致回看当时一些文章翻译提供的代码是过时的
 * [stevenbai: 200行代码讲透RUST FUTURES](https://stevenbai.top/rust/futures_explained_in_200_lines_of_rust/)
 * [耿腾: 两百行Rust代码解析绿色线程原理（五）附录：支持 Windows](https://zhuanlan.zhihu.com/p/101168659)
+
+而原文链接已经逐渐消失在网上（由原作者自己删除[^1]），不过幸运的是，这些原文内容还留有存档
+* [Futures Explained in 200 Lines of Rust](https://web.archive.org/web/20230203001355/https://cfsamson.github.io/books-futures-explained/introduction.html)
+* [Green Threads Explained in 200 Lines of Rust](https://web.archive.org/web/20220527113808/https://cfsamson.gitbook.io/green-threads-explained-in-200-lines-of-rust/supporting-windows)
 
 [^1]: cfsamson 在几个月前正式发布了他的新书
 《[Asynchronous Programming in Rust: Learn asynchronous programming by building working examples of futures, green threads, and runtimes][cfsamson-book]》（[原帖]），
 将他以往的异步系列书整合到了一起，有条件的小伙伴可以支持他。
-
-不过幸运的是，这些原文内容还留有存档
-* [Green Threads Explained in 200 Lines of Rust](https://web.archive.org/web/20220527113808/https://cfsamson.gitbook.io/green-threads-explained-in-200-lines-of-rust/supporting-windows)
-* [Futures Explained in 200 Lines of Rust](https://web.archive.org/web/20230203001355/https://cfsamson.github.io/books-futures-explained/introduction.html)
 
 值得注意的是，两百行讲解绿色线程的代码其实在两年前就由原作者本人更新了一次（[帖子][post-update]），上面的存档记录了当时更新过的代码版本，它们是直接可以被运行了。
 
