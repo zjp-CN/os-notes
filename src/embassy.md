@@ -182,7 +182,7 @@ impl CfgSet {
 
 # features
 
-首先要明确的是，当我们在 Rust 种谈论 feature，需要确定上下文：
+首先要明确的是，当我们在 Rust 中谈论 feature，需要确定上下文：
 
 * nightly/unstable feature 通常指 nightly Rust 中才可用的、实验性的功能，你可以在 [unstable book]
   查阅到这个列表。它可以划分为 language feature 和 library feature 两部分，但都使用 `#![feature(...)]` 语法启用功能。
@@ -218,7 +218,7 @@ impl CfgSet {
     * `[features]` 中支持的 `dep:` 和 `?` 语法
     * [check-cfg]：这是 2024 年 Cargo 重点推进的一个大功能（对应于 2020 年创建的 [RFC#3013]）
 
-`check-cfg` 解决的问题很直观：检查 cfg 选项的 key 和 value 是否有效，即如果源码中写了 `cfg(key)` 或 `cfg(key = value)`，那么 `name` 和 `value` 应该被定义。
+`check-cfg` 解决的问题很直观：检查 cfg 选项的 key 和 value 是否有效，即如果源码中写了 `cfg(key)` 或 `cfg(key = value)`，那么 `key` 和 `value` 应该被定义。
 
 [RFC#3013]: https://github.com/rust-lang/rfcs/pull/3013
 [check-cfg]: https://blog.rust-lang.org/inside-rust/2024/06/19/this-development-cycle-in-cargo-1.80.html#-zcheck-cfg
