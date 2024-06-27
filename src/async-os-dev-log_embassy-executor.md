@@ -114,7 +114,10 @@ fn run1() -> ::embassy_executor::SpawnToken<impl Sized> {
 * `SpawnToken` 是一个任务标记，作为 [`Spawner::spawn`] 函数的一个参数；当该任务已经在运行中，该标记是一个被污染的状态，再次 spawn 时返回
   [`SpawnError::Busy`]。该标记在 Drop 实现中会进行 panic，这意味着你必须把它按值传递给 spawn 函数进行处理，而不应该直接丢弃它。
 * 由于 async fn/block 生成的 Future 是不可命名类型，需要使用 [TAIT] 来描述这个具体类型
-* 异步任务存放在一个静态数组中，这个数组的长度为 1，意味着异步任务 `run1` 只能被运行一次
+* 异步任务存放在一个 TaskPool 中（它实质上是一个大小为 POOL_SIZE、元素为相同 Future 的静态数组），这个数组的长度为 1，意味着
+  最多只能同时运行一个 `run1` —— 尤其是，当你连续两次 spawn 这个 run1，那么第二个 SpawnToken 会因为任务还在注册和运行的状态而受到污染，
+  从而 spawn 时得到 Busy Error。然而，这并不意味着任务只能运行一次：任务完成之后，它依然在任务栈里面，只是状态并不是 spawned，执行器轮询时
+  会跳过它，不过你依然可以索要（回收/重用）这个任务，具体代码见下文。
 
 [TAIT]: https://github.com/rust-lang/rfcs/blob/master/text/2515-type_alias_impl_trait.md
 
@@ -441,3 +444,19 @@ where
 [2024-06-07T07:40:43Z WARN  embassy_local] reclaim task2 again :)
 [2024-06-07T07:40:43Z WARN  embassy_local] reclaim task1 again :)
 ```
+
+## embassy_executor::raw 模块
+
+一些我在第三周 PPT 里记录的总结，我不想重新在这写一遍，所以直接提供图片
+
+![](./img/embassy-raw1.png)
+
+![](./img/embassy-raw2.png)
+
+![](./img/embassy-raw3.png)
+
+## TaskStorage 及其变体
+
+在 `embassy_executor` 中，任务会被表示为多种类型，但其实它们是一个东西，有时可以相互转化。
+
+![](./img/embassy-task.png)
