@@ -16,7 +16,7 @@
 - [项目六：异步操作系统](async-os.md)
   - [Rust 的 Future](async-os-rust-futures.md)
   - [rCore-N (共享调度器 fork) 搭建和踩坑](async-os-dev-log_rCore-N.md)
-  - [embassy: TaskStorage](async-os-dev-log_embassy-executor.md)
+  - [embassy: TaskStorage](./embassy-task.md)
   - [embassy: timer](embassy-timer.md)
   - [embassy: interrupt](./embassy-interrupt.md)
   - [embassy: sync](./embassy-sync.md)
