@@ -22,6 +22,7 @@
   - [embassy: sync](./embassy-sync.md)
 
 - [子模块项目](./submodules.md)
+  - [rCore-embassy-timer](./rCore-embassy-timer.md)
   - [embassy](./embassy.md)
   - [embassy-usage](embassy-usage.md)
   - [cortex-m-quickstart](cortex-m-quickstart.md)
@@ -31,4 +32,5 @@
   - [专业名词集锦](./terminology.md)
   - [专业名词集锦 2](./terminology2.md)
   - [专业名词集锦 3](./terminology3.md)
+  - [RISC-V 定时器](riscv-timer.md)
 
