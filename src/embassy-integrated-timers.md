@@ -1,7 +1,8 @@
 # embassy: integrated-timers 和任务机制
 
 通过区分定时任务和普通任务，来理解 embassy-executor 的 `integrated-timers` feature 带来的功能以及运行时内部的任务机制，包括
-* 任务类型和任务栈
+* 任务类别
+* 任务调度与执行
 * 任务的状态及其改变
 * 任务添加和删除
 * 任务与 Future 实现
