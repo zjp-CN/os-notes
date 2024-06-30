@@ -1,6 +1,8 @@
 
 进展记录：[向老师的石墨文档](https://shimo.im/docs/KlkKvegZoeudw7qd)
 
+最终报告 PPT：[《阶段 3 学习总结 + 实现 rCore 异步定时器驱动》](https://docs.qq.com/slide/DTG1vc2FKR2xsYmpL)
+
 # 每周任务（均完成）
 
 * 第 2 周：[用户态协程（爬虫）](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=404a64695ff36c37b18e4e3d92f849d1)
