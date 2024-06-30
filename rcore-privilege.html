@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>特权级 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html" class="active"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/rcore-privilege.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="rcore-特权级"><a class="header" href="#rcore-特权级">rCore 特权级</a></h1>
+<p>时间：2024-04-28</p>
+<blockquote>
+<p>src: <a href="https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter2/1rv-privilege.html">https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter2/1rv-privilege.html</a></p>
+</blockquote>
+<h1 id="why"><a class="header" href="#why">Why</a></h1>
+<blockquote>
+<p>实现特权级机制的根本原因是应用程序运行的安全性不可充分信任。</p>
+</blockquote>
+<p>从我的理解来看，权级的出现主要是为了 <strong>处理程序的错误</strong> 和 <strong>限制程序的资源（指令、内存地址）</strong>。</p>
+<p>对于前者，一个程序出现错误时，这导致执行环境被破坏，影响其他程序的运行。</p>
+<p>对于后者，如果所有程序都对机器拥有完全的资源控制权，这增加了执行环境被破坏的风险。</p>
+<p>所以，需要给程序划分级别来保证低权级执行的安全性：</p>
+<blockquote>
+<p>低特权级软件只能做高特权级软件允许它做的，且超出低特权级软件能力的功能必须寻求高特权级软件的帮助。</p>
+</blockquote>
+<h1 id="what"><a class="header" href="#what">What</a></h1>
+<h2 id="特权级有-4-类"><a class="header" href="#特权级有-4-类">特权级有 4 类</a></h2>
+<p>特权级 (privilege) 从低到高分为</p>
+<ul>
+<li>用户/应用模式 (user mode) =&gt; 上层应用（用户态）</li>
+<li>监管模式 (supervisor mode) =&gt; 操作系统层（内核态）</li>
+<li>虚拟监督模式 (hypervisor) =&gt; 尚未成型，暂时忽略</li>
+<li>机器模式 (machine mode) =&gt; 最高权级，拥有对机器的完全控制 =&gt; 监督模式执行环境 (SEE, Supervisor Execution Environment)</li>
+</ul>
+<p>对于 M-S-U 权级中间的地带，SBI 和 ABI 是桥梁： M mode =&gt; SBI =&gt; S mode =&gt; ABI =&gt; U mode</p>
+<ul>
+<li>SBI (Supervisor Binary Interface)：监督模式二进制接口，SEE 和 S 模式的内核之间的接口</li>
+<li>ABI (Application Binary Interface)：应用程序二进制接口，内核和 U 模式的应用程序之间的接口，又名系统调用 (syscall)</li>
+</ul>
+<p>这两种接口调用并不是普通的函数调用控制流，而是特殊的 <strong>陷入异常控制流</strong>，在该过程中会切换 CPU 特权级。
+因此只有将接口下降到机器/汇编指令级才能够满足其跨高级语言的通用性和灵活性。</p>
+<p>（说白了，就是跨权级调用会触发一种叫“陷入” (trap) 的异常机制，低权级向上一层高权级请求来处理，CPU 切换权级，
+处理之后，回到低权级环境。这种切换的方式是指令级别的，与编程语言无关。）</p>
+<p><img src="https://rcore-os.cn/rCore-Tutorial-Book-v3/_images/PrivilegeStack.png" alt="" /></p>
+<h2 id="特权级是按需实现的"><a class="header" href="#特权级是按需实现的">特权级是按需实现的</a></h2>
+<p>RISC-V 架构中，只有 M 模式是必须实现的，剩下的特权级则可以根据应用的实际需求进行调整：</p>
+<ul>
+<li>简单的嵌入式应用只需要实现 M 模式；</li>
+<li>带有一定保护能力的嵌入式系统需要实现 M/U 模式；</li>
+<li>复杂的多任务系统则需要实现 M/S/U 模式。</li>
+</ul>
+<h2 id="特权级需与硬件协同"><a class="header" href="#特权级需与硬件协同">特权级需与硬件协同</a></h2>
+<p>处理器会设置不同级别的执行环境，并划分出不同级别专属的指令集，规定内核态的指令只能在内核的执行环境中执行，而且
+处理器在执行指令前会对其权级进行检查，如果在用户态执行环境中执行这些内核态特权级指令，会产生异常。</p>
+<h2 id="异常控制流"><a class="header" href="#异常控制流">异常控制流</a></h2>
+<ul>
+<li>常规控制流：顺序、循环、分支、函数调用</li>
+<li>异常控制流 (ECF, Exception Control Flow)。其原因/形式： 
+<ul>
+<li>（陷入）用户态软件为获得内核态操作系统的服务功能而执行特殊指令</li>
+<li>（故障）在执行某条指令期间产生了错误（如执行了用户态不允许执行的指令或者其他错误）并被 CPU 检测到</li>
+</ul>
+</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Interrupt</th><th style="text-align: center">Exception Code</th><th>Description</th><th>中文</th><th>陷入指令</th></tr></thead><tbody>
+<tr><td style="text-align: center">0</td><td style="text-align: center">0</td><td>Instruction address misaligned</td><td>指令地址不对齐</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">1</td><td>Instruction access fault</td><td>指令访问故障</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">2</td><td>Illegal instruction</td><td>非法指令</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">3</td><td>Breakpoint</td><td>断点</td><td>ebreak</td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">4</td><td>Load address misaligned</td><td>读数地址不对齐</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">5</td><td>Load access fault</td><td>读数访问故障</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">6</td><td>Store/AMO address misaligned</td><td>存数地址不对齐</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">7</td><td>Store/AMO access fault</td><td>存数访问故障</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">8</td><td>Environment call from U-mode</td><td>U 模式环境调用</td><td>ecall</td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">9</td><td>Environment call from S-mode</td><td>S 模式环境调用</td><td>ecall</td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">11</td><td>Environment call from M-mode</td><td>M 模式环境调用</td><td>ecall</td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">12</td><td>Instruction page fault</td><td>指令页故障</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">13</td><td>Load page fault</td><td>读数页故障</td><td></td></tr>
+<tr><td style="text-align: center">0</td><td style="text-align: center">15</td><td>Store/AMO page fault</td><td>存数页故障</td><td></td></tr>
+</tbody></table>
+</div>
+<p>这个表显示了异常中的所有的陷入和故障类型。陷入是通过 ebreak 或 ecall 主动触发的，但故障并不是。</p>
+<p>调用 ecall 指令时，会根据 CPU 所处的权级来触发相应的异常码，比如当处于 U 模式，则触发 8。</p>
+<p>对这些异常进行分类：</p>
+<ul>
+<li>访问故障异常：在物理内存地址不支持访问类型时发生，如尝试写入 ROM。</li>
+<li>断点异常：在执行 ebreak 指令，或者地址或数据与调试触发器（debug trigger）匹配时发生。</li>
+<li>环境调用异常：在执行 ecall 指令时发生。</li>
+<li>非法指令异常：在对无效操作码进行译码时发生。</li>
+<li>不对齐地址异常：在有效地址不能被访问位宽整除时发生，如地址为 0x12 的 amoadd.w。</li>
+</ul>
+<p>此外，有一列中断标识符，涉及中断 (1) 与异常 (0) 的区别：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>发生</th><th>原因</th></tr></thead><tbody>
+<tr><td>中断</td><td>异步</td><td>来自软件、时钟和外部。可以发生在任何时刻。<br>与指令流异步的外部事件，如点击鼠标。</td></tr>
+<tr><td>异常</td><td>同步</td><td>指令执行的一种结果，如非法指令、内存访问错误等</td></tr>
+</tbody></table>
+</div>
+<p>对所有 RISC-V 系统来说，一个共性问题是如何处理异常和屏蔽中断。见 <a href="./rcore-os-multiprograms.html#%E4%B8%AD%E6%96%AD">中断</a>。</p>
+<p>RISC-V 的异常是精确的：在异常点之前的所有指令都执行完毕，而异常点之后的指令则都未开始执行。</p>
+<h2 id="csr"><a class="header" href="#csr">CSR</a></h2>
+<p>CSR = control and status register （控制与状态寄存器），它不同于 32 个通用寄存器，比如</p>
+<ul>
+<li>CSR 划分了权级，低权级无法读写高权级的 CSR</li>
+<li>在级别范围内，可以对 CSR 进行读写。CSR 的读写权限与寄存器的编号有关。
+<ul>
+<li>CSR 的编号是 12 位的，而不是像通用寄存器那样只有 5 位。所以 CSR 可高达 4096 个。</li>
+<li>CSR 的读写性由最高的 2 位 <code>[11:8]</code> 的确定，11 开头的 CSR 只允许读，其余允许读写</li>
+<li><code>[9:8]</code> 位标识了最低读写权限，<code>00</code> 为 U 开始，<code>01</code> 为 S 开始等等</li>
+</ul>
+</li>
+<li>有些 CSR 的写入者是机器</li>
+<li>CSR 对位域的读写具有如下规范（即读写行为）
+<ul>
+<li>WPRI (Write Preserve, Read Ignore)：写入任何值都不会改变这个位的值，忽略读取这个位的值；意味着程序写入这个位是，自己去保存这个位的值</li>
+<li>WLRL (Write Legal, Read Legal)：只写入合法值，只读取合法值；写入非法值是可以但不必抛出异常</li>
+<li>WARL (Write Any, Read Legal)：写入任何值，只读取出合法值；写入非法值不会抛出异常</li>
+</ul>
+</li>
+<li>CSR 读写指令是原子性的，要么全部成功，要么全部失败，是不会被打断地完成多个读写操作的指令</li>
+<li>读写 CSR 需要使用专门的指令，也有一些伪指令，以下罗列一部分</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>CSR 指令</th><th>语法</th><th>功能</th><th>名称</th><th>伪指令</th></tr></thead><tbody>
+<tr><td>csrrw</td><td><code>csrrw rd, csr, rs1</code></td><td><code>t = CSRs[csr]; CSRs[csr] = x[rs1]; x[rd] = t</code><br>CSR 数据读到 rd，然后把 rs1 的数据写入 CSR</td><td>读后写</td><td></td></tr>
+<tr><td>csrr</td><td><code>csrr rd, csr</code></td><td><code>x[rd] = CSRs[csr]</code> CSR 数据读到 rd</td><td>读</td><td>csrrs rd, csr, x0</td></tr>
+<tr><td>csrw</td><td><code>csrw csr, rs1</code></td><td><code>CSRs[csr] = x[rs1]</code> 把 rs1 的数据写入 CSR</td><td>写</td><td>csrrw x0, csr, rs1</td></tr>
+<tr><td>sret</td><td><code>sret</code></td><td><code>pc &lt;- sepc</code>；特权模式=sstatus.SPP;<br>sstatus.SIE=sstatus.SPIE; sstatus.SPIE=1；sstatus.SPP=0</td><td>监管模式异常返回</td><td></td></tr>
+</tbody></table>
+</div>
+<p><code>sret</code> 指令做的事情比较多，这里结合 <code>sstatus</code> CSR 中具有一些位信息来解释一下：</p>
+<ul>
+<li><code>pc &lt;- CSRs[spec]</code> 把 sret 之后的执行权转交给 <code>spec</code> CSR 中的地址，接下来的程序流应该从那个地址开始</li>
+<li><code>特权模式=sstatus.SPP</code> 将机器权级切换成 SPP 这个位域表示的权级，所以如果要保证权限回到 U，应保证在执行 sret 之前 SPP 为 0
+<ul>
+<li>虽然 SPP 表示进入 S 模式之前的那个模式 (0 为 U，1 为 S)，但是陷入到 S 之后，SPP 会被</li>
+<li>当然，这带来一个问题，直接硬编码成权级回到 U 模式，而不是 SPP 表示的模式不就能解决这里的安全问题了吗。我猜是出于设计的一致性：
+mret 的权级切换也是以 SPP 为准，意味着可以从 M 回到 S 或者 U，只不过 M 直接到 U 可能带来安全风险。</li>
+<li>不管怎样 sstatus.SPP 都会在 sret 设置完权限之后，变成 0</li>
+</ul>
+</li>
+<li>然后是两个位域，SIE 和 SPIE，它们与中断有关（异常的中断位为 0，所以不属于中断）
+<ul>
+<li>SIE=0 关闭所有中断，SIE=1 开启所有中断。SIE 只在 S 模式下生效；此外还可以通过 sie CSR 关闭单独一些中断来源。</li>
+<li>SPIE 表示陷入到 S 模式之前，S 级别的中断是否开启了。</li>
+<li>当陷入到 S 模式的时候，SPIE 被设置成 SIE，SIE 被设置成 0</li>
+<li>当 sret 发生的时候 SIE 被设置成 SPIE，SPIE 被设置成 1</li>
+</ul>
+</li>
+</ul>
+<h1 id="how"><a class="header" href="#how">How</a></h1>
+<pre><code class="language-text">   ┌──────┐ mret  ┌──────┐ sret  ┌──────┐
+   │      │──────►│      │──────►│      │
+   │M mode│       │S mode│       │U mode│
+   │      │◄──────│      │◄──────│      │
+   └──────┘ ecall └──────┘ ecall └──────┘
+
+其他特权级指令：wfi、sfence.vma、访问特定模式 CSR 的指令
+</code></pre>
+<p>对于 U 陷入到 S 模式这种权级切换的情况，需要知道 S 级别的 CSR：</p>
+<div class="table-wrapper"><table><thead><tr><th>CSR</th><th>与 Trap 相关的功能</th></tr></thead><tbody>
+<tr><td>sstatus</td><td>具有固定的位信息，其中 <code>SPP</code> 位告知了 trap 发生前处于 S (SPP=1) 还是 U (SPP=0) 权级</td></tr>
+<tr><td>sepc</td><td>当 trap 是异常时，记录 trap 发生之前执行的最后一条指令的地址；sret 时赋给 pc</td></tr>
+<tr><td>scause</td><td>具有固定的位信息，给出了 trap 的原因</td></tr>
+<tr><td>stval</td><td>与 sccause 有关，作为 trap 的额外信息，比如对于 access/page fault，这为虚拟地址</td></tr>
+<tr><td>stvec</td><td>处理 trap 程序/函数/指令的起始地址；<br><code>[1:0]</code> 位表示模式，剩余位为虚拟地址（4 字节对齐，即最低两位必须为 0）</td></tr>
+<tr><td>sscratch</td><td>供 S 用的临时寄存器，通常存储指针，来引导 S/U 环境切换，比如交换内核和用户态的栈</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-text">
+   从 U 模式切换到 S 模式（中断/异常/ecall）
+                        ▼                                                         
+┌─────────────────────────────────────────────────────────────────────────────────
+│  硬件与 CSR                                                                     
+│sstatus.SPP=0 （因为从 U 模式来的）                                              
+│sepc 指向 trap 处理之后的下条指令的地址 （用于 sret）                            
+│scause 和 stval 被修改成此次 trap 的原因和附加信息                               
+│pc &lt;- stvec （程序跳转到处理中断/陷入/异常的指令入口，在系统初始化中设置好 stvec）
+└───────────────────────┬─────────────────────────────────────────────────────────
+                        ▼                                                         
+┌─────────────────────────────────────────────────────────────────────────────────
+│  内核的事情                                                              
+│交换用户栈和内核栈，sp 指向内核栈                                       
+│建栈：保存应用程序的 trap 上下文（记录应用程序的寄存器、一些 CSR 的状态)        
+│根据 scause 和 stval 处理 trap                                                  
+│退栈：恢复应用程序的寄存器、恢复或者设置一些 CSR 的状态                         
+│换栈：sp 指向用户栈                                                             
+└───────────────────────┬─────────────────────────────────────────────────────────
+                        ▼
+sret：回到 U 模式，执行应用程序
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="rcore-memory-layout.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="rcore-os-multiprograms.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="rcore-memory-layout.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="rcore-os-multiprograms.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

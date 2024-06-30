@@ -1,0 +1,599 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>embassy: TaskStorage - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html" class="active"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/embassy-task.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="embassy-使用记录之-taskstorage"><a class="header" href="#embassy-使用记录之-taskstorage">embassy 使用记录之 TaskStorage</a></h1>
+<p>时间：2024-06-03</p>
+<h2 id="定时打印-std本机系统"><a class="header" href="#定时打印-std本机系统">定时打印 (std/本机系统)</a></h2>
+<p>FYI: 这里使用 std 的原因在于更快地了解和测试 embassy。</p>
+<pre><code class="language-toml">[package]
+name = &quot;embassy-local&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+[dependencies]
+# log feature 不是必要的，但它可以明确表示不使用 defmt（因为它俩互斥）
+# p.s. [defmt](https://defmt.ferrous-systems.com/) 是一个针对资源有限设备（微控制器）的日志库
+embassy-time = { version = &quot;0.3&quot;, features = [&quot;std&quot;, &quot;log&quot;] }
+# arch-std：使用标准库，因为跑在本机系统上
+# nightly：运用 TAIT (type_alias_impl_trait) 来为每个任务分配到静态区，这需要 nightly Rust。
+#          该功能不是必要的，没有它，则采用基于 bump allocator 的 arena（内存分配池）。
+# executor-thread：在 executor 中启用 thread-mode，比如在某些架构中通过 WFI 来避免忙循环轮询
+# integrated-timers：在 executor 中，集成基于 embassy-time 的计时器队列
+embassy-executor = {
+  version = &quot;0.5&quot;,
+  features = [&quot;arch-std&quot;, &quot;nightly&quot;, &quot;executor-thread&quot;, &quot;integrated-timers&quot;]
+}
+
+# 日志不是必要的
+env_logger = &quot;0.11&quot; # 日志初始化、格式化（比如颜色、时间、模块名）
+log = &quot;0.4&quot; # 日志生态的核心库
+</code></pre>
+<pre><pre class="playground"><code class="language-rust">// 如果你启用 embassy-executor 的 nightly feature，那么无需这一行 TAIT。
+// 为了代码简洁，之后的代码我不再引入 #![feature(type_alias_impl_trait)]
+#![feature(type_alias_impl_trait)]
+
+// 任务 1：每隔 1 秒打印
+#[embassy_executor::task]
+async fn run1() {
+    loop {
+        log::info!(&quot;tick for 1 sec&quot;);
+        embassy_time::Timer::after_secs(1).await;
+    }
+}
+
+// 任务 2：每隔 2 秒打印
+#[embassy_executor::task]
+async fn run2() {
+    loop {
+        log::warn!(&quot;tick for 2 sec&quot;);
+        embassy_time::Timer::after_secs(2).await;
+    }
+}
+
+#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+    spawner.spawn(run1()).unwrap();
+    spawner.spawn(run2()).unwrap();
+}</code></pre></pre>
+<pre><code class="language-text">[2024-06-03T14:24:31Z WARN  embassy_local] tick for 2 sec
+[2024-06-03T14:24:31Z INFO  embassy_local] tick for 1 sec
+[2024-06-03T14:24:32Z INFO  embassy_local] tick for 1 sec
+[2024-06-03T14:24:33Z WARN  embassy_local] tick for 2 sec
+[2024-06-03T14:24:33Z INFO  embassy_local] tick for 1 sec
+[2024-06-03T14:24:34Z INFO  embassy_local] tick for 1 sec
+[2024-06-03T14:24:35Z WARN  embassy_local] tick for 2 sec
+[2024-06-03T14:24:35Z INFO  embassy_local] tick for 1 sec
+[2024-06-03T14:24:36Z INFO  embassy_local] tick for 1 sec
+</code></pre>
+<p>https://github.com/ch32-rs/ch32-hal/blob/main/src/embassy/time_driver_systick.rs#L48-L48C20</p>
+<p>https://docs.rs/embassy-time/0.3.0/embassy_time/</p>
+<p>https://docs.rs/embassy-time-driver/latest/embassy_time_driver/</p>
+<p>https://docs.rs/embassy-executor/latest/embassy_executor/index.html</p>
+<h2 id="embassy_executortask-展开"><a class="header" href="#embassy_executortask-展开"><code>#[embassy_executor::task]</code> 展开</a></h2>
+<p>对于上述 <code>#[embassy_executor::task] async fn run1() { ... }</code>，宏展开如下</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[doc(hidden)]
+async fn __run1_task() {
+    loop {
+        log::info!(&quot;tick for 1 sec&quot;);
+        embassy_time::Timer::after_secs(1).await;
+    }
+}
+fn run1() -&gt; ::embassy_executor::SpawnToken&lt;impl Sized&gt; {
+    type Fut = impl ::core::future::Future + 'static;
+    const POOL_SIZE: usize = 1;
+    static POOL: ::embassy_executor::raw::TaskPool&lt;Fut, POOL_SIZE&gt; =
+        ::embassy_executor::raw::TaskPool::new();
+    unsafe { POOL._spawn_async_fn(move || __run1_task()) }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>注意：上面展开的代码可能随版本号而不同，所以仅供参考。</p>
+<p>但依然可以看出当前 embassy-executor 对任务的一些设计：异步任务 <code>run1</code> 被改写成两个函数：</p>
+<ul>
+<li><code>__run1_task</code> 保留了原异步函数的逻辑</li>
+<li><code>run1</code> 为一个同步函数，其中对异步任务进行注册和初始化，然后返回一个 <code>SpawnToken</code></li>
+</ul>
+<p>在展开中的 <code>run1</code> 发生了一些有趣的事情：</p>
+<ul>
+<li><code>SpawnToken</code> 是一个任务标记，作为 <a href="https://docs.rs/embassy-executor/latest/embassy_executor/struct.Spawner.html#method.spawn"><code>Spawner::spawn</code></a> 函数的一个参数；当该任务已经在运行中，该标记是一个被污染的状态，再次 spawn 时返回
+<a href="https://docs.rs/embassy-executor/latest/embassy_executor/enum.SpawnError.html#variant.Busy"><code>SpawnError::Busy</code></a>。该标记在 Drop 实现中会进行 panic，这意味着你必须把它按值传递给 spawn 函数进行处理，而不应该直接丢弃它。</li>
+<li>由于 async fn/block 生成的 Future 是不可命名类型，需要使用 <a href="https://github.com/rust-lang/rfcs/blob/master/text/2515-type_alias_impl_trait.md">TAIT</a> 来描述这个具体类型</li>
+<li>异步任务存放在一个 TaskPool 中（它实质上是一个大小为 POOL_SIZE、元素为相同 Future 的静态数组），这个数组的长度为 1，意味着
+最多只能同时运行一个 <code>run1</code> —— 尤其是，当你连续两次 spawn 这个 run1，那么第二个 SpawnToken 会因为任务还在注册和运行的状态而受到污染，
+从而 spawn 时得到 Busy Error。然而，这并不意味着任务只能运行一次：任务完成之后，它依然在任务栈里面，只是状态并不是 spawned，执行器轮询时
+会跳过它，不过你依然可以索要（回收/重用）这个任务，具体代码见下文。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>spawner.spawn(run1()).unwrap();
+
+// 第二次运行任务 run1，会导致运行时错误
+// called `Result::unwrap()` on an `Err` value: Busy
+spawner.spawn(run1()).unwrap();
+<span class="boring">}</span></code></pre></pre>
+<h2 id="embassy_executortask-限制"><a class="header" href="#embassy_executortask-限制"><code>#[embassy_executor::task]</code> 限制</a></h2>
+<p>显然，当前 <code>#[embassy_executor::task]</code> 让任务执行具有如下限制：</p>
+<ol>
+<li>无法同时多次运行任务</li>
+<li>任务只能在编译时生成，无法在运行时生成</li>
+<li>函数参数无法包含泛型</li>
+</ol>
+<p>对于上述所有限制，可以使用 <code>TaskStorage</code> 来创建任务，细粒度控制任务存放的位置和行为。我在下一节具体介绍。</p>
+<p>对于第 1 个问题，<code>#[task]</code> 宏支持 <code>pool_size = n</code> 参数来指定这个静态数组的大小，从而让这个任务最多可以运行 n 次：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[embassy_executor::task(pool_size = 2)]
+async fn run1() {
+    loop {
+        log::info!(&quot;tick for 1 sec&quot;);
+        embassy_time::Timer::after_secs(1).await;
+    }
+}
+spawner.spawn(run1()).unwrap();
+spawner.spawn(run1()).unwrap(); // ok :)
+<span class="boring">}</span></code></pre></pre>
+<p><code>pool_size</code> 背后是 <a href="https://docs.rs/embassy-executor/latest/embassy_executor/raw/struct.TaskPool.html"><code>TaskPool</code></a>，如果你需要类型级别的控制，那么可以使用它。</p>
+<h2 id="taskstorage"><a class="header" href="#taskstorage"><code>TaskStorage</code></a></h2>
+<p><a href="https://docs.rs/embassy-executor/latest/embassy_executor/raw/struct.TaskStorage.html"><code>TaskStorage</code></a> 必须在程序（操作系统）运行期间永远存活，<strong>即使该任务已经结束</strong>。此外，在这个任务结束后，允许再次运行它。</p>
+<p>这里存在一个不寻常的设计逻辑：如果说 <a href="https://docs.rs/embassy-executor/latest/embassy_executor/struct.Executor.html#method.run"><code>Executor::run(&amp;'static mut self, ...)</code></a> 让执行器在整个程序运行过程中必须存活，是可以理解的，
+但让任务的存活时间覆盖整个程序运行周期，似乎是一个比较极端的做法，毕竟任务的内存资源最好在结束后回收才符合常规。</p>
+<p>个人猜测，这么设计的原因可能出于以下原因：</p>
+<ul>
+<li>embassy 主要用于嵌入式系统（甚至微控制器），这决定了硬件资源极其有限</li>
+<li>并发的任务的数量不会特别多</li>
+<li>内存大小尽量可控：
+<ul>
+<li>当任务的大小是静态已知时，将 Future 存储在二进制的 data 段（<code>#[embassy_executor::task]</code> 被设计于此）</li>
+<li>当动态生成的任务被放置于堆上，适当地永久泄露内存是可接受的</li>
+<li>无论静态任务还是动态任务，任务内存都是可被重复利用的（见下一节）</li>
+</ul>
+</li>
+</ul>
+<p>所以，最终 <a href="https://docs.rs/embassy-executor/latest/embassy_executor/raw/struct.TaskStorage.html#method.spawn"><code>TaskStorage::spawn</code></a> 需要 <code>&amp;'static self</code>。在 Rust 中获取 <code>&amp;'static</code> 的方式主要有以下几种：</p>
+<ul>
+<li>const/static item：数据存放于二进制的数据段内，所以指向它的引用在程序运行期间永远有效
+<ul>
+<li><a href="https://doc.rust-lang.org/reference/const_eval.html#constant-expressions">constant expressions</a>：<code>&amp;CONST</code>、<code>&amp;STATIC</code></li>
+<li><a href="https://zjp-cn.github.io/rust-note/forum/static-promotion.html">static promotion</a>：<code>&amp;const_eval</code></li>
+<li>footgun on <code>static mut</code>: 预计 2024 edition <a href="https://github.com/rust-lang/rust/issues/114447">禁止</a> <code>&amp;STATIC_MUT</code> 和 <code>&amp;mut STATIC_MUT</code>（目前是警告），甚至有相当一部分社区共识决定以后弃用
+<code>static mut</code> (<a href="https://github.com/rust-lang/rfcs/pull/3560">pre-RFC 3560</a>)。主要是两点：意外的 <code>&amp;'static mut</code> （正确做法：注意引用的生命周期、使用 <code>addr_of{,_mut}</code>
+直接创建指针而不是引用）和线程同步问题（正确做法：<code>SyncUnsafeCell</code>）。</li>
+</ul>
+</li>
+<li>通过解引用裸指针获得任意生命周期的引用：<code>&amp;*raw_pointer</code> 、<code>&amp;mut *raw_pointer</code>
+<ul>
+<li>正确示例：<code>Box::leak</code> 数据存放于堆上，只要不主动回收内存，指向它的引用在此后的运行期间永远有效</li>
+<li>其他一些 <code>fn&lt;'a&gt;(...) -&gt; &amp;'a ...</code> 函数（注意返回值的生命周期不关联任何输入参数）：<code>slice::from_raw_parts{,mut}</code></li>
+</ul>
+</li>
+<li><code>transmute</code>：一个危险的后门，利用它将临时的生命周期延长到 'static</li>
+</ul>
+<h3 id="多次运行任务--动态生成任务"><a class="header" href="#多次运行任务--动态生成任务">多次运行任务 / 动态生成任务</a></h3>
+<p>这将解除限制 1 和 2：</p>
+<pre><pre class="playground"><code class="language-rust">#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    // 使用 run_n 重写 run1 + run2，打印结果是一样的
+    spawner
+        .spawn(run_n(1, || log::info!(&quot;tick for 1 sec&quot;)))
+        .unwrap();
+    spawner
+        .spawn(run_n(2, || log::warn!(&quot;tick for 2 sec&quot;)))
+        .unwrap();
+}
+
+// [ok] 任务 n：每隔 n 秒打印
+fn run_n(n: u64, f: fn()) -&gt; embassy_executor::SpawnToken&lt;impl Sized&gt; {
+    // 在堆上泄露任务的内存
+    let task = Box::leak(Box::new(embassy_executor::raw::TaskStorage::new()));
+    task.spawn(move || async move {
+        loop {
+            f();
+            embassy_time::Timer::after_secs(n).await;
+        }
+    })
+}</code></pre></pre>
+<p>FYI: 对于上述 <code>run_n</code> 任务，如果你使用 <code>#[embassy_executor::task]</code>，将遇到问题 1 和 2</p>
+<pre><pre class="playground"><code class="language-rust">#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    spawner
+        .spawn(run_n(1, || log::info!(&quot;tick for 1 sec&quot;)))
+        .unwrap();
+
+    // 限制 1：run_n 为单个任务，在未指定 pool_size 时，最多同时运行一次
+    spawner
+        .spawn(run_n(2, || log::warn!(&quot;tick for 2 sec&quot;)))
+        .unwrap(); // 运行时错误：called `Result::unwrap()` on an `Err` value: Busy
+}
+
+// 限制 2：宏是静态编译的，任务只能在编译时生成，无法在运行时生成 
+#[embassy_executor::task]
+async fn run_n(n: u64, f: fn()) {
+    loop {
+        f();
+        embassy_time::Timer::after_secs(n).await;
+    }
+}</code></pre></pre>
+<h3 id="泛型参数"><a class="header" href="#泛型参数">泛型参数</a></h3>
+<p>这解决了限制 3</p>
+<pre><pre class="playground"><code class="language-rust">#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    // 使用 run_n 重写 run1 + run2，打印结果是一样的
+    spawner
+        .spawn(run_n(1, || log::info!(&quot;tick for 1 sec&quot;)))
+        .unwrap();
+    spawner
+        .spawn(run_n(2, || log::warn!(&quot;tick for 2 sec&quot;)))
+        .unwrap();
+}
+
+// [ok] 任务 n：每隔 n 秒打印，注意 f 的类型不再是 fn，而是一个泛型
+fn run_n&lt;F: 'static + Fn()&gt;(n: u64, f: F) -&gt; embassy_executor::SpawnToken&lt;impl Sized&gt; {
+    // 在堆上泄露任务的内存
+    let task = Box::leak(Box::new(embassy_executor::raw::TaskStorage::new()));
+    task.spawn(move || async move {
+        loop {
+            f();
+            embassy_time::Timer::after_secs(n).await;
+        }
+    })
+}</code></pre></pre>
+<p>FYI: <code>#[embassy_executor::task]</code> 让泛型参数无法编译：</p>
+<pre><pre class="playground"><code class="language-rust">#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    spawner
+        .spawn(run_n(1, || log::info!(&quot;tick for 1 sec&quot;)))
+        .unwrap();
+}
+
+// 限制 3：参数无法为泛型
+#[embassy_executor::task]
+async fn run_n&lt;F: 'static + Fn()&gt;(n: u64, f: F) {
+    loop {
+        f();
+        embassy_time::Timer::after_secs(n).await;
+    }
+}
+
+// 编译器错误
+error: task functions must not be generic
+  --&gt; src/main.rs:16:1
+   |
+16 | async fn run_n&lt;F: 'static + Fn()&gt;(n: u64, f: F) {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</code></pre></pre>
+<h2 id="重用任务重用任务内存"><a class="header" href="#重用任务重用任务内存">重用任务/重用任务内存</a></h2>
+<p><code>#[embassy_executor::task]</code> 和 <code>TaskStorage</code> 都支持在任务结束之后再次通过 <code>spawn</code> 运行。</p>
+<p>为了演示任务结束，代码没有使用 <code>loop</code>，也等待了足够长的时间。</p>
+<pre><pre class="playground"><code class="language-rust">// 使用 #[embassy_executor::task] 达到内存复用
+// * 重新运行相同的任务
+// * 或者在已完成的任务之后，通过函数指针参数指定新的任务内容
+
+#[macro_use]
+extern crate log;
+
+use embassy_time::Timer;
+
+#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    spawner.spawn(run1()).unwrap();
+    spawner.spawn(run_n(1, || info!(&quot;print in 1 sec&quot;))).unwrap();
+
+    Timer::after_secs(2).await; // 等待足够的时间让两个任务运行完
+
+    spawner.spawn(run1()).unwrap(); // 任务的内容不变
+    spawner.spawn(run_n(0, || warn!(&quot;print in 0 sec&quot;))).unwrap(); // 新的任务内容
+}
+
+// 如前所述，run_n 最多同时运行运行一次
+#[embassy_executor::task]
+async fn run_n(n: u64, f: fn()) {
+    Timer::after_secs(n).await;
+    f();
+}
+
+// 如前所述，run1 最多同时运行运行一次
+#[embassy_executor::task]
+async fn run1() {
+    Timer::after_secs(1).await;
+    debug!(&quot;run 1&quot;);
+}</code></pre></pre>
+<pre><code>[2024-06-07T08:28:00Z INFO  embassy_local] print in 1 sec
+[2024-06-07T08:28:00Z DEBUG embassy_local] run 1
+[2024-06-07T08:28:01Z WARN  embassy_local] print in 0 sec
+[2024-06-07T08:28:02Z DEBUG embassy_local] run 1
+</code></pre>
+<p>而 TaskStorage 需要搭配 <a href="https://docs.rs/embassy-executor/latest/embassy_executor/raw/struct.AvailableTask.html"><code>AvailableTask</code></a> 才能重写任务：</p>
+<pre><pre class="playground"><code class="language-rust">// 对于 TaskStorage，使用 AvailableTask 对已完成的任务内存进行复用，
+// 还有一个亮点在于通过泛型参数（而不是函数指针）来指定新任务。
+// 技巧：任务为 &amp;'static TaskStorage&lt;BoxFut&gt; 类型，它是 Copy 的
+
+#[macro_use]
+extern crate log;
+
+use core::{future::Future, pin::Pin};
+use embassy_executor::{
+    raw::{AvailableTask, TaskStorage},
+    SpawnToken,
+};
+use embassy_time::Timer;
+
+#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    env_logger::builder().filter_level(log::LevelFilter::Debug).init();
+
+    // 同时运行两个不同的任务
+    let (task1, token1) = run_n(1, || info!(&quot;print in 100 ms&quot;));
+    spawner.spawn(token1).unwrap();
+    let (task2, token2) = run_n(2, || warn!(&quot;print in 200 ms&quot;));
+    spawner.spawn(token2).unwrap();
+
+    Timer::after_secs(1).await; // 等待足够的时间，让那两个任务结束
+    // 在 task1 内存中，建立新的任务并运行
+    let token = AvailableTask::claim(task1).unwrap().initialize(|| Box::pin(async { info!(&quot;reclaim task1&quot;) }));
+    spawner.spawn(token).unwrap();
+    // 在 task2 内存中，建立新的任务并运行
+    let token = AvailableTask::claim(task2).unwrap().initialize(|| Box::pin(async { info!(&quot;reclaim task2&quot;) }));
+    spawner.spawn(token).unwrap();
+
+    // 新的两个任务正在同时运行
+
+    Timer::after_secs(1).await; // 等待足够的时间，让那两个新的任务结束
+    // 再次重复利用任务内存，同时运行新的任务
+    spawner.spawn(reclaim(task1, || async { warn!(&quot;reclaim task1 again :)&quot;) })).unwrap();
+    spawner.spawn(reclaim(task2, || async { warn!(&quot;reclaim task2 again :)&quot;) })).unwrap();
+}
+
+type BoxFut = Pin&lt;Box&lt;dyn 'static + Future&lt;Output = ()&gt;&gt;&gt;;
+type Task = &amp;'static TaskStorage&lt;BoxFut&gt;;
+
+// 任务 n：每隔 n * 100 毫秒打印
+fn run_n&lt;F: 'static + Fn()&gt;(n: u64, f: F) -&gt; (Task, SpawnToken&lt;impl Sized&gt;) {
+    // 在堆上泄露任务的内存
+    let task: &amp;'static _ = Box::leak(Box::new(TaskStorage::new()));
+    let token = task.spawn(move || {
+        Box::pin(async move {
+            Timer::after_millis(n * 100).await;
+            f();
+        }) as BoxFut
+    });
+    (task, token)
+}
+
+// 重新使用已经完成的任务内存，来生成新的任务
+fn reclaim&lt;F, Fut&gt;(task: Task, f: F) -&gt; SpawnToken&lt;impl Sized&gt;
+where
+    F: FnOnce() -&gt; Fut,
+    Fut: 'static + Future&lt;Output = ()&gt;,
+{
+    AvailableTask::claim(task).unwrap().initialize(|| Box::pin(f()))
+}</code></pre></pre>
+<pre><code>[2024-06-07T07:40:42Z INFO  embassy_local] print in 100 ms
+[2024-06-07T07:40:42Z WARN  embassy_local] print in 200 ms
+[2024-06-07T07:40:42Z INFO  embassy_local] reclaim task2
+[2024-06-07T07:40:42Z INFO  embassy_local] reclaim task1
+[2024-06-07T07:40:43Z WARN  embassy_local] reclaim task2 again :)
+[2024-06-07T07:40:43Z WARN  embassy_local] reclaim task1 again :)
+</code></pre>
+<h2 id="embassy_executorraw-模块"><a class="header" href="#embassy_executorraw-模块">embassy_executor::raw 模块</a></h2>
+<p>一些我在第三周 PPT 里记录的总结，我不想重新在这写一遍，所以直接提供图片</p>
+<p><img src="./img/embassy-raw1.png" alt="" /></p>
+<p><img src="./img/embassy-raw2.png" alt="" /></p>
+<p><img src="./img/embassy-raw3.png" alt="" /></p>
+<h2 id="taskstorage-及其变体"><a class="header" href="#taskstorage-及其变体">TaskStorage 及其变体</a></h2>
+<p>在 <code>embassy_executor</code> 中，任务会被表示为多种类型，但其实它们是一个东西，有时可以相互转化。</p>
+<p><img src="./img/embassy-task.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="async-os-dev-log_rCore-N.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="embassy-timer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="async-os-dev-log_rCore-N.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="embassy-timer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

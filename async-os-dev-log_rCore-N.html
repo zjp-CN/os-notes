@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>rCore-N (共享调度器 fork) 搭建和踩坑 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html" class="active"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/async-os-dev-log_rCore-N.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="rcore-n-共享调度器-fork-搭建和踩坑"><a class="header" href="#rcore-n-共享调度器-fork-搭建和踩坑">rCore-N (共享调度器 fork) 搭建和踩坑</a></h1>
+<p>时间：2024-05-28</p>
+<blockquote>
+<p>注意，这是运行 <a href="https://github.com/CtrlZ233/rCore-N">https://github.com/CtrlZ233/rCore-N</a> （开源操作系统训练营项目 6，共享调度器 rCore-N）的教程，而不是
+<a href="https://github.com/Gallium70/rv-n-ext-impl">rv-n-ext-impl</a> 内的 rCore-N
+<a href="https://github.com/duskmoon314/rCore-N">https://github.com/duskmoon314/rCore-N</a> 的教程。</p>
+<p>关于这两者，共有的教程在 <a href="https://gallium70.github.io/rv-n-ext-impl/ch6_0_user_guide.html">rv-n-ext-impl 文档：使用教程</a> 一章。
+这里的一些流程与那一章重合，但我这里会把流程补充完整并梳理清楚。</p>
+</blockquote>
+<h2 id="流程介绍"><a class="header" href="#流程介绍">流程介绍</a></h2>
+<ol>
+<li>risc-v 的用户态中断拓展草案非废除，相应的一些工具尚不支持或者该功能被移除（缺乏用户态中断相关的寄存器、指令、LPIC）</li>
+</ol>
+<ul>
+<li>qemu 未实现用户态中断，所以需要一个添加了该功能的 fork （基于 qemu5）</li>
+<li>LLVM IR 移除了用户态中断实现，而 Rust 的 <code>asm!</code> 其实是对 LLVM IR 的内联汇编语法的简单包装，所以需要固定 Rust 工具链到历史版本号</li>
+</ul>
+<ol start="2">
+<li>由于原 rCore-N 声明只维护 justfile 脚本，所以使用 <code>just run</code> 而不是 <code>make run</code> 来运行 os</li>
+</ol>
+<ul>
+<li>注意：需要修改 <code>SERIAL_FLAGS</code> 中的三个 pts 设备号，它们应指向当前运行的虚拟终端设备号</li>
+<li>justfile 是 <a href="https://github.com/casey/just">just</a> 程序识别的脚本文件，你需要安装 just 程序</li>
+</ul>
+<h3 id="1-安装具有用户态中断的-qemu"><a class="header" href="#1-安装具有用户态中断的-qemu">1. 安装具有用户态中断的 qemu</a></h3>
+<pre><code class="language-shell"># 创建一个文件夹 async-os
+mkdir async-os
+cd async-os
+
+git clone https://github.com/duskmoon314/qemu.git --depth 1
+mkdir qemu-build
+cd qemu-build
+../qemu/configure --target-list=&quot;riscv64-softmmu&quot; --extra-cflags=-Wno-error
+make -j
+</code></pre>
+<p>注意这里添加的 <code>--extra-cflags=-Wno-error</code> 传递给 gcc 的编译器参数，如果没有它，编译 qemu 出现警告会无法继续下去。</p>
+<h3 id="2-下载-rcore-n-代码并指定-rust-工具链"><a class="header" href="#2-下载-rcore-n-代码并指定-rust-工具链">2. 下载 rCore-N 代码并指定 Rust 工具链</a></h3>
+<pre><code class="language-shell"># 在 async-os 下，如果你从上一步来，那么先 cd ..
+# 当前测试的提交号为 41796b8
+
+git clone https://github.com/CtrlZ233/rCore-N.git --depth 1
+cd rCore-N
+# 创建并编辑 rust-toolchain.toml 文件
+vim rust-toolchain.toml
+</code></pre>
+<pre><code class="language-toml"># rust-toolchain.toml 内添加以下内容
+[toolchain]
+profile = &quot;minimal&quot;
+channel = &quot;nightly-2023-01-03&quot;
+components = [&quot;rust-src&quot;, &quot;llvm-tools-preview&quot;, &quot;rustfmt&quot;, &quot;clippy&quot;]
+targets = [&quot;riscv64gc-unknown-none-elf&quot;]
+</code></pre>
+<p>这个工具链文件是由 <a href="https://rust-lang.github.io/rustup/overrides.html">rustup</a> 识别的，它表示使用文件内的工具链，而不是本地工具链。</p>
+<p>对这个文件内容一些解释</p>
+<ul>
+<li>minimal profile 包含 rustc, rust-std 和 cargo</li>
+<li>channel 固定到 2023 年 1 月 3 日的 nightly Rust （代码中使用了 nightly only features）</li>
+<li>components 表示添加一些额外的组件，有了这些组件，你就可以在这个项目中正常使用它们
+<ul>
+<li>如果你需要固定 RA 版本的话，还可以在这个列表中添加 <code>rust-analyzer</code> —— 需不需要由你的 IDE 配置决定</li>
+</ul>
+</li>
+<li>targets 表示添加额外针对一些目标平台的 <a href="https://doc.rust-lang.org/nightly/rustc/platform-support.html">交叉编译工具链</a></li>
+</ul>
+<p>这个工具链设置应用于 os、lib_so、user 这些子目录中的 Rust 项目。</p>
+<h3 id="3-运行-rcore-n-基于-tmux"><a class="header" href="#3-运行-rcore-n-基于-tmux">3. 运行 rCore-N （基于 tmux）</a></h3>
+<p>当前在 async-os/rCore-N 文件夹下。</p>
+<p>在 tmux 中，使用 <code>Ctrl-b</code> 快捷键触发 tmux 相关的功能，比如 <code>Ctrl-b</code> + <code>%</code> 向右分割一个新终端 pane，<code>Ctrl-b</code> + <code>&quot;</code>
+在这个右终端 pane 中向下分割一个终端 pane，此时你可以直接控制三个终端。使用 <code>Ctrl-b</code> + <code>方向键</code> 聚焦于一个终端。</p>
+<p>关于 tmux 的简单使用介绍，见我的 <a href="./rcore-tmux.html">博客</a>。</p>
+<p>在右侧的两个终端中，它们的当前目录继承了父进程，即 <code>async-os/rCore-N</code>，聚焦它们，并运行 sleep.sh 脚本（比如 <code>./sleep.sh</code>），
+它会将终端清除，并打印当前 pts 设备文件路径。这两个终端作为内核的输出和用户态输出（和输入）。</p>
+<p>假设这两个 pts 路径为 <code>/dev/pts/2</code> （上）和 <code>/dev/pts/3</code> （下）。</p>
+<p>聚焦于左侧终端，使用 <code>vim justfile</code>，修改 <code>SERIAL_FLAGS</code> 中的相应值：
+<code>SERIAL_FLAGS := &quot;-serial /dev/pts/2 -serial /dev/pts/3 -serial /dev/pts/3</code> 。注意后两个串口是一样的 pts。</p>
+<p>顺便说一句，justfile 中，第一行的 <code>QEMU</code> 变量指定了第一步的 qemu 路径，如果你按照我的项目文件结构，不需要改动，否则需要改成相应的路径。</p>
+<p>一切就绪，使用 <code>just run</code> 或者 <code>LOG=INFO just run</code> 编译用户程序和操作系统，初次运行会需要一些时间，比如</p>
+<ul>
+<li>本地没有安装 rust-toolchain.toml 指定的工具链，则自动安装</li>
+<li>拉取 crates.io 完整的 registry：由于工具链太旧，不支持 sparse 方式下载 package，所以下载需要一些时间；如果网不好，可以自己去换源</li>
+</ul>
+<p>然后在右下角的终端，可以输入用户程序名称来运行程序。这些程序名来自 <code>../user/src/bin/</code>。如果你使用 <code>LOG=INFO just run</code>，右上角会显示这些程序名。</p>
+<p><img src="./img/user-shell-input-execute.gif" alt="" /></p>
+<p>如果要退出 rCore-N，在 qemu 界面（左侧终端），按 <code>q</code> 和回车（或者直接 <code>Ctrl-d</code>）。</p>
+<h3 id="3-运行-rcore-n-基于-vscode"><a class="header" href="#3-运行-rcore-n-基于-vscode">3. 运行 rCore-N （基于 vscode）</a></h3>
+<p>我不使用 vscode，这里只放一些成功运行起来的图片，除了终端控制的方式不一样，其余细节是一样的，关键就两点：</p>
+<ul>
+<li>终端 pts 每次可能不一样，所以需要修改 justfile 的 <code>SERIAL_FLAGS</code></li>
+<li><code>just run</code> 运行起来</li>
+</ul>
+<p><img src="./img/pts-sleep.png" alt="" /></p>
+<p><img src="./img/user-shell.png" alt="" /></p>
+<h2 id="其他一些记录"><a class="header" href="#其他一些记录">其他一些记录</a></h2>
+<h3 id="qemu-的-cpu-占用接近-100"><a class="header" href="#qemu-的-cpu-占用接近-100">qemu 的 CPU 占用接近 100%</a></h3>
+<p>目前代码似乎以 spin + 轮询的方式进行任务调度，所以 qemu 将每个核的 CPU 占用到 100% 是正常的。也就是说，多核情况下 rCore-N 会导致 400% CPU 使用。</p>
+<p>即使在阶段 2 的练习中，rCore 系统运行起来后，qemu 的 CPU 占用也是 100%。</p>
+<p>以上数据仅供参考。</p>
+<h3 id="核数小于-4-的机器暂时不能正常运行-rcore-n"><a class="header" href="#核数小于-4-的机器暂时不能正常运行-rcore-n">核数小于 4 的机器暂时不能正常运行 rCore-N</a></h3>
+<p>这个问题是促使我写这个文章的最大原因，排查了一整天。</p>
+<p>我的服务器核数比较小，所以直接运行 <code>just run</code> 并不能显示出 user shell 界面，更别说运行了。</p>
+<p>调整内核代码中的 CPU_NUM={1,2,3} 可以调出 user shell 并运行命令；
+但不意味着正常系统运行，机器的核数不够至少会造成如下影响（我无法解释，这只是我的一些观察）：</p>
+<ul>
+<li>shell 运行一次某些程序之后，终端也没反应了（不再显示 &gt;&gt;、输入无反应）</li>
+</ul>
+<p>最终，我只能在自己的 Windows11 WSL 环境下重新搭建了所有必要的开发环境，在默认的 CPU_NUM=4 的情况下，终于正常运行起来了（本地机器 CPU 数量大于 4）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="async-os-rust-futures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="embassy-task.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="async-os-rust-futures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="embassy-task.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
