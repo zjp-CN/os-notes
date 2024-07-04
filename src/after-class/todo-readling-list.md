@@ -17,6 +17,10 @@
 [^personal]: 这几年我浏览的 Rust + OS 的帖子不少，但从未想过搜集起来，从现在开始列一份清单吧，像我入门 
 Rust [那样](https://www.yuque.com/zhoujiping/programming/rust-materials)  吧：）
 
+一些待阅读的、具体的、有趣的文章：
+* [How to work with !Sized types in Rust](https://sgued.fr/blog/heapless-howto/)：来自嵌入式流行库 heapless 的
+  [VecView PR](https://github.com/rust-embedded/heapless/pull/425) 作者，看起来涉及 const generics/unsafe 等高级主题。
+
 # rust-embedded 项目
 
 * [The Embedded Rust Book](https://docs.rust-embedded.org/book)
