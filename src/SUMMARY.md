@@ -35,4 +35,7 @@
   - [专业名词集锦 3](./terminology3.md)
   - [RISC-V 定时器](riscv-timer.md)
 
-- [待阅读清单](todo-readling-list.md)
+- [衍生拓展](./after-class/index.md)
+  - [待阅读清单](./after-class/todo-readling-list.md)
+  - [板子](./after-class/board.md)
+  - [Rust Embedded 组织](./after-class/rust-embedded.md)
