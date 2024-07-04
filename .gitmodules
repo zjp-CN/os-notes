@@ -19,3 +19,6 @@
 [submodule "cortex-m"]
 	path = cortex-m
 	url = https://gitee.com/ZIP97/cortex-m.git
+[submodule "shared-scheduler"]
+	path = shared-scheduler
+	url = https://gitee.com/ZIP97/shared-scheduler.git
