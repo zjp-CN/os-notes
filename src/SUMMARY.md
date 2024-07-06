@@ -28,6 +28,7 @@
   - [embassy-usage](embassy-usage.md)
   - [cortex-m-quickstart](cortex-m-quickstart.md)
   - [green-thread](./green-thread.md)
+  - [shared-scheduler](./shared-scheduler.md)
 
 - [基础知识]()
   - [专业名词集锦](./terminology.md)
