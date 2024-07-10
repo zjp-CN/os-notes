@@ -38,5 +38,6 @@
 
 - [衍生拓展](./after-class/index.md)
   - [待阅读清单](./after-class/todo-readling-list.md)
-  - [板子](./after-class/board.md)
-  - [Rust Embedded 组织](./after-class/rust-embedded.md)
+  - [杂项]()
+    - [板子](./after-class/board.md)
+    - [Rust Embedded](./after-class/rust-embedded.md)
