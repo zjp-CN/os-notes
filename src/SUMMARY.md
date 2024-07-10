@@ -39,6 +39,7 @@
 - [衍生拓展](./after-class/index.md)
   - [已阅读清单]()
     - [RTIC & embassy](./after-class/read-list/RTIC-embassyHAL.md)
+    - [embassy 作者演讲](./after-class/read-list/embassy-speech.md)
   - [待阅读清单](./after-class/todo-readling-list.md)
   - [杂项]()
     - [板子](./after-class/board.md)
