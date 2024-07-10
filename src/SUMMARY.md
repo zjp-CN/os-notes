@@ -37,6 +37,8 @@
   - [RISC-V 定时器](riscv-timer.md)
 
 - [衍生拓展](./after-class/index.md)
+  - [已阅读清单]()
+    - [RTIC & embassy](./after-class/read-list/RTIC-embassyHAL.md)
   - [待阅读清单](./after-class/todo-readling-list.md)
   - [杂项]()
     - [板子](./after-class/board.md)
