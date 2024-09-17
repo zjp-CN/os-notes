@@ -1,3 +1,22 @@
+// community activity
+#let community_names = [
+#grid(
+  columns: (1fr, 1fr, 1fr),
+  align(center)[
+    Github\
+    #link("https://github.com/zjp-CN")[zjp-CN]
+  ],
+  align(center)[
+    中文社区\
+    #emph[苦瓜小仔]
+  ],
+  align(center)[
+    URLO#footnote[Rust 官方社区论坛：#link("https://users.rust-lang.org")[users.rust-lang.org]]\
+    #link("https://users.rust-lang.org/u/vague/summary")[vague]
+  ],
+)
+]
+
 // open source works on materials
 #let table_open_source_materials = [
 #align(center,
@@ -53,34 +72,15 @@ table(
 ))
 ]
 
-// community activity
-#let community_names = [
-#grid(
-  columns: (1fr, 1fr, 1fr),
-  align(center)[
-    Github\
-    #link("https://github.com/zjp-CN")[zjp-CN]
-  ],
-  align(center)[
-    中文社区\
-    #emph[苦瓜小仔]
-  ],
-  align(center)[
-    URLO#footnote[Rust 官方社区论坛 #link("https://users.rust-lang.org")[users.rust-lang.org]]\
-    #link("https://users.rust-lang.org/u/vague/summary")[vague]
-  ],
-)
-]
-
 #let intro = [
 
 #set table(
-  fill: (x, y) => if y == 0 { rgb("d88c36") },
+  fill: (x, y) => if y == 0 { rgb("#ffc832") },
   inset: (left: 1.5em, right: 1.5em),
 )
 #show table.cell: it => {
   if it.y == 0 {
-    text(fill: white, weight: "bold", emph(it))
+    text(fill: black, weight: "bold", emph(it))
   } else {
     align(center + horizon, it)
   }
@@ -107,6 +107,5 @@ Rust 资料贡献：
 
 #v(15pt)
 crates.io dashboard: #link("https://crates.io/users/zjp-CN")[zjp-CN]
-
 
 ]
