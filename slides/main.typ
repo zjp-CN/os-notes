@@ -14,9 +14,8 @@
   size: 16.5pt,
 )
 #show link: it => [
-  // #set text(fill: rgb("#3366CC"), style: "italic", weight: "bold")
-  // #underline(it.body)
-  #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", underline(it))
+  #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", it)
+  // #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", underline(it))
 ]
 #show emph: it => {
   text(weight: "bold", it.body)
