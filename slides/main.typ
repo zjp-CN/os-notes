@@ -55,12 +55,12 @@
 == Outline: Figures
 
 #outline(target: figure.where(kind: image))#todo#super()[
-  #footnote()[#emph[TODO] 用于将春季链接更新到秋冬季链接，正式 PPT 应该删除]
+  #footnote()[#emph[TODO] 用于标记将春季链接更新到秋冬季链接，正式 PPT 中应该删除它。]
 ]
 
 = Rustlings
 
-== Rustlings：Github 课堂
+== Rustlings：进入 Github 课堂
 
 #let rustings_classroom = [
 #link("https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status")[👉 进入课堂]
@@ -72,21 +72,30 @@
   caption: [#rustings_classroom]
 )
 
-== Rustlings：Github 课堂使用流程
+== Rustlings：课堂使用流程
 
 #let rustings_rank(title) = [
 #link("https://classroom.github.com/a/-WftLmvV")[#title]
 #todo
 ]
 
+#set enum(numbering: "1.a)", tight: false, spacing: 8%)
+
+#v(20pt)
+
 + Github 授权登陆课堂
+
 + 点击/复制 https://github.com/ 开头的仓库链接
 + 提交代码到该仓库
 + 每次推送到该仓库时，课堂系统会自动评分
 + 在 Actions 标签页可以查看评分过程
 + 查看评分结果
+
   - 在远程仓库选择 gh-pages 分支：Action 完成时自动推送到该分支
+  
   - 或者查看#rustings_rank("排行榜")：定时向 Github 拉取，因此会有延迟
+
+== Rustlings：查看评分结果
 
 #figure(
   image("img/rustlings-score.png", height: 75%),
