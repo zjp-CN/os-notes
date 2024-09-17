@@ -54,42 +54,33 @@
 
 #intro
 
-== Outline
+== Outline: Headings
 
 #outline()
 
-= section
+== Outline: Figures
 
-== Rustlings
-
-
-+ #link("https://classroom.github.com/a/-WftLmvV")[第一阶段 Rustlings 完成情况排行榜] #todo#super()[
+#outline(target: figure.where(kind: image))#todo#super()[
   #footnote()[#emph[TODO] 用于将春季链接更新到秋冬季链接，正式 PPT 应该删除]
 ]
 
+= section
 
-```typst
-#import "@preview/slydst:0.1.1": *
+== Rustlings：排行榜
 
-#show: slides.with(
-  title: "Insert your title here", // Required
-  subtitle: none,
-  date: none,
-  authors: (),
-  layout: "medium",
-  ratio: 4/3,
-  title-color: none,
+#let rustings_rank = [
+#link("https://classroom.github.com/a/-WftLmvV")[第一阶段 Rustlings 完成情况排行榜] 
+]
+
+#figure(
+  image("img/rustlings-rank.png", height: 86%),
+  caption: [#rustings_rank]
 )
 
-Insert your content here.
-```
+== Rustlings：Github 课堂
 
-```rust
-let a = 1;
-```
-
-
-
+进入课堂：
+https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status
 
 = First section
 
