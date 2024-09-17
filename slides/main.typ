@@ -35,15 +35,6 @@
 
 #set text(size: 12pt)
 
-// #let todo(body) = {
-//   set text(white, size: 8pt)
-//   rect(
-//     fill: gray,
-//     radius: 4pt,
-//     [#body],
-//   )
-// }
-
 // 代码块样式
 #show raw: it => block(
   fill: rgb("#04173E"),
@@ -56,7 +47,10 @@
 
 == Outline: Headings
 
-#outline()
+#outline(
+  target: heading.where(level: 1)
+          .or(heading.where(level: 2))
+)
 
 == Outline: Figures
 
