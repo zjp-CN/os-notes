@@ -64,30 +64,48 @@
   #footnote()[#emph[TODO] 用于将春季链接更新到秋冬季链接，正式 PPT 应该删除]
 ]
 
-= section
-
-== Rustlings：排行榜
-
-#let rustings_rank = [
-#link("https://classroom.github.com/a/-WftLmvV")[第一阶段 Rustlings 完成情况排行榜] 
-]
-
-#figure(
-  image("img/rustlings-rank.png", height: 86%),
-  caption: [#rustings_rank]
-)
+= Rustlings
 
 == Rustlings：Github 课堂
 
-进入课堂：
-https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status
+#let rustings_classroom = [
+#link("https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status")[👉 进入课堂]
+#todo
+]
 
-= First section
+#figure(
+  image("img/rustlings-classroom.png", height: 85%),
+  caption: [#rustings_classroom]
+)
 
-== First slide
+== Rustlings：Github 课堂使用流程
 
-#figure(image("img/tmp.png", width: 60%), caption: "测试图片 😀")
+#let rustings_rank(title) = [
+#link("https://classroom.github.com/a/-WftLmvV")[#title]
+#todo
+]
 
-#v(1fr)
++ Github 授权登陆课堂
++ 点击/复制 https://github.com/ 开头的仓库链接
++ 提交代码到该仓库
++ 每次推送到该仓库时，课堂系统会自动评分
++ 在 Actions 标签页可以查看评分过程
++ 查看评分结果
+  - 在远程仓库选择 gh-pages 分支：Action 完成时自动推送到该分支
+  - 或者查看#rustings_rank("排行榜")：定时向 Github 拉取，因此会有延迟
 
-#lorem(20)
+#figure(
+  image("img/rustlings-score.png", height: 75%),
+  caption: [ 通过 gh-pages 分支查看评分结果 ]
+)
+
+== Rustlings：排行榜
+
+#figure(
+  image("img/rustlings-rank.png", height: 86%),
+  caption: [#rustings_rank("第一阶段 Rustlings 完成情况排行榜")]
+)
+  
+== Q&A
+
+https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
