@@ -1,7 +1,9 @@
 // doc: https://typst.app/universe/package/slydst/
 #import "@preview/slydst:0.1.1": *
 
+// local imports
 #import "intro.typ": intro
+#import "utils.typ": c, todo
 
 // dark mode
 // #set page(fill: rgb("808080")) // CACACA
@@ -33,6 +35,23 @@
 
 #set text(size: 12pt)
 
+// #let todo(body) = {
+//   set text(white, size: 8pt)
+//   rect(
+//     fill: gray,
+//     radius: 4pt,
+//     [#body],
+//   )
+// }
+
+// 代码块样式
+#show raw: it => block(
+  fill: rgb("#04173E"),
+  inset: 8pt,
+  radius: 5pt,
+  text(fill: rgb("#a2aabc"), it)
+)
+
 #intro
 
 == Outline
@@ -41,12 +60,12 @@
 
 = section
 
-Insert your content here.
+== Rustlings
 
-中文 
 
-？？？
-
++ #link("https://classroom.github.com/a/-WftLmvV")[第一阶段 Rustlings 完成情况排行榜] #todo#super()[
+  #footnote()[#emph[TODO] 用于将春季链接更新到秋冬季链接，正式 PPT 应该删除]
+]
 
 
 ```typst

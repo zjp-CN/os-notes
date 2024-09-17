@@ -1,3 +1,5 @@
+#import "utils.typ": c
+
 // community activity
 #let community_names = [
 #grid(
@@ -65,7 +67,7 @@ table(
   [受 pytdx 启发的 A 股数据获取工具],
   
   [#link("https://github.com/josecelano/cargo-pretty-test")[cargo-pretty-test]],
-  [通过树结构来美化 `cargo test` 输出],
+  [通过树结构来美化 #c[cargo test] 输出],
 
   [#link("https://github.com/zjp-CN/mdbook-theme")[mdbook-theme]],
   [添加右侧 TOC 和修改主题的 mdbook 插件],
