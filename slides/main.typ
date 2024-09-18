@@ -81,7 +81,7 @@
 = Rustlings 环境配置
 
 #import "rustlings-installation.typ": *
-#install_rustlings
+#install
 
 = 附录
 
