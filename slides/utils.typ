@@ -20,6 +20,6 @@ align(center)[
 // src: https://github.com/typst/typst/issues/2873#issuecomment-1842438663
 #let pageref(label) = context {
   let loc = locate(label)
-  let nums = counter(page).at(loc)
-  link(loc, numbering(loc.page-numbering(), ..nums))
+  // let content = query(label.first().value )
+  link(loc)[第 #loc.page() 页]
 }

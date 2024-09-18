@@ -4,7 +4,7 @@
 // local imports
 #import "intro.typ": intro
 #import "utils.typ": c, todo, outline_heading, pageref
-#set page(numbering: "1")
+
 // dark mode
 // #set page(fill: rgb("808080")) // CACACA
 // #set text(fill: rgb("000000"))
@@ -105,7 +105,7 @@
 + Github 授权登陆课堂
 
 + 点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地#footnote[
-  see #pageref(<github-ssh>)
+  如果你第一次使用 Github，则可以考虑设置 SSH 来方便推送，见 #pageref(<github-ssh>)。
 ]
 
 ```bash
@@ -141,12 +141,13 @@ https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
 
 https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
 
-
 = 附录
 
 == Github 设置 SSH
 
 <github-ssh>
+
+
 
 #align(center)[
 ```bash
