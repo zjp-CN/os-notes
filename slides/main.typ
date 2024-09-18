@@ -67,8 +67,11 @@
   
 }
 
+// BEGIN:
+
 #intro
 
+// outlines
 
 #show outline.entry.where(
   level: 1
@@ -98,81 +101,15 @@
 
 = 第一阶段的目标：Rustlings
 
-== Rustlings：进入 Github 课堂
-
-#let rustings_classroom = [
-#link("https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status")[👉 进入课堂]
-#todo
-]
-
-#figure(
-  image("img/rustlings-classroom.png", height: 85%),
-  caption: [#rustings_classroom]
-)
-
-== Rustlings：课堂使用流程
-
-#let rustings_rank(title) = [
-#link("https://classroom.github.com/a/-WftLmvV")[#title]
-#todo
-]
-
-#v(2pt)
-
-#set enum(numbering: "1.a)", tight: false, spacing: 4%)
-
-#enum[
-  Github 授权登陆课堂；
-][
-  点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地 #footnote[
-    这里为了免密码推送代码，使用了 SSH 协议的地址，因此你需要在 Github 上设置 SSH 密钥，见 #pageref(<github-ssh>)。
-  ]；
-```bash
-git clone git@github.com:LearningOS/rust-rustlings-2024-*.git
-```
-][
-  提交代码到该仓库；
-```bash
-git add . && git commit -m "done: exercise x" && git push
-```
-][
-  每次推送到该仓库时，课堂系统会自动评分；
-][
-  在 Actions 标签页可以查看评分过程；
-][
-  查看评分结果：
-  - 在远程仓库选择 gh-pages 分支：Action 完成时自动推送到该分支
-  
-  - 或者查看#rustings_rank("排行榜")：定时从 Github 拉取数据，因此会有延迟
-]
-
-== Rustlings：查看评分结果
-
-#figure(
-  image("img/rustlings-score.png", height: 75%),
-  caption: [ 通过 gh-pages 分支查看评分结果 ]
-)
-
-== Rustlings：排行榜
-
-#align(center)[
-#block_note[
-  #emph[注意：只有完成全部练习，满足 110 总分的同学才算完成第一阶段。]
-]]
-
-#figure(
-  image("img/rustlings-rank.png", height: 78%),
-  caption: [ 👉 #rustings_rank("第一阶段 Rustlings 完成情况排行榜")]
-)
+#import "rustlings.typ": *
+#rustlings
 
 = Rustlings 环境配置
 
 #import "rustlings-installation.typ": *
-
 #install_rustlings
 
 = 附录
 
 #import "appendix.typ": *
-
 #github_ssh
