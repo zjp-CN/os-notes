@@ -60,7 +60,7 @@ git add . && git commit -m "done: exercise x" && git push
 
 #align(center)[
 #block_note[
-  #emph[注意：只有完成全部练习，满足 110 总分的同学才算完成第一阶段。]
+  #emph[注意：只有完成全部练习，达到 110 满分的同学才算完成第一阶段。]
 ]]
 
 #figure(

@@ -68,7 +68,7 @@ enum.item(6)[
 # 设置 git 代理
 $ git config --global http.proxy localhost:7897
 
-# 设置网络代理，比如 curl 会这些读取环境变量
+# 设置网络代理，比如 curl 会读取这些环境变量
 export http_proxy=http://0.0.0.0:7897 
 export https_proxy=http://0.0.0.0:7897
 ```
