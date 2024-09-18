@@ -23,3 +23,13 @@ align(center)[
   // let content = query(label.first().value )
   link(loc)[第 #loc.page() 页]
 }
+
+#let block_help(content) = {
+  block(fill: rgb("ceedc4"), inset: 8pt, radius: 12pt, content)
+}
+
+#let block_note(content) = {
+  block(fill: rgb("f94343"), inset: 8pt)[
+    #text(fill: white, content)
+  ]
+}

@@ -3,7 +3,7 @@
 
 // local imports
 #import "intro.typ": intro
-#import "utils.typ": c, todo, outline_heading, pageref
+#import "utils.typ": *
 
 // dark mode
 // #set page(fill: rgb("808080")) // CACACA
@@ -60,6 +60,13 @@
   text(font: (font_code, font_cjk), weight: "bold", it)
 )
 
+#show raw.where(block: false): it => context {
+  set highlight(top-edge: "ascender")
+  set highlight(bottom-edge: "descender")
+  text(font: (font_code, font_cjk), weight: "bold", size: 11pt, it)
+  
+}
+
 #intro
 
 
@@ -89,7 +96,7 @@
   #footnote()[#emph[TODO] 用于标记将春季链接更新到秋冬季链接，正式 PPT 中应该删除它。]
 ]
 
-= Rustlings
+= 第一阶段的目标：Rustlings
 
 == Rustlings：进入 Github 课堂
 
@@ -148,24 +155,117 @@ git add . && git commit -m "done: exercise x" && git push
 
 == Rustlings：排行榜
 
+#align(center)[
+#block_note[
+  #emph[注意：只有完成全部练习，满足 110 总分的同学才算完成第一阶段。]
+]]
+
 #figure(
-  image("img/rustlings-rank.png", height: 86%),
-  caption: [#rustings_rank("第一阶段 Rustlings 完成情况排行榜")]
+  image("img/rustlings-rank.png", height: 78%),
+  caption: [ 👉 #rustings_rank("第一阶段 Rustlings 完成情况排行榜")]
+)
+
+= Rustlings 环境配置
+
+== 安装 Rust
+
+#enum[
+  设置 Rustup 镜像地址， 修改 `~/.zshrc` 或者 `~/.bashrc` 配置文件
+
+```bash
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+```
+][
+  下载 Rust 工具链#footnote[该脚本会从上一步设置的镜像地址下载 Rustup]
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+][
+  打开新的终端，或者在当前终端加载 Cargo 的环境变量
+
+```bash
+source $HOME/.cargo/env
+```
+][
+  确认安装成功
+
+```bash
+rustc -vV # 正常应输出内容
+```
+]
+
+#pagebreak()
+
+#enum(
+enum.item(5)[
+  在 `~/.cargo/config.toml` 中设置 `crates.io` 镜像地址
+  #footnote[
+    对于 1.68 及其版本之后的工具链（比如你目前下载的），已经默认使用 rsproxy-sparse 协议下载，它意味着按需拉取 registry 数据，所以更快。但 Rust 操作系统的代码库可能固定的版本号早于 1.68，那么只能使用 git 协议。因此按需设置 replace-with。
+  ]
+]
+)
+```toml
+[source.crates-io]
+# 若工具链要求早于 1.68，则使用 replace-with = 'rsproxy'
+replace-with = 'rsproxy-sparse'
+
+[source.rsproxy]
+registry = "https://rsproxy.cn/crates.io-index"
+[source.rsproxy-sparse]
+registry = "sparse+https://rsproxy.cn/index/"
+[registries.rsproxy]
+index = "https://rsproxy.cn/crates.io-index"
+
+[net]
+git-fetch-with-cli = true
+```
+
+#pagebreak()
+
+#enum(
+enum.item(6)[
+  有时代码库必须从 Github 下载，那么需要配置上网代理：
+]
 )
   
-== Q&A
+```bash
+# 设置 git 代理
+$ git config --global http.proxy localhost:7897
 
-https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
+# 设置网络代理，比如 curl 会这些读取环境变量
+export http_proxy=http://0.0.0.0:7897 
+export https_proxy=http://0.0.0.0:7897
+```
 
-https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
+
+#block_help[
+#emph[其他参考资料：]
+
+- Rustup 官方说明：https://rustup.rs
+- 字节跳动镜像网址#footnote[
+    对于国内网络访问，推荐使用此镜像；上面设置镜像的步骤就来自该网站。
+  ]：https://rsproxy.cn
+- Cargo 官方手册： #link("https://doc.rust-lang.org/cargo/reference/config.html")[config.toml]
+- #link("https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter0/5setup-devel-env.html#rust")[rCore 教程 Rust 实验环境配置]
+]
+
+== Q&A#todo
+
+#set enum(numbering: "1.a)", tight: false, spacing: 10%)
+
+#v(20pt)
+
++ 常见问题解答：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
+
++ 训练营第一阶段环境配置与学习资料：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
 
 = 附录
 
 == Github 设置 SSH
 
 <github-ssh>
-
-
 
 #align(center)[
 ```bash
