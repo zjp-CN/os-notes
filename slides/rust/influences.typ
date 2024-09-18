@@ -2,7 +2,7 @@
 
 #let content = [
 
-== Rust 语言受到各种其他语言的影响
+== Rust 受到多种语言的影响
 
 #set quote(block: true)
 #show quote: it => {

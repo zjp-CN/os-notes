@@ -20,7 +20,7 @@
           .or(heading.where(level: 2)),
 )
 
-#pagebreak()
+// #pagebreak()
 
 #outline_heading[Outline: Figures]
 #outline(target: figure.where(kind: image))#todo#super()[
