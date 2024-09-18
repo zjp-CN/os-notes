@@ -20,12 +20,24 @@
   region: "cn",
   size: 16.5pt,
 )
+
 #show link: it => [
   #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", it)
   // #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", underline(it))
 ]
+
 #show emph: it => {
   text(weight: "bold", it.body)
+}
+
+#show footnote.entry: it => {
+  // let loc = it.note.location()
+  // let num = numbering(
+  //   "[1]: ",
+  //   ..counter(footnote).at(loc),
+  // )
+  // text(size: 8pt)[ #num#it.note.body ]
+  text(size: 8pt, it)
 }
 
 #show: slides.with(
@@ -102,24 +114,27 @@
 
 #v(20pt)
 
-+ Github 授权登陆课堂
-
-+ 点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地#footnote[
-  如果你第一次使用 Github，则可以考虑设置 SSH 来方便推送，见 #pageref(<github-ssh>)。
-]
-
+#enum[
+  Github 授权登陆课堂
+][
+  点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地 #footnote[
+    这里为了免密码推送代码，使用了 SSH 协议的地址，因此你需要在 Github 上设置 SSH 密钥，见 #pageref(<github-ssh>)。
+  ]
 ```bash
 git clone git@github.com:LearningOS/rust-rustlings-2024-*.git
 ```
-
-+ 提交代码到该仓库
-+ 每次推送到该仓库时，课堂系统会自动评分
-+ 在 Actions 标签页可以查看评分过程
-+ 查看评分结果
-
+][
+  提交代码到该仓库
+][
+  每次推送到该仓库时，课堂系统会自动评分
+][
+  在 Actions 标签页可以查看评分过程
+][
+  查看评分结果
   - 在远程仓库选择 gh-pages 分支：Action 完成时自动推送到该分支
   
   - 或者查看#rustings_rank("排行榜")：定时从 Github 拉取数据，因此会有延迟
+]
 
 == Rustlings：查看评分结果
 
