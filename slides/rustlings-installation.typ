@@ -133,10 +133,11 @@ Commands:
 }
 ]
 
-#pagebreak()
-#block_code_in_one_page(11pt)[
+== 使用 rustlings CLI： `watch` 和 `run`
+
+#block_code_in_one_page(12pt)[
 ```rust
-Progress: [--------------------------------------------------------] 0/110
+Progress: [--------------------------------------------------] 0/110
 ⚠️  Compiling of exercises/intro/intro2.rs failed! Please try again. Here's the output:
 
 error: 1 positional argument in format string, but no arguments were given
@@ -150,10 +151,36 @@ error: aborting due to 1 previous error
 Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
 ```
 ]
-#align(center)[#text(fill: rgb("ff8c00"), size: 30pt)[`rustlings watch`]]
+#align(center)[#c[rustlings watch]]
 
 #pagebreak()
 
+#align(center)[
+#block_code_in_one_page(12pt)[
+```rust
+⚠️  Compilation of exercises/intro/intro2.rs failed!, Compiler error message:
+
+error: 1 positional argument in format string, but no arguments were given
+  --> exercises/intro/intro2.rs:11:21
+   |
+11 |     println!("Hello {}!");
+   |                     ^^
+
+error: aborting due to 1 previous error
+```
+]
+#c[rustlings run intro2]
+#block_code_in_one_page(12pt)[
+```rust
+⠙ Compiling exercises/intro/intro2.rs...
+Hello!
+
+✅ Successfully ran exercises/intro/intro2.rs
+```
+]
+
+
+#pagebreak()
 #block_code_in_one_page(9.5pt)[
 ```
 $ rustlings watch
@@ -181,6 +208,7 @@ Progress: 🎉 All exercises completed! 🎉
 
 We hope you enjoyed learning about the various aspects of Rust!
 ```
+]
 ]
 
 == Q&A#todo
