@@ -25,7 +25,12 @@ align(center)[
 }
 
 #let block_help(content) = {
-  block(fill: rgb("ceedc4"), inset: 8pt, radius: 12pt, content)
+  block(
+    fill: rgb("f0f9ed"), 
+    stroke: 1.5pt + rgb("63d34a"),
+    inset: 8pt, radius: 12pt,
+    content
+  )
 }
 
 #let block_note(content) = {

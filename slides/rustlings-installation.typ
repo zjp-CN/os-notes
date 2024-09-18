@@ -86,6 +86,16 @@ export https_proxy=http://0.0.0.0:7897
 
 == 安装 rustlings CLI
 
+#align(center)[
+#v(30pt)
+
+#block_help[
+  强烈建议首先阅读仓库中的 README 文档，\
+  尤其是训练营相关的中文部分。
+]
+
+#v(20pt)
+
 ```bash
 # 进入本地仓库目录
 cd rust-rustlings-2024-*
@@ -95,6 +105,7 @@ cd rust-rustlings-2024-*
 # 源码编译并安装 rustlings 可执行文件到 ~/.cargo/bin 目录
 cargo install --force --path . 
 ```
+]
 
 #pagebreak()
 
