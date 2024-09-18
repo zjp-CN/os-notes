@@ -17,4 +17,10 @@ cat ~/.ssh/id_ed25519.pub
   image("img/github-ssh.png", height: 150pt, width: 330pt, fit: "stretch"),
   caption: [Github 设置 SSH ]
 )
+
+== 安装 Rust-Analyzer
+
+#import "install/rust-analyzer.typ"
+#rust-analyzer.install
+
 ]
