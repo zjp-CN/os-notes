@@ -3,8 +3,8 @@
 
 // local imports
 #import "intro.typ": intro
-#import "utils.typ": c, todo, outline_heading
-
+#import "utils.typ": c, todo, outline_heading, pageref
+#set page(numbering: "1")
 // dark mode
 // #set page(fill: rgb("808080")) // CACACA
 // #set text(fill: rgb("000000"))
@@ -104,7 +104,9 @@
 
 + Github 授权登陆课堂
 
-+ 点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地#footnote("")
++ 点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地#footnote[
+  see #pageref(<github-ssh>)
+]
 
 ```bash
 git clone git@github.com:LearningOS/rust-rustlings-2024-*.git
@@ -143,6 +145,8 @@ https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-sched
 = 附录
 
 == Github 设置 SSH
+
+<github-ssh>
 
 #align(center)[
 ```bash
