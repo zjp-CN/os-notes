@@ -1,10 +1,14 @@
 #import "../utils.typ": *
 
 #let install = [
+
   
+#v(20pt)
 #block_help[
 Rust-Analyzer 是 Rust 官方支持的 LSP 实现，支持在不同编辑器中提供一致的语言服务体验。安装和配置见 #link("https://rust-analyzer.github.io/manual.html")[RA 官方手册]。
 ]
+
+#v(15pt)
 
 
 - 在 VSCode 上，你只需要

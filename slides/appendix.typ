@@ -20,6 +20,8 @@ cat ~/.ssh/id_ed25519.pub
 
 == 安装 Rust-Analyzer
 
+<install-ra>
+
 #import "install/rust-analyzer.typ"
 #rust-analyzer.install
 
