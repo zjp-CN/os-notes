@@ -63,8 +63,7 @@
 #show raw.where(block: false): it => context {
   set highlight(top-edge: "ascender")
   set highlight(bottom-edge: "descender")
-  text(font: (font_code, font_cjk), weight: "bold", size: 11pt, it)
-  
+  text(font: (font_code, font_cjk), weight: "bold", it)
 }
 
 // BEGIN:

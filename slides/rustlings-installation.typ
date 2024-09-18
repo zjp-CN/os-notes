@@ -89,10 +89,10 @@ export https_proxy=http://0.0.0.0:7897
 #align(center)[
 #v(30pt)
 
-#block_help[
+#block_help[#emph[
   强烈建议首先阅读仓库中的 README 文档，\
   尤其是训练营相关的中文部分。
-]
+]]
 
 #v(20pt)
 
@@ -108,11 +108,7 @@ cargo install --force --path .
 ]
 
 #pagebreak()
-
-#context {
-  set text(size: 11pt)
-  set block(spacing: 0pt, width: 103%)
-  
+#block_code_in_one_page(11pt)[#context { set block(width: 103%)
 ```bash
 $ rustlings --help
 Usage: rustlings [--nocapture] [-v] [<command>] [<args>]
@@ -135,6 +131,57 @@ Commands:
   cicvverify        cicvverify
 ```
 }
+]
+
+#pagebreak()
+#block_code_in_one_page(11pt)[
+```rust
+Progress: [--------------------------------------------------------] 0/110
+⚠️  Compiling of exercises/intro/intro2.rs failed! Please try again. Here's the output:
+
+error: 1 positional argument in format string, but no arguments were given
+  --> exercises/intro/intro2.rs:11:21
+   |
+11 |     println!("Hello {}!");
+   |                     ^^
+
+error: aborting due to 1 previous error
+
+Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
+```
+]
+#align(center)[#text(fill: rgb("ff8c00"), size: 30pt)[`rustlings watch`]]
+
+#pagebreak()
+
+#block_code_in_one_page(9.5pt)[
+```
+$ rustlings watch
+Progress: 🎉 All exercises completed! 🎉
+
++----------------------------------------------------+
+|          You made it to the Fe-nish line!          |
++--------------------------  ------------------------+
+                          \\/
+     ▒▒          ▒▒▒▒▒▒▒▒      ▒▒▒▒▒▒▒▒          ▒▒
+   ▒▒▒▒  ▒▒    ▒▒        ▒▒  ▒▒        ▒▒    ▒▒  ▒▒▒▒
+   ▒▒▒▒  ▒▒  ▒▒            ▒▒            ▒▒  ▒▒  ▒▒▒▒
+ ░░▒▒▒▒░░▒▒  ▒▒            ▒▒            ▒▒  ▒▒░░▒▒▒▒
+   ▓▓▓▓▓▓▓▓  ▓▓      ▓▓██  ▓▓  ▓▓██      ▓▓  ▓▓▓▓▓▓▓▓
+     ▒▒▒▒    ▒▒      ████  ▒▒  ████      ▒▒░░  ▒▒▒▒
+       ▒▒  ▒▒▒▒▒▒        ▒▒▒▒▒▒        ▒▒▒▒▒▒  ▒▒
+         ▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▒▒▒▒▒▒▒▒▓▓▒▒▓▓▒▒▒▒▒▒▒▒
+           ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+             ▒▒▒▒▒▒▒▒▒▒██▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒
+           ▒▒  ▒▒▒▒▒▒▒▒▒▒██████▒▒▒▒▒▒▒▒▒▒  ▒▒
+         ▒▒    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒    ▒▒
+       ▒▒    ▒▒    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒    ▒▒    ▒▒
+       ▒▒  ▒▒    ▒▒                  ▒▒    ▒▒  ▒▒
+           ▒▒  ▒▒                      ▒▒  ▒▒
+
+We hope you enjoyed learning about the various aspects of Rust!
+```
+]
 
 == Q&A#todo
 

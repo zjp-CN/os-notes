@@ -38,3 +38,12 @@ align(center)[
     #text(fill: white, content)
   ]
 }
+
+// 缩小字体到一页的代码块
+#let block_code_in_one_page(size, body) = [
+#context {
+  set text(size: size)
+  set block(spacing: 0pt)
+  body
+}
+]
