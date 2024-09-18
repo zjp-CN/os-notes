@@ -9,8 +9,13 @@
 // #set page(fill: rgb("808080")) // CACACA
 // #set text(fill: rgb("000000"))
 
+// fonts
+#let font_text = {"IBM Plex Serif"}
+#let font_code = {"Cascadia Mono"}
+#let font_cjk = {"Noto Sans CJK SC"}
+
 #set text(
-  font: ("IBM Plex Serif", "Noto Sans CJK SC"), 
+  font: (font_text, font_cjk), 
   lang: "zh", 
   region: "cn",
   size: 16.5pt,
@@ -35,12 +40,21 @@
 
 #set text(size: 12pt)
 
+// 字体: DejaVuSansMono-Bold (TrueType (CID); Identity-H; embedded)
+// IBMPlexSerif-Bold (TrueType (CID); Identity-H; embedded)
+// IBMPlexSerif-BoldItalic (TrueType (CID); Identity-H; embedded)
+// IBMPlexSerif-Regular (TrueType (CID); Identity-H; embedded)
+// NotoSansCJKsc-Bold (Type1 (CID); Identity-H; embedded)
+// NotoSansCJKsc-Regular (Type1 (CID); Identity-H; embedded)
+// TwitterColorEmojiSVGinOT (TrueType (CID); Identity-H; embedded)
+
+
 // 代码块样式
-#show raw: it => block(
-  fill: rgb("#04173E"),
+#show raw.where(block: true): it => block(
+  fill: rgb("#eff0ff"),
   inset: 8pt,
   radius: 5pt,
-  text(fill: rgb("#a2aabc"), it)
+  text(font: (font_code, font_cjk), weight: "bold", it)
 )
 
 #intro
@@ -79,13 +93,18 @@
 #todo
 ]
 
-#set enum(numbering: "1.a)", tight: false, spacing: 8%)
+#set enum(numbering: "1.a)", tight: false, spacing: 4%)
 
 #v(20pt)
 
 + Github 授权登陆课堂
 
-+ 点击/复制 https://github.com/ 开头的仓库链接
++ 点击 https://github.com/ 开头的仓库链接，并把仓库克隆到本地#footnote("")
+
+```bash
+git clone git@github.com:LearningOS/rust-rustlings-2024-*.git
+```
+
 + 提交代码到该仓库
 + 每次推送到该仓库时，课堂系统会自动评分
 + 在 Actions 标签页可以查看评分过程
@@ -93,7 +112,7 @@
 
   - 在远程仓库选择 gh-pages 分支：Action 完成时自动推送到该分支
   
-  - 或者查看#rustings_rank("排行榜")：定时向 Github 拉取，因此会有延迟
+  - 或者查看#rustings_rank("排行榜")：定时从 Github 拉取数据，因此会有延迟
 
 == Rustlings：查看评分结果
 
@@ -112,3 +131,18 @@
 == Q&A
 
 https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
+
+https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
+
+
+= 附录
+
+== 设置 ssh 
+
+```bash
+# 生成新的 SSH 密钥对文件
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# 将公钥内容复制到 Github 账号 Settings 的 SSH keys 中
+cat ~/.ssh/id_ed25519.pub
+```
