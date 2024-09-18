@@ -80,8 +80,13 @@
 
 = Rustlings 环境配置
 
-#import "rustlings-installation.typ": *
-#install
+#import "rustlings-installation-usage.typ" as rustlings-installation-usage
+#rustlings-installation-usage.content
+
+= Rust 语言简介
+
+#import "rust/influences.typ"
+#influences.content
 
 = 附录
 

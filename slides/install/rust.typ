@@ -60,7 +60,7 @@ git-fetch-with-cli = true
 
 #enum(
 enum.item(6)[
-  有时代码库必须从 Github 下载，那么需要配置上网代理：
+  有时代码库必须从 Github 下载，配置上网代理的方式：
 ]
 )
   
