@@ -99,7 +99,7 @@ Rust 资料贡献：
 #v(10pt)
 #link("https://zjp-cn.github.io/translations/")[其他翻译书籍]：Rand Book、Salsa Book、Helix Book 等
 
-#v(50pt)
+#pagebreak()
 
 #align(center)[
   #text(weight: "bold", size: 15pt)[Rust 开源项目]

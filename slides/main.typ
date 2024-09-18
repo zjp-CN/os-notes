@@ -3,7 +3,7 @@
 
 // local imports
 #import "intro.typ": intro
-#import "utils.typ": c, todo
+#import "utils.typ": c, todo, outline_heading
 
 // dark mode
 // #set page(fill: rgb("808080")) // CACACA
@@ -40,15 +40,6 @@
 
 #set text(size: 12pt)
 
-// 字体: DejaVuSansMono-Bold (TrueType (CID); Identity-H; embedded)
-// IBMPlexSerif-Bold (TrueType (CID); Identity-H; embedded)
-// IBMPlexSerif-BoldItalic (TrueType (CID); Identity-H; embedded)
-// IBMPlexSerif-Regular (TrueType (CID); Identity-H; embedded)
-// NotoSansCJKsc-Bold (Type1 (CID); Identity-H; embedded)
-// NotoSansCJKsc-Regular (Type1 (CID); Identity-H; embedded)
-// TwitterColorEmojiSVGinOT (TrueType (CID); Identity-H; embedded)
-
-
 // 代码块样式
 #show raw.where(block: true): it => block(
   fill: rgb("#eff0ff"),
@@ -59,15 +50,29 @@
 
 #intro
 
-== Outline: Headings
 
+#show outline.entry.where(
+  level: 1
+): it => {
+  v(12pt, weak: true)
+  strong(it)
+}
+
+#show outline.entry.where(
+  level: 2
+): it => {
+  h(10pt); it
+}
+
+#outline_heading[Outline: Headings]
 #outline(
   target: heading.where(level: 1)
-          .or(heading.where(level: 2))
+          .or(heading.where(level: 2)),
 )
 
-== Outline: Figures
+#pagebreak()
 
+#outline_heading[Outline: Figures]
 #outline(target: figure.where(kind: image))#todo#super()[
   #footnote()[#emph[TODO] 用于标记将春季链接更新到秋冬季链接，正式 PPT 中应该删除它。]
 ]
@@ -137,7 +142,7 @@ https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-sched
 
 = 附录
 
-== 设置 ssh 
+== Github 设置 SSH
 
 #align(center)[
 ```bash
