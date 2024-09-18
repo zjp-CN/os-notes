@@ -73,7 +73,6 @@ export http_proxy=http://0.0.0.0:7897
 export https_proxy=http://0.0.0.0:7897
 ```
 
-
 #block_help[
 #emph[其他参考资料：]
 
@@ -84,6 +83,47 @@ export https_proxy=http://0.0.0.0:7897
 - Cargo 官方手册： #link("https://doc.rust-lang.org/cargo/reference/config.html")[config.toml]
 - #link("https://rcore-os.cn/rCore-Tutorial-Book-v3/chapter0/5setup-devel-env.html#rust")[rCore 教程 Rust 实验环境配置]
 ]
+
+== 安装 rustlings CLI
+
+```bash
+# 进入本地仓库目录
+cd rust-rustlings-2024-*
+
+# 确保 Rust 工具链安装成功并且可用
+
+# 源码编译并安装 rustlings 可执行文件到 ~/.cargo/bin 目录
+cargo install --force --path . 
+```
+
+#pagebreak()
+
+#context {
+  set text(size: 11pt)
+  set block(spacing: 0pt, width: 103%)
+  
+```bash
+$ rustlings --help
+Usage: rustlings [--nocapture] [-v] [<command>] [<args>]
+
+Rustlings is a collection of small exercises to get you used to writing and reading Rust code
+
+Options:
+  --nocapture       show outputs from the test exercises
+  -v, --version     show the executable version
+  --help            display usage information
+
+Commands:
+  verify            Verifies all exercises according to the recommended order
+  watch             Reruns `verify` when files were edited
+  run               Runs/Tests a single exercise
+  reset             Resets a single exercise using "git stash -- <filename>"
+  hint              Returns a hint for the given exercise
+  list              Lists the exercises available in Rustlings
+  lsp               Enable rust-analyzer for exercises
+  cicvverify        cicvverify
+```
+}
 
 == Q&A#todo
 
