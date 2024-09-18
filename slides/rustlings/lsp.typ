@@ -3,10 +3,19 @@
 #let usage = [
 == 使用 rustlings CLI： `lsp`
 
-到目前为止，我们还没有真正开始 Rust 编程，因为我们没有充分利用现代语言的 LSP，来获得#emph[代码补全、跳转定义、错误检测、代码导航、重构工具、代码格式化]等 IDE 级别的语言服务。
+#align(horizon + center)[
+  #show par: set block(spacing: 1.2em)
+  #text(size: 15pt)[
+到目前为止，我们还没有真正开始 Rust 编程，
 
-#block_help[
-Rust-Analyzer 是 Rust 官方支持的 LSP 实现，支持在不同编辑器中提供一致的语言服务体验。安装和配置见 #link("https://rust-analyzer.github.io/manual.html")[RA 官方手册]。
+因为我们没有充分利用现代语言的 LSP，
+
+来获得#emph[代码补全、代码诊断、代码格式化、
+
+代码导航、跳转定义、重构工具]
+
+等 IDE 级别的语言服务。
+  ]
 ]
 
 #pagebreak()
