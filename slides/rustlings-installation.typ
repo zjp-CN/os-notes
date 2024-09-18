@@ -179,6 +179,121 @@ Hello!
 ```
 ]
 
+#pagebreak()
+#block_code_in_one_page(9pt)[
+```
+Progress: [------------------------------------------------------------] 0/110
+⠉ Compiling exercises/intro/intro2.rs...
+✅ Successfully ran exercises/intro/intro2.rs!
+
+🎉 🎉  The code is compiling! 🎉 🎉
+
+Output:
+====================
+Hello!
+
+====================
+
+You can keep working on this exercise,
+or jump into the next one by removing the `I AM NOT DONE` comment:
+
+ 6 |  // hint.
+ 7 |
+ 8 |  // I AM NOT DONE
+ 9 |
+Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
+```
+]
+#block_help[
+  代码编译通过之后，记得移除 `// I AM NOT DONE` 这行注释
+]
+
+
+#block_code_in_one_page(9pt)[
+```rust
+Progress: [------------------------------------------------------------] 0/110
+Progress: [>-----------------------------------------------------------] 1/110 (0.0 %)
+⚠️  Compiling of exercises/variables/variables1.rs failed! Please try again. Here's the output:
+error[E0425]: cannot find value `x` in this scope
+  --> exercises/variables/variables1.rs:11:5
+   |
+11 |     x = 5;
+   |     ^
+   |
+help: you might have meant to introduce a new binding
+   |
+11 |     let x = 5;
+   |     +++
+
+error[E0425]: cannot find value `x` in this scope
+  --> exercises/variables/variables1.rs:12:36
+   |
+12 |     println!("x has the value {}", x);
+   |                                    ^ not found in this scope
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0425`.
+```
+]
+
+#block_code_in_one_page(9pt)[
+```
+...
+For more information about this error, try `rustc --explain E0425`.
+
+Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
+help
+Commands available to you in watch mode:
+  hint   - prints the current exercise's hint
+  clear  - clears the screen
+  quit   - quits watch mode
+  !<cmd> - executes a command, like `!rustc --explain E0381`
+  help   - displays this help message
+
+Watch mode automatically re-evaluates the current exercise
+when you edit a file's contents.
+```
+]
+
+在 `rustlings watch` 命令下，遇到问题可以键盘输入 `help`，按回车，就会获得上述交互信息。它提示你可以继续输入 `hint` 或者 `!<cmd>` 来获得提示。
+
+#block_code_in_one_page(9pt)[
+```
+hint
+The declaration on line 8 is missing a keyword that is needed in Rust to create a new variable binding.
+```
+]
+
+#pagebreak()
+
+#block_code_in_one_page(9pt)[
+```rust
+!rustc --explain E0425
+An unresolved name was used.
+
+Erroneous code examples:
+
+something_that_doesnt_exist::foo;
+// error: unresolved name `something_that_doesnt_exist::foo`
+
+// or:
+trait Foo {
+    fn bar() {
+        Self; // error: unresolved name `Self`
+    }
+}
+
+// or:
+let x = unknown_variable;  // error: unresolved name `unknown_variable`
+
+Please verify that the name wasn't misspelled and ensure that the identifier being referred to is valid for the given situation. Example: ...
+```
+]
+
+#c[rustc --explain E0425] 命令解释了编译器提供的错误码的含义。
+
+你也可在线查看这个错误码 #link("https://doc.rust-lang.org/error_codes/E0425.html")[E0425]。
 
 #pagebreak()
 #block_code_in_one_page(9.5pt)[
@@ -210,6 +325,33 @@ We hope you enjoyed learning about the various aspects of Rust!
 ```
 ]
 ]
+
+== 使用 rustlings CLI： `lsp`
+
+到目前为止，我们还没有真正开始 Rust 编程，因为我们没有充分利用现代语言的 LSP，来获得#emph[代码补全、跳转定义、错误检测、代码导航、重构工具、代码格式化]等 IDE 级别的语言服务。
+
+#block_help[
+Rust-Analyzer 是 Rust 官方支持的 LSP 实现，支持在不同编辑器中提供一致的语言服务体验。安装和配置见 #link("https://rust-analyzer.github.io/manual.html")[RA 官方手册]。
+]
+
+=== 安装 Rust-Analyzer
+
+- 在 VSCode 上，你只需要
+  #link("https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer")[搜索和点击安装按钮]，就能直接工作。
+  
+- 对于 JetBrains 软件，比如 RustRover，则自行查看其官方文档说明。
+
+- 在其他编辑器上，你需要仔细阅读上面的手册链接，比如通过
+  `rustup component add rust-analyzer` 命令安装它，并安装相关的编辑器插件。
+
+- 我是 NeoVim 的重度使用者，最近三年几乎每天都通过 NeoVim 编码。如果你想使用它的话，可以参考我的#link("https://github.com/zjp-CN/nvim-config")[配置文件]。
+
+```rust
+Diagnostics:
+This file is not included in any crates, so rust-analyzer can't offer IDE services.
+
+If you're intentionally working on unowned files, you can silence this warning by adding "unlinked-file" to rustnalyzer.diagnostics.disabled in your settings. [unlinked-file]
+```
 
 == Q&A#todo
 
