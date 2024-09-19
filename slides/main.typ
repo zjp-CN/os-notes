@@ -2,7 +2,7 @@
 #import "@preview/slydst:0.1.1": *
 
 // local imports
-#import "intro.typ": intro
+#import "introduction.typ": intro
 #import "utils.typ": *
 
 // dark mode
@@ -31,12 +31,6 @@
 }
 
 #show footnote.entry: it => {
-  // let loc = it.note.location()
-  // let num = numbering(
-  //   "[1]: ",
-  //   ..counter(footnote).at(loc),
-  // )
-  // text(size: 8pt)[ #num#it.note.body ]
   text(size: 8pt, it)
 }
 
@@ -92,3 +86,6 @@
 
 #import "appendix.typ": *
 #github_ssh
+
+
+end of file
