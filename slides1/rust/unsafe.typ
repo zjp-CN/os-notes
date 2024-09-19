@@ -3,17 +3,19 @@
 
   == Unsafe Rust
 
-  #text(size: 10pt)[
+  #text(size: 10.3pt)[
+    #v(14pt)
+    #set block(spacing: 18pt)
+    #set list(spacing: 15pt)
+
     将 Rust 分为 Safe 和 Unsafe 两个子集：
 
-    - *Safe Rust*：由编译器保证内存安全，当程序员违反规则，它报告错误并拒接编译代码；
+    - *Safe Rust*：*由编译器保证内存安全*，当程序员违反规则，它报告错误并拒接编译代码；
 
-    - *Unsafe Rust*：由程序员自己保证内存安全，编译器无法检查 unsafe 代码是否安全。
+    - *Unsafe Rust*：*由程序员自己保证内存安全*，编译器无法检查 unsafe 代码是否安全。
   ]
 
   #quote[
-    // #set list(spacing: 12pt)
-    #set block(spacing: 15pt)
     - Dereferencing a raw pointer.
 
     - Reading or writing a mutable or external static variable.

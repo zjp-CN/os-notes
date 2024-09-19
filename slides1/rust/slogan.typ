@@ -2,12 +2,11 @@
 
 #let content = [
 
-
   == Rust 的宗旨
 
-
   #v(45pt)
-  #let slogan = [#quote[
+  #let slogan = [
+    #quote[
       #let size = 14pt
       #let eve(a) = {
         text(fill: rgb("deea3a"), weight: "bold", size, a)
@@ -31,7 +30,8 @@
           #link("https://www.rust-lang.org/")[rust-lang.org]
         ]
       ]
-    ]]
+    ]
+  ]
 
   #slogan
   #pagebreak()
@@ -100,10 +100,10 @@
   #text(size: 20pt)[#emph[Traits]]
 
   #text(size: 11.2pt, style: "italic")[
-    - are Rust's sole notion of interface.
-    - can be statically dispatched.
-    - can be dynamically dispatched.
-    - solve a variety of additional problems beyond simple abstraction. (Marker traits)
+    - are Rust's sole notion of interface
+    - can be statically dispatched
+    - can be dynamically dispatched
+    - solve a variety of additional problems beyond simple abstraction (Marker traits)
   ]
 
   #v(8pt)
