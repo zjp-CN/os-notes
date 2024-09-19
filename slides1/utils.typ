@@ -7,12 +7,18 @@
     super(text(weight: "bold")[TODO])
 }
 
+
+// 更改大纲目录的标题样式
 #let outline_heading(body) = {
 align(center)[
 #text(
   stroke: 0.2pt + rgb("00008B"), fill: rgb("024782"),
   weight: "bold", size: 20pt,
-  [#body]
+  [
+    #show heading: none
+    #heading[#body]
+    #body
+  ]
 )
 ]
 }
