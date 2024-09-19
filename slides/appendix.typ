@@ -1,4 +1,4 @@
-#let github_ssh = [
+#let content = [
 == Github 设置 SSH
 
 <github-ssh>
@@ -24,5 +24,14 @@ cat ~/.ssh/id_ed25519.pub
 
 #import "install/rust-analyzer.typ"
 #rust-analyzer.install
+
+== bonus 
+
+*可讲可不讲的部分* #footnote[如果课程时间已经太长，不讲]
+
+- 我的 Rust 入门经验和阅读清单：https://www.yuque.com/zhoujiping/programming/rust-materials （主要在 2021 年更新，没收录在这之后的优秀入门材料）
+
+- 演示如何查看训练营官网的往届课程资料
+
 
 ]

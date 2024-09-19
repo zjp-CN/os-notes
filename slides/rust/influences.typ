@@ -4,14 +4,6 @@
 
 == Rust 受到多种语言的影响
 
-#set quote(block: true)
-#show quote: it => {
-  set block(fill: rgb("3c3966"), inset: 8pt, width: 105%)
-  set text(fill: white, size: 10.5pt)
-  it
-}
-#show emph: it => { text(fill: orange, it) }
-
 #quote[
 - #emph[SML, OCaml]: algebraic data types, pattern matching, type inference, semicolon statement separation
 - #emph[C++]: references, RAII, smart pointers, move semantics, monomorphization, memory model
@@ -33,5 +25,7 @@
   ]
 ]
 ]
+
+
 
 ]

@@ -85,10 +85,14 @@
 
 = Rust 语言简介
 
-#import "rust/influences.typ"
-#influences.content
+#import "rust.typ"
+#rust.content
 
 = 附录
 
-#import "appendix.typ": *
-#github_ssh
+#import "appendix.typ"
+#appendix.content
+
+
+#heading(outlined: false)[谢谢观看]
+

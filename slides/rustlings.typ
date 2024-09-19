@@ -4,8 +4,7 @@
 == Rustlings：进入 Github 课堂
 
 #let rustings_classroom = [
-#link("https://classroom.github.com/assignment-invitations/f32787f1ff936b1bc45b8da4ffe4d738/status")[👉 进入课堂]
-#todo
+#link("https://classroom.github.com/assignment-invitations/1cefce5432c3fb9693ac4eb2883926f7")[👉 进入课堂]
 ]
 
 #figure(
@@ -16,7 +15,7 @@
 == Rustlings：课堂使用流程
 
 #let rustings_rank(title) = [
-#link("https://classroom.github.com/a/-WftLmvV")[#title]
+#link("https://opencamp.cn/os2edu/camp/2024fall/stage/1?tab=rank")[#title]
 #todo
 ]
 

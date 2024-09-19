@@ -82,7 +82,7 @@ table(
 )
 #show table.cell: it => {
   if it.y == 0 {
-    text(fill: black, weight: "bold", emph(it))
+    text(fill: black, weight: "bold", it)
   } else {
     align(center + horizon, it)
   }
