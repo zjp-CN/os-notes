@@ -21,4 +21,7 @@
   #import "rust/unsafe.typ"
   #unsafe.content
 
+  #import "rust/growing.typ"
+  #growing.content
+
 ]
