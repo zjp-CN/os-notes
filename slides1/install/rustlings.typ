@@ -4,14 +4,18 @@
   == 安装 rustlings CLI
 
   #align(center)[
-    #v(30pt)
+    #v(20pt)
 
     #block_help[#emph[
-        强烈建议首先阅读仓库中的 README 文档，\
+        强烈建议首先阅读仓库中的\
+        `README` 和 `exercises/README.md`#footnote[
+          该文档包含每组练习与 《#link("https://doc.rust-lang.org/stable/book/","The Rust Programming Language")》对应的章节，见
+          #pageref(<rustlings-exercises-chapters>)。
+        ]，\
         尤其是训练营相关的中文部分。
       ]]
 
-    #v(20pt)
+    #v(12pt)
 
     ```bash
     # 进入本地仓库目录
@@ -25,29 +29,28 @@
   ]
 
   #pagebreak()
-  #block_code_in_one_page(11pt)[#context {
-      set block(width: 103%)
-      ```bash
-      $ rustlings --help
-      Usage: rustlings [--nocapture] [-v] [<command>] [<args>]
+  #block_code_in_one_page(11pt)[
+    #set block(width: 103%)
+    ```bash
+    $ rustlings --help
+    Usage: rustlings [--nocapture] [-v] [<command>] [<args>]
 
-      Rustlings is a collection of small exercises to get you used to writing and reading Rust code
+    Rustlings is a collection of small exercises to get you used to writing and reading Rust code
 
-      Options:
-        --nocapture       show outputs from the test exercises
-        -v, --version     show the executable version
-        --help            display usage information
+    Options:
+      --nocapture       show outputs from the test exercises
+      -v, --version     show the executable version
+      --help            display usage information
 
-      Commands:
-        verify            Verifies all exercises according to the recommended order
-        watch             Reruns `verify` when files were edited
-        run               Runs/Tests a single exercise
-        reset             Resets a single exercise using "git stash -- <filename>"
-        hint              Returns a hint for the given exercise
-        list              Lists the exercises available in Rustlings
-        lsp               Enable rust-analyzer for exercises
-        cicvverify        cicvverify
-      ```
-    }
+    Commands:
+      verify            Verifies all exercises according to the recommended order
+      watch             Reruns `verify` when files were edited
+      run               Runs/Tests a single exercise
+      reset             Resets a single exercise using "git stash -- <filename>"
+      hint              Returns a hint for the given exercise
+      list              Lists the exercises available in Rustlings
+      lsp               Enable rust-analyzer for exercises
+      cicvverify        cicvverify
+    ```
   ]
 ]
