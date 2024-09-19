@@ -25,11 +25,14 @@
   #import "install/rust-analyzer.typ"
   #rust-analyzer.install
 
-  == bonus
+  == bonus#footnote[*可讲可不讲的部分*，如果课程时间已经太长，不讲]
 
-  *可讲可不讲的部分* #footnote[如果课程时间已经太长，不讲]
+  #set list(spacing: 20pt)
+  #v(20pt)
 
-  - 我的 Rust 入门经验和阅读清单：https://www.yuque.com/zhoujiping/programming/rust-materials （主要在 2021 年更新，没收录在这之后的优秀入门材料）
+  - 我的 Rust 入门经验和阅读清单：https://www.yuque.com/zhoujiping/programming/rust-materials #footnote[
+      主要在 2021 年更新，没收录在这之后的优秀入门材料
+    ]
 
   - 演示如何查看训练营官网的往届课程资料
 
