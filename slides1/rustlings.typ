@@ -21,7 +21,7 @@
 
 #v(2pt)
 
-#set enum(numbering: "1.a)", tight: false, spacing: 4%)
+#set enum(numbering: "1.a)", tight: false, spacing: 8pt)
 
 #enum[
   Github 授权登陆课堂；

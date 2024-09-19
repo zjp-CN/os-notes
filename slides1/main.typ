@@ -80,7 +80,7 @@
 
 = Rustlings 环境配置
 
-#import "rustlings-installation-usage.typ" as rustlings-installation-usage
+#import "rustlings-installation-usage.typ"
 #rustlings-installation-usage.content
 
 = Rust 语言简介
@@ -95,4 +95,3 @@
 
 
 #heading(outlined: false)[谢谢观看]
-

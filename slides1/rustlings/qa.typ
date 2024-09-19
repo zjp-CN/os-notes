@@ -3,7 +3,7 @@
 #let content = [
 == Q&A#todo
 
-#set enum(numbering: "1.a)", tight: false, spacing: 10%)
+#set enum(numbering: "1.a)", tight: false, spacing: 10pt)
 
 #v(20pt)
 

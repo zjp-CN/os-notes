@@ -8,7 +8,7 @@
   #import "install/rustlings.typ"
   #rustlings.install
 
-  #import "rustlings/watch.typ" as watch
+  #import "rustlings/watch.typ"
   #watch.usage
 
   #import "rustlings/run.typ"
@@ -20,7 +20,7 @@
   #import "rustlings/lsp.typ"
   #lsp.usage
 
-  #import "rustlings/qa.typ" as qa
+  #import "rustlings/qa.typ"
   #qa.content
 
 ]
