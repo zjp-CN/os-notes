@@ -10,13 +10,13 @@
 // #set text(fill: rgb("000000"))
 
 // fonts
-#let font_text = {"IBM Plex Serif"}
-#let font_code = {"Cascadia Mono"}
-#let font_cjk = {"Noto Sans CJK SC"}
+#let font_text = "IBM Plex Serif"
+#let font_code = "Cascadia Mono"
+#let font_cjk = "Noto Sans CJK SC"
 
 #set text(
-  font: (font_text, font_cjk), 
-  lang: "zh", 
+  font: (font_text, font_cjk),
+  lang: "zh",
   region: "cn",
   size: 16.5pt,
 )
@@ -57,14 +57,16 @@
   fill: rgb("#eff0ff"),
   inset: 8pt,
   radius: 5pt,
-  text(font: (font_code, font_cjk), weight: "bold", it)
+  text(font: (font_code, font_cjk), weight: "bold", it),
 )
 
-#show raw.where(block: false): it => context {
-  set highlight(top-edge: "ascender")
-  set highlight(bottom-edge: "descender")
-  text(font: (font_code, font_cjk), weight: "bold", it)
-}
+#show raw.where(block: false): it => (
+  context {
+    set highlight(top-edge: "ascender")
+    set highlight(bottom-edge: "descender")
+    text(font: (font_code, font_cjk), weight: "bold", it)
+  }
+)
 
 // BEGIN:
 #intro

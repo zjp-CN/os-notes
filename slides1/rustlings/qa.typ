@@ -1,14 +1,14 @@
 #import "../utils.typ": *
 
 #let content = [
-== Q&A#todo
+  == Q&A#todo
 
-#set enum(numbering: "1.a)", tight: false, spacing: 10pt)
+  #set enum(numbering: "1.a)", tight: false, spacing: 10pt)
 
-#v(20pt)
+  #v(20pt)
 
-+ 常见问题解答：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
+  + 常见问题解答：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/QA.md
 
-+ 训练营第一阶段环境配置与学习资料：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
+  + 训练营第一阶段环境配置与学习资料：https://github.com/LearningOS/rust-based-os-comp2024/blob/main/2024-spring-scheduling-1.md
 
 ]

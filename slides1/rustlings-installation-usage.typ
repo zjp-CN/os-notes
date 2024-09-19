@@ -16,7 +16,7 @@
 
   #import "rustlings/list.typ"
   #list.usage
-  
+
   #import "rustlings/lsp.typ"
   #lsp.usage
 
