@@ -15,6 +15,9 @@
   #import "rust/slogan.typ"
   #slogan.content
 
+  #import "rust/cornerstone.typ"
+  #cornerstone.content
+
   #import "rust/influences.typ"
   #influences.content
 
