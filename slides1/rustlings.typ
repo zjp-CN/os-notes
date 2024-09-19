@@ -8,7 +8,7 @@
   ]
 
   #figure(
-    image("img/rustlings-classroom.png", height: 85%),
+    image("img/rustlings-classroom.png"),
     caption: [#rustings_classroom],
   )
 
@@ -16,7 +16,6 @@
 
   #let rustings_rank(title) = [
     #link("https://opencamp.cn/os2edu/camp/2024fall/stage/1?tab=rank")[#title]
-    #todo
   ]
 
   #v(2pt)
@@ -51,19 +50,23 @@
   == Rustlings：查看评分结果
 
   #figure(
-    image("img/rustlings-score.png", height: 75%),
+    image("img/rustlings-score.png"),
     caption: [ 通过 gh-pages 分支查看评分结果 ],
   )
+
 
   == Rustlings：排行榜
 
   #align(center)[
+    #set block(spacing: 5pt)
+
     #block_note[
       #emph[注意：只有完成全部练习，达到 110 满分的同学才算完成第一阶段。]
-    ]]
+    ]
+  ]
 
   #figure(
-    image("img/rustlings-rank.png", height: 78%),
-    caption: [ 👉 #rustings_rank("第一阶段 Rustlings 完成情况排行榜")],
+    image("img/rustlings-rank.png", height: 80%),
+    caption: [ #rustings_rank("👉 第一阶段 Rustlings 完成情况排行榜")],
   )
 ]
