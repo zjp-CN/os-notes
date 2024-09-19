@@ -55,5 +55,24 @@
       - 可生成高度优化的代码，*运行高效*
   ]
 
+  == 2023 年官方统计调查结果
+
+  #set page(footer: none)
+
+  #figure(
+    image("../img/why-you-use-rust-at-work.svg"),
+    caption: link(
+      "https://blog.rust-lang.org/2024/02/19/2023-Rust-Annual-Survey-2023-results.html",
+      "2023 年 Rust 官方年度统计调查：为什么在工作中使用 Rust",
+    ),
+  )
+
+  #figure(
+    image("../img/technology-domains.png"),
+    caption: link(
+      "https://blog.rust-lang.org/2024/02/19/2023-Rust-Annual-Survey-2023-results.html",
+      "2023 年 Rust 官方年度统计调查：使用者来自哪些科技领域",
+    ),
+  )
 
 ]
