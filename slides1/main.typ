@@ -1,8 +1,5 @@
 // doc: https://typst.app/universe/package/slydst/
 #import "@preview/slydst:0.1.1": *
-
-// local imports
-#import "intro.typ": intro
 #import "utils.typ": *
 
 // dark mode
@@ -23,7 +20,6 @@
 
 #show link: it => [
   #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", it)
-  // #text(fill: rgb("#3366CC"), style: "italic", weight: "bold", underline(it))
 ]
 
 #show emph: it => {
@@ -31,12 +27,6 @@
 }
 
 #show footnote.entry: it => {
-  // let loc = it.note.location()
-  // let num = numbering(
-  //   "[1]: ",
-  //   ..counter(footnote).at(loc),
-  // )
-  // text(size: 8pt)[ #num#it.note.body ]
   text(size: 8pt, it)
 }
 
@@ -54,7 +44,7 @@
 
 // 代码块样式
 #show raw.where(block: true): it => block(
-  fill: rgb("#eff0ff"),
+  fill: codeblock_bg,
   inset: 8pt,
   radius: 5pt,
   above: 8pt,
@@ -72,6 +62,7 @@
 #set enum(numbering: "1.a)", tight: false)
 
 // BEGIN:
+#import "intro.typ": intro
 #intro
 
 // outlines

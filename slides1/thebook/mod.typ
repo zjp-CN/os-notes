@@ -3,7 +3,7 @@
 #let content = [
 
   #show: codly-init.with()
-  #set codly(zebra-fill: none)
+  // #set page(footer: none)
 
   == 阅读地址
 
