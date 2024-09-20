@@ -59,3 +59,8 @@
 #let block_code_in_one_page(size, body) = [
   #text(size, body)
 ]
+
+#let quote(content) = {
+  set text(fill: white, size: 10.5pt)
+  block(fill: rgb("3c3966"), inset: 9pt, width: 100%, content)
+}

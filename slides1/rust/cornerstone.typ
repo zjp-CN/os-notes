@@ -45,7 +45,7 @@
 
   #align(center)[
     #quote[Abstraction without overhead
-      #footnote[Rust 的零成本抽象还有其他方式，比如引用、ZST。]
+      #footnote[Rust 的零成本抽象还有其他例子，比如引用、迭代器、ZST 等。]
     ]
   ]
 

@@ -1,3 +1,4 @@
+#import "../utils.typ": *
 
 #let content = [
 
@@ -8,7 +9,11 @@
     #set block(spacing: 18pt)
     #set list(spacing: 15pt)
 
-    将 Rust 分为 Safe 和 Unsafe 两个子集：
+    将 Rust 分为 Safe 和 Unsafe 两个子集
+    #footnote[
+        具有未定义行为 (#link("https://doc.rust-lang.org/reference/behavior-considered-undefined.html", "UB"))
+        的 Unsafe Rust 代码被用于 Safe Rust 时，就发生了 Unsound。
+    ]：
 
     - *Safe Rust*：*由编译器保证内存安全*，当程序员违反规则，它报告错误并拒接编译代码；
 
@@ -30,56 +35,6 @@
       src:
       #highlight(fill: orange, extent: 1.2pt)[
         #link("https://doc.rust-lang.org/reference/unsafety.html")[Reference: Unsafety]
-      ]
-    ]
-  ]
-
-  == `unsafe` 关键字
-
-  #show table.cell: it => {
-    if it.y == 0 {
-      align(center + horizon, text(weight: "bold", fill: orange, it))
-    } else {
-      it
-    }
-  }
-  #table(
-    columns: (144pt, 152pt, auto),
-    inset: 7pt,
-    align: (horizon, horizon, center + horizon),
-    table.header(
-      [`unsafe` 代码],
-      [功能],
-      [谁保证安全条件],
-    ),
-
-    [
-      - `unsafe fn`
-      - `unsafe trait`
-    ],
-    [标识 *定义* 额外的安全条件],
-    [该代码的*使用者*],
-
-    [
-      - `unsafe {}`
-      - `unsafe impl`
-      - `unsafe fn` without `unsafe_op_in_unsafe_fn`
-    ],
-    [标识 *满足* 额外的安全条件],
-    [该代码的*编写者*],
-  )
-
-  #quote[
-    #set block(spacing: 12pt)
-
-    Unsafe functions (`unsafe fn`) are functions that are not safe in all contexts and/or for all possible inputs.
-
-    We say they have extra safety conditions, which are requirements that must be upheld by all callers and that the compiler does not check.
-
-    #align(right)[
-      src:
-      #highlight(fill: orange, extent: 1.2pt)[
-        #link("https://doc.rust-lang.org/reference/unsafe-keyword.html")[Reference: The unsafe keyword]
       ]
     ]
   ]
