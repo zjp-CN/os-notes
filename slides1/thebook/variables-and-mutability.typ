@@ -1,4 +1,4 @@
-#import "../utils.typ": *
+#import "utils.typ": *
 
 #let rust(code, out: none, size: 8pt, highlights: none) = {
   show raw.where(block: true): it => text(size, it)
@@ -85,5 +85,40 @@ The value of x is: 6",
       ),
     ),
   )
+
+  #pagebreak()
+
+  #rust(
+    "fn main() {
+    let x = 5;
+    let x = x + 1;
+    {
+        let x = x * 2;
+        println!(\"The value of x in the inner scope is: {x}\");
+    }
+
+    println!(\"The value of x is: {x}\");
+}",
+    out: "$ cargo run
+The value of x in the inner scope is: 12
+The value of x is: 6",
+    highlights: (
+      (
+        line: 2,
+        start: 5,
+        end: 10,
+        fill: green,
+      ),
+      (
+        line: 4,
+        start: 9,
+        end: 13,
+        fill: green,
+      ),
+    ),
+  )
+  #btitle[_Shadowing_]
+
+
 
 ]
