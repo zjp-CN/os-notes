@@ -117,7 +117,7 @@ The value of x is: 6",
       ),
     ),
   )
-  #btitle[Shadowing]
+  #btitle[Shadowing & Scope]
 
   #rust(
     "fn main() {
@@ -136,6 +136,7 @@ error[E0308]: mismatched types
 
 For more information about this error, try `rustc --explain E0308`.
 error: could not compile `variables` (bin \"variables\") due to 1 previous error",
+    size: 7.2pt,
     highlights: (
       (
         line: 1,
@@ -151,13 +152,17 @@ error: could not compile `variables` (bin \"variables\") due to 1 previous error
       ),
     ),
   )
-
+  #btitle[
+    #set text(size: 9pt)
+    变量的类型是静态确定的；#c[mut] 只能修改同类型的值，不能修改成不同类型的值。
+  ]
 
   #rust(
     "fn main() {
     let spaces = \"   \";
     let spaces = spaces.len();
 } // fine 🙂",
+    size: 10pt,
     highlights: (
       (
         line: 1,
@@ -175,11 +180,7 @@ error: could not compile `variables` (bin \"variables\") due to 1 previous error
   )
 
   #btitle[
-    变量的类型是静态确定的；
-
-    #c[mut] 只能修改同类型的值，
-
-    不能修改成不同类型的值。
+    利用 Shadowing 重新使用这个变量名
   ]
 
 

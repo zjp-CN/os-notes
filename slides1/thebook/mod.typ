@@ -27,6 +27,13 @@
         "Rust 程序设计语言",
       )
       》
+
+      语法速查手册
+
+      #link(
+        "https://cheats.rs/",
+        "cheats.rs",
+      )
     ]
   ]
 
