@@ -12,6 +12,8 @@
         color: rgb("#CE412B"),
       ),
     ),
+    display-name: true,
+    display-icon: true,
     zebra-fill: none,
     fill: codeblock_bg,
     number-format: it => [ #text(fill: gray, str(it)) ],
@@ -22,7 +24,12 @@
   raw(code, lang: "rust", block: true)
 
   if out != none {
-    codly(highlights: none)
+    codly(
+      highlights: none,
+      fill: rgb("F6F7FC"),
+      display-name: false,
+      display-icon: false,
+    )
     raw(out, lang: "rust", block: true)
   }
 }
