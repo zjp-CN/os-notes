@@ -85,6 +85,7 @@ The value of x is: 6",
       ),
     ),
   )
+  #btitle[修改变量的值，需要 #c[mut] 关键字]
 
   #pagebreak()
 
@@ -96,7 +97,6 @@ The value of x is: 6",
         let x = x * 2;
         println!(\"The value of x in the inner scope is: {x}\");
     }
-
     println!(\"The value of x is: {x}\");
 }",
     out: "$ cargo run
@@ -117,8 +117,70 @@ The value of x is: 6",
       ),
     ),
   )
-  #btitle[_Shadowing_]
+  #btitle[Shadowing]
 
+  #rust(
+    "fn main() {
+    let mut spaces = \"   \";
+    spaces = spaces.len();
+}",
+    out: "$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+error[E0308]: mismatched types
+ --> src/main.rs:3:14
+  |
+2 |     let mut spaces = \"   \";
+  |                      ----- expected due to this value
+3 |     spaces = spaces.len();
+  |              ^^^^^^^^^^^^ expected `&str`, found `usize`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `variables` (bin \"variables\") due to 1 previous error",
+    highlights: (
+      (
+        line: 1,
+        start: 5,
+        end: 5,
+        fill: red,
+      ),
+      (
+        line: 2,
+        start: 8,
+        end: 11,
+        fill: red,
+      ),
+    ),
+  )
+
+
+  #rust(
+    "fn main() {
+    let spaces = \"   \";
+    let spaces = spaces.len();
+} // fine 🙂",
+    highlights: (
+      (
+        line: 1,
+        start: 5,
+        end: 9,
+        fill: green,
+      ),
+      (
+        line: 2,
+        start: 5,
+        end: 9,
+        fill: green,
+      ),
+    ),
+  )
+
+  #btitle[
+    变量的类型是静态确定的；
+
+    #c[mut] 只能修改同类型的值，
+
+    不能修改成不同类型的值。
+  ]
 
 
 ]
