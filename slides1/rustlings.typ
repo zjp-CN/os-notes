@@ -57,12 +57,11 @@
   == 排行榜
 
   #block_note[
-    #set block(spacing: 5pt)
     #emph[注意：只有完成全部练习，达到 110 满分的同学才算完成第一阶段。]
   ]
 
   #figure(
-    image("img/rustlings-rank.png", height: 80%),
+    image("img/rustlings-rank.png", height: 78%),
     caption: [ #rustings_rank("👉 第一阶段 Rustlings 完成情况排行榜")],
   )
 ]
