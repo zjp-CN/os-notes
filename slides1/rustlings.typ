@@ -56,12 +56,9 @@
 
   == 排行榜
 
-  #align(center)[
+  #block_note[
     #set block(spacing: 5pt)
-
-    #block_note[
-      #emph[注意：只有完成全部练习，达到 110 满分的同学才算完成第一阶段。]
-    ]
+    #emph[注意：只有完成全部练习，达到 110 满分的同学才算完成第一阶段。]
   ]
 
   #figure(

@@ -50,8 +50,10 @@
 }
 
 #let block_note(content) = {
-  block(fill: rgb("f94343"), inset: 8pt)[
-    #text(fill: white, content)
+  align(center)[
+    #block(fill: rgb("f94343"), inset: 8pt)[
+      #text(fill: white, content)
+    ]
   ]
 }
 
@@ -60,9 +62,9 @@
   #text(size, body)
 ]
 
-#let quote(src: none, width: 100%, content) = {
-  set text(fill: white, size: 10.5pt)
+#let quote(src: none, width: 100%, size: 10.5pt, content) = {
   block(fill: rgb("3c3966"), inset: 9pt, width: width)[
+    #set text(fill: white, size)
     #content
     #if src != none {
       let (uri, text) = src
