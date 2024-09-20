@@ -78,7 +78,7 @@
 #import "outlines.typ": *
 #toc
 
-= 第一阶段的目标：Rustlings
+= 第一阶段目标：完成 Rustlings
 
 #import "rustlings.typ": *
 #rustlings

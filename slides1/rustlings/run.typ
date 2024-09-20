@@ -2,7 +2,7 @@
 
 #let content = [
 
-  == `rustlings run`
+  == #c[rustlings run]
 
   #align(center)[
     #block_code_in_one_page(12pt)[
@@ -18,12 +18,16 @@
       error: aborting due to 1 previous error
       ```
     ]
-    #c[rustlings run intro2]
+
+    `rustlings run intro2` #footnote[
+    `intro2` 为该练习的名称，通常为路径最后的无 `.rs` 后缀的文件名。也可通过
+    `rustlings list` 查看。
+    ]
+
     #block_code_in_one_page(12pt)[
       ```rust
       ⠙ Compiling exercises/intro/intro2.rs...
       Hello!
-
       ✅ Successfully ran exercises/intro/intro2.rs
       ```
     ]

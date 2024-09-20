@@ -151,13 +151,16 @@
 
 
 
-  == bonus#footnote[*这是可讲可不讲的部分*，如果课程时间不充裕则不讲。]
+  == bonus
+
+  #v(15pt)
+  这是可讲可不讲的部分，如果课程时间不充裕则不讲。
 
   #set list(spacing: 20pt)
   #v(20pt)
 
   - 我的 Rust 入门经验和阅读清单：https://www.yuque.com/zhoujiping/programming/rust-materials #footnote[
-      主要在 2021 年更新，没收录在这之后的优秀入门材料
+      主要在 2021 年更新，没收录在这之后的入门材料。
     ]
 
   - 演示如何查看训练营官网的往届课程资料

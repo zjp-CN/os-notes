@@ -1,7 +1,8 @@
 #import "utils.typ": *
 
 #let rustlings = [
-  == Rustlings：进入 Github 课堂
+
+  == Github 课堂
 
   #let rustings_classroom = [
     #link("https://classroom.github.com/assignment-invitations/1cefce5432c3fb9693ac4eb2883926f7")[👉 进入课堂]
@@ -12,7 +13,7 @@
     caption: [#rustings_classroom],
   )
 
-  == Rustlings：课堂使用流程
+  == 使用流程
 
   #let rustings_rank(title) = [
     #link("https://opencamp.cn/os2edu/camp/2024fall/stage/1?tab=rank")[#title]
@@ -45,7 +46,7 @@
     - 或者查看#rustings_rank("排行榜")：定时从 Github 拉取数据，因此会有延迟
   ]
 
-  == Rustlings：查看评分结果
+  == 评分结果
 
   #figure(
     image("img/rustlings-score.png"),
@@ -53,7 +54,7 @@
   )
 
 
-  == Rustlings：排行榜
+  == 排行榜
 
   #align(center)[
     #set block(spacing: 5pt)

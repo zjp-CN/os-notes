@@ -2,7 +2,7 @@
 
 #let content = [
 
-  == `rustlings lsp`
+  == #c[rustlings lsp]
 
   #align(horizon + center)[
     #show par: set block(spacing: 1.2em)

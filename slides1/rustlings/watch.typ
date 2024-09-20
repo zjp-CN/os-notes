@@ -2,32 +2,14 @@
 
 #let content = [
 
-  == `rustlings watch`
-
-  #block_code_in_one_page(12pt)[
-    ```rust
-    Progress: [--------------------------------------------------] 0/110
-    ⚠️  Compiling of exercises/intro/intro2.rs failed! Please try again. Here's the output:
-
-    error: 1 positional argument in format string, but no arguments were given
-      --> exercises/intro/intro2.rs:11:21
-       |
-    11 |     println!("Hello {}!");
-       |                     ^^
-
-    error: aborting due to 1 previous error
-
-    Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
-    ```
-  ]
-  #align(center)[#c[rustlings watch]]
-
-  #pagebreak()
+  == #c[rustlings watch]
 
   #align(center)[
+
     #block_code_in_one_page(12pt)[
       ```rust
-      ⚠️  Compilation of exercises/intro/intro2.rs failed!, Compiler error message:
+      Progress: [--------------------------------------------------] 0/110
+      ⚠️  Compiling of exercises/intro/intro2.rs failed! Please try again. Here's the output:
 
       error: 1 positional argument in format string, but no arguments were given
         --> exercises/intro/intro2.rs:11:21
@@ -36,19 +18,16 @@
          |                     ^^
 
       error: aborting due to 1 previous error
-      ```
-    ]
-    #c[rustlings run intro2]
-    #block_code_in_one_page(12pt)[
-      ```rust
-      ⠙ Compiling exercises/intro/intro2.rs...
-      Hello!
 
-      ✅ Successfully ran exercises/intro/intro2.rs
+      Welcome to watch mode! You can type 'help' to get an overview of the commands you can use here.
       ```
     ]
+
+    第一次运行结果
 
     #pagebreak()
+
+
     #block_code_in_one_page(9pt)[
       ```
       Progress: [------------------------------------------------------------] 0/110
@@ -80,7 +59,6 @@
 
     #block_code_in_one_page(9pt)[
       ```rust
-      Progress: [------------------------------------------------------------] 0/110
       Progress: [>-----------------------------------------------------------] 1/110 (0.0 %)
       ⚠️  Compiling of exercises/variables/variables1.rs failed! Please try again. Here's the output:
       error[E0425]: cannot find value `x` in this scope
@@ -105,6 +83,8 @@
       For more information about this error, try `rustc --explain E0425`.
       ```
     ]
+
+    完成第一个练习之后
 
     #block_code_in_one_page(9pt)[
       ```

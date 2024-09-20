@@ -2,7 +2,7 @@
 
 #let content = [
 
-  == `rustlings list`
+  == #c[rustlings list]
 
   #align(center)[
 
@@ -20,7 +20,9 @@
       Progress: You completed 1 / 110 exercises (0.9 %).
       ```
     ]
-    #c[rustlings list]
+
+    查看练习名称和完成进度
+
     #block_code_in_one_page(12pt)[
       ```rust
       ...
