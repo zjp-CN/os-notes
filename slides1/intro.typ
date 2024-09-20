@@ -13,7 +13,12 @@
       #emph[苦瓜小仔]
     ],
     align(center)[
-      URLO#footnote[Rust 官方社区论坛：#link("https://users.rust-lang.org")[users.rust-lang.org]]\
+      URLO#footnote[
+        #set text(size: 5.5pt)
+        即 Rust 官方社区论坛 #link("https://users.rust-lang.org")[users.rust-lang.org]，
+        我之前在那里常常回答初级问题，但更多时候在阅读其他人的帖子。我访问了 1.1k
+        天，创建了 1k 条回复。
+      ]\
       #link("https://users.rust-lang.org/u/vague/summary")[vague]
     ],
   )
