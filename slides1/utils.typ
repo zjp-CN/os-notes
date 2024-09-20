@@ -1,3 +1,5 @@
+#import "@preview/codly:1.0.0": *
+
 // 带框的标签（用于短代码）
 #let c(code) = {
   highlight(

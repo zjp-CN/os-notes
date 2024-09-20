@@ -93,6 +93,12 @@
 #import "rust.typ"
 #rust.content
 
+= The Book
+
+#import "./thebook/mod.typ" as thebook
+#thebook.content
+
+
 = 附录
 
 #import "appendix.typ"
