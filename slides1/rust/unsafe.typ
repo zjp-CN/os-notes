@@ -11,7 +11,9 @@
 
     将 Rust 分为 Safe 和 Unsafe 两个子集
     #footnote[
-        具有未定义行为 (#link("https://doc.rust-lang.org/reference/behavior-considered-undefined.html", "UB"))
+        具有未定义行为 (#context {
+          link(locate(<rust-ub>), "UB")
+        })
         的 Unsafe Rust 代码被用于 Safe Rust 时，就发生了 Unsound。
     ]：
 

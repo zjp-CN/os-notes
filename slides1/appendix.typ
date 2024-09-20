@@ -77,6 +77,79 @@
     ]
   ]
 
+  == Rust 中的未定义的行为 (UB)
+
+  <rust-ub>
+
+  #quote(width: 105%)[
+    #set block(spacing: 15pt)
+    #set enum(spacing: 10pt)
+    #set text(size: 8.8pt)
+
+    + Data races.
+
+    + Accessing (loading from or storing to) a place that is dangling or based on a misaligned pointer.
+
+    + Performing a place projection that violates the requirements of in-bounds pointer arithmetic.
+
+    + Breaking the pointer *aliasing rules*.
+
+    + Mutating immutable bytes.
+
+    + Invoking undefined behavior via compiler intrinsics.
+
+    + Executing code compiled with platform features that the current platform does not support, except if the platform explicitly documents this to be safe.
+
+    + Calling a function with the wrong call ABI or unwinding from a function with the wrong unwind ABI.
+
+    + Producing an invalid value, even in private fields and locals.
+
+    + Incorrect use of inline assembly.
+
+    + In const context: transmuting or otherwise reinterpreting a pointer into some allocated object as a non-pointer type (such as integers).
+
+
+    #align(right)[
+      src:
+      #highlight(fill: orange, extent: 1.2pt)[
+        #link(
+          "https://doc.rust-lang.org/reference/unsafe-keyword.html",
+          "Reference: Behavior considered undefined",
+        )
+      ]
+    ]
+  ]
+
+
+  == Rust 中不被视为 Unsafe 的行为
+
+  #v(20pt)
+  #quote[
+
+    + Deadlocks
+
+    + Leaks of memory and other resources
+
+    + Exiting without calling destructors
+
+    + Exposing randomized base addresses through pointer leaks
+
+    + Integer overflow
+
+    + Logic errors
+
+    #align(right)[
+      src:
+      #highlight(fill: orange, extent: 1.2pt)[
+        #link(
+          "https://doc.rust-lang.org/reference/unsafe-keyword.html",
+          "Reference: Behavior not considered unsafe",
+        )
+      ]
+    ]
+  ]
+
+
 
   == bonus#footnote[*这是可讲可不讲的部分*，如果课程时间不充裕则不讲。]
 

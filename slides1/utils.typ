@@ -60,7 +60,7 @@
   #text(size, body)
 ]
 
-#let quote(content) = {
+#let quote(content, width: 100%) = {
   set text(fill: white, size: 10.5pt)
-  block(fill: rgb("3c3966"), inset: 9pt, width: 100%, content)
+  block(fill: rgb("3c3966"), inset: 9pt, width: width, content)
 }
