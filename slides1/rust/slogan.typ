@@ -2,11 +2,14 @@
 
 #let content = [
 
-  == Rust 的宗旨
+  == Rust 的愿景
 
   #v(45pt)
   #let slogan = [
-    #quote[
+    #quote(src: (
+      "https://www.rust-lang.org/",
+      "rust-lang.org",
+    ))[
       #let size = 14pt
       #let eve(a) = {
         text(fill: rgb("deea3a"), weight: "bold", size, a)
@@ -24,12 +27,6 @@
         让 #eve[每个人] 都能构建 #r[可靠] 和 #eff[高效] 的软件。
       ]
 
-      #align(right)[
-        src:
-        #highlight(fill: orange, extent: 1.2pt)[
-          #link("https://www.rust-lang.org/")[rust-lang.org]
-        ]
-      ]
     ]
   ]
 

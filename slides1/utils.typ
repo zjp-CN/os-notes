@@ -60,7 +60,16 @@
   #text(size, body)
 ]
 
-#let quote(content, width: 100%) = {
+#let quote(src: none, width: 100%, content) = {
   set text(fill: white, size: 10.5pt)
-  block(fill: rgb("3c3966"), inset: 9pt, width: width, content)
+  block(fill: rgb("3c3966"), inset: 9pt, width: width)[
+    #content
+    #if src != none {
+      let (uri, text) = src
+      align(right)[
+        src:
+        #highlight(fill: orange, extent: 1.2pt)[ #link(uri, text) ]
+      ]
+    }
+  ]
 }

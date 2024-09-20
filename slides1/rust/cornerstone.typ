@@ -10,9 +10,9 @@
 
     #quote[How do you make concurrency painless?]
     Concurrency without data races#footnote[
-  #set text(style: "italic")
-  A data race is any unsynchronized, concurrent access to data involving a write.
-].
+      #set text(style: "italic")
+      A data race is any unsynchronized, concurrent access to data involving a write.
+    ].
   ]
 
   #text(size: 20pt)[#emph[Ownership]]

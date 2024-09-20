@@ -62,26 +62,29 @@
     [该代码的*编写者*],
   )
 
-  #quote[
+  #quote(src: (
+    "https://doc.rust-lang.org/reference/unsafe-keyword.html",
+    "Reference: The unsafe keyword",
+  ))[
     #set block(spacing: 12pt)
 
     Unsafe functions (`unsafe fn`) are functions that are not safe in all contexts and/or for all possible inputs.
 
     We say they have extra safety conditions, which are requirements that must be upheld by all callers and that the compiler does not check.
 
-    #align(right)[
-      src:
-      #highlight(fill: orange, extent: 1.2pt)[
-        #link("https://doc.rust-lang.org/reference/unsafe-keyword.html")[Reference: The unsafe keyword]
-      ]
-    ]
   ]
 
   == Rust 中的未定义的行为 (UB)
 
   <rust-ub>
 
-  #quote(width: 105%)[
+  #quote(
+    src: (
+      "https://doc.rust-lang.org/reference/unsafe-keyword.html",
+      "Reference: Behavior considered undefined",
+    ),
+    width: 105%,
+  )[
     #set block(spacing: 15pt)
     #set enum(spacing: 10pt)
     #set text(size: 8.8pt)
@@ -108,23 +111,16 @@
 
     + In const context: transmuting or otherwise reinterpreting a pointer into some allocated object as a non-pointer type (such as integers).
 
-
-    #align(right)[
-      src:
-      #highlight(fill: orange, extent: 1.2pt)[
-        #link(
-          "https://doc.rust-lang.org/reference/unsafe-keyword.html",
-          "Reference: Behavior considered undefined",
-        )
-      ]
-    ]
   ]
 
 
   == Rust 中不被视为 Unsafe 的行为
 
   #v(20pt)
-  #quote[
+  #quote(src: (
+    "https://doc.rust-lang.org/reference/unsafe-keyword.html",
+    "Reference: Behavior not considered unsafe",
+  ))[
 
     + Deadlocks
 
@@ -138,18 +134,32 @@
 
     + Logic errors
 
-    #align(right)[
-      src:
-      #highlight(fill: orange, extent: 1.2pt)[
-        #link(
-          "https://doc.rust-lang.org/reference/unsafe-keyword.html",
-          "Reference: Behavior not considered unsafe",
-        )
-      ]
-    ]
   ]
 
 
+  == Rust 2024 Edition 🚧
+
+  <rust-edition-2024>
+
+  #quote(src: (
+    "https://doc.rust-lang.org/stable/edition-guide/rust-2024/index.html",
+    "The Rust Edition Guide: Rust 2024",
+  ))[
+    + Additions to the prelude
+    + Add IntoIterator for `Box<[T]>`
+    + unsafe_op_in_unsafe_fn warning
+    + RPIT lifetime capture
+    + Disallow references to static mut
+    + Cargo: Remove implicit features
+    + Cargo: Table and key name consistency
+    + Cargo: Reject unused inherited default-features
+    + Rustfmt: Combine all delimited exprs as last argument
+    + gen keyword
+    + Macro fragment specifiers
+    + Never type fallback change
+    + unsafe extern blocks
+    + Unsafe attributes
+  ]
 
   == bonus
 

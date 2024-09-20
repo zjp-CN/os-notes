@@ -22,7 +22,10 @@
     - *Unsafe Rust*：*由程序员自己保证内存安全*，编译器无法检查 unsafe 代码是否安全。
   ]
 
-  #quote[
+  #quote(src: (
+    "https://doc.rust-lang.org/reference/unsafety.html",
+    "Reference: Unsafety",
+  ))[
     - Dereferencing a raw pointer.
 
     - Reading or writing a mutable or external static variable.
@@ -33,12 +36,6 @@
 
     - Implementing an unsafe trait.
 
-    #align(right)[
-      src:
-      #highlight(fill: orange, extent: 1.2pt)[
-        #link("https://doc.rust-lang.org/reference/unsafety.html")[Reference: Unsafety]
-      ]
-    ]
   ]
 
 
