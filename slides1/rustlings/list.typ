@@ -1,7 +1,8 @@
 #import "../utils.typ": *
 
-#let usage = [
-  == 使用 rustlings CLI： `list`
+#let content = [
+
+  == `rustlings list`
 
   #align(center)[
 

@@ -1,6 +1,7 @@
 #import "../utils.typ": *
 
 #let install = [
+
   == 安装 Rust
 
   #enum[
@@ -11,7 +12,7 @@
     export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
     ```
   ][
-    下载 Rust 工具链#footnote[该脚本会从上一步设置的镜像地址下载 Rustup]
+    下载 Rust 工具链#footnote[该脚本会从上一步设置的镜像地址下载 Rustup。]
 
     ```bash
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -60,7 +61,7 @@
 
   #enum(
     enum.item(6)[
-      有时代码库必须从 Github 下载，配置上网代理的方式：
+      有时代码库必须从 Github 下载，那么你可以配置上网代理：
     ],
   )
 

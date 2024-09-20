@@ -1,7 +1,8 @@
 #import "../utils.typ": *
 
-#let usage = [
-  == 使用 rustlings CLI： `lsp`
+#let content = [
+
+  == `rustlings lsp`
 
   #align(horizon + center)[
     #show par: set block(spacing: 1.2em)

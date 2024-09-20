@@ -1,7 +1,8 @@
 #import "../utils.typ": *
 
-#let usage = [
-  == 使用 rustlings CLI： `watch`
+#let content = [
+
+  == `rustlings watch`
 
   #block_code_in_one_page(12pt)[
     ```rust

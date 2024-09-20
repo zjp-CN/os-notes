@@ -57,6 +57,7 @@
   fill: rgb("#eff0ff"),
   inset: 8pt,
   radius: 5pt,
+  above: 8pt,
   text(font: (font_code, font_cjk), weight: "bold", it),
 )
 
@@ -67,6 +68,8 @@
     text(font: (font_code, font_cjk), weight: "bold", it)
   }
 )
+
+#set enum(numbering: "1.a)", tight: false)
 
 // BEGIN:
 #intro

@@ -8,17 +8,23 @@
   #import "install/rustlings.typ"
   #rustlings.install
 
+  #import "rustlings/chapters.typ"
+  #chapters.content
+
+  #import "rustlings/help.typ"
+  #help.content
+
   #import "rustlings/watch.typ"
-  #watch.usage
+  #watch.content
 
   #import "rustlings/run.typ"
-  #run.usage
+  #run.content
 
   #import "rustlings/list.typ"
-  #list.usage
+  #list.content
 
   #import "rustlings/lsp.typ"
-  #lsp.usage
+  #lsp.content
 
   #import "rustlings/qa.typ"
   #qa.content
