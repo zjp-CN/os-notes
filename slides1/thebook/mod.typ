@@ -46,4 +46,7 @@
   #import "./functions.typ"
   #functions.content
 
+  #import "./comments.typ"
+  #comments.content
+
 ]
