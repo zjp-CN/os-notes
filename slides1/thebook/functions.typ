@@ -4,7 +4,7 @@
 
   == 函数
 
-  === Call a function
+  _Define & Call a function_
 
   #rust(
     "fn main() {
@@ -26,7 +26,7 @@ Another function.",
   )
 
   #pagebreak()
-  === Arguments
+  _Arguments_
 
   #rust(
     "fn main() {
@@ -59,29 +59,31 @@ The measurement is: 5h",
         "📝 Operators and Expression precedence",
       )
 
-  // #pagebreak()
-  === Return value
+  #pagebreak()
+  _Return value_
 
   #rust(
     "fn plus_one(x: i32) -> i32 {
     x + 1
 }",
+    size: 11pt,
     highlights: (
       (line: 0, start: 21, end: 25, fill: green),
       (line: 1, fill: green),
     ),
   )
 
-  #rust("fn plus_one(x: i32) -> i32 {
-    x + 1; // 💥
-}")
+  //   #rust("fn plus_one(x: i32) -> i32 {
+  //     x + 1; // 💥
+  // }")
 
+  #pagebreak()
   #rust(
     "fn plus_one(x: i32) -> i32 {
     x + 1; // the trailling semicolon makes it a statement
     // which does not return values
 
-    // implicit returns `()` as the return value
+    // implicitly returns `()` as the return value
 }",
     out: "error[E0308]: mismatched types
  --> src/main.rs:7:24

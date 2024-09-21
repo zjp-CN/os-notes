@@ -194,7 +194,7 @@ End count = 2
 
 #let _while = [
 
-  _`while` 条件语句_
+  === (3) `while` 条件语句
 
   #rust("
 while expr { ... }
@@ -227,7 +227,7 @@ the value is: 50",
   )
 
   #pagebreak()
-  _`for` 语句迭代元素_
+  === (4) `for` 语句迭代元素
 
   #rust("
 for ele in collection { ... }
