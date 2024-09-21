@@ -74,26 +74,26 @@
 #import "rustlings.typ": *
 #rustlings
 
-= Rustlings 环境配置
-
-#import "rustlings-installation-usage.typ"
-#rustlings-installation-usage.content
-
-= Rust 语言简介
-
-#import "rust.typ"
-#rust.content
-
 = The Book
 
 #import "./thebook/mod.typ" as thebook
 #thebook.content
 
+#heading(outlined: false)[谢谢观看]
 
-= 附录
+= 附录 1：Rustlings 环境配置
 
 #import "appendix.typ"
 #appendix.content
 
+#import "rustlings-installation-usage.typ"
+#rustlings-installation-usage.content
+
+= 附录2：Rust 语言简介
+
+#set heading(outlined: false)
+
+#import "rust.typ"
+#rust.content
 
 #heading(outlined: false)[谢谢观看]

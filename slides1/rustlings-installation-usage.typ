@@ -5,6 +5,11 @@
   #import "install/rust.typ"
   #rust.install
 
+  == 安装 Rust-Analyzer
+  <install-ra>
+  #import "install/rust-analyzer.typ"
+  #rust-analyzer.install
+
   #import "install/rustlings.typ"
   #rustlings.install
 

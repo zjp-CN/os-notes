@@ -19,4 +19,7 @@
   #import "rust/growing.typ"
   #growing.content
 
+  #import "rust/appendix.typ"
+  #appendix.content
+
 ]
