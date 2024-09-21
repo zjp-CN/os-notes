@@ -15,6 +15,8 @@
   highlights: none,
   new_page: false,
   num: it => [ #text(fill: gray, str(it)) ],
+  display-name: true,
+  display-icon: true,
 ) = {
   show raw.where(block: true): it => text(size, it)
   set block(breakable: false, spacing: 8pt)
@@ -27,8 +29,8 @@
         color: rgb("#CE412B"),
       ),
     ),
-    display-name: true,
-    display-icon: true,
+    display-name: display-name,
+    display-icon: display-icon,
     zebra-fill: none,
     fill: codeblock_bg,
     number-format: num,

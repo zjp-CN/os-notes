@@ -1,7 +1,7 @@
 #import "utils.typ": *
 
 #let interger_types = [
-  ==== Integers
+  _Integers_
   #table(
     align: center + horizon,
     columns: 3,
@@ -21,7 +21,7 @@
 ]
 
 #let integer_literals = [
-  ==== Integers Literals
+  _Integers Literals_
   #table(
     align: center + horizon,
     columns: 2,
@@ -123,7 +123,7 @@ let d: f32 = 0.2;   // d: f32")
 
 #let bool = [
 
-  _Bool_
+  _bool_
 
   #let t = [
     #table(
@@ -159,6 +159,30 @@ let y: bool = true;")
 
 ]
 
+#let char = [
+
+  _char_
+
+  #let snip = [
+    #rust(
+      "let ch = 'z'; let z: char = 'ℤ'; let emoji = '😻';",
+      display-name: false,
+      display-icon: false,
+    )
+  ]
+
+  #grid(
+    columns: (3fr, 7fr),
+    rows: 1,
+    gutter: 5pt,
+    text(size: 10pt)[
+      - 4 bytes in size
+      - a Unicode Scalar Value
+    ],
+    grid.cell(align: horizon, snip),
+  )
+]
+
 #let content = [
 
   #show emph: it => text(fill: orange, it)
@@ -167,10 +191,11 @@ let y: bool = true;")
 
   === Scalar Types
 
-  Integers, floating-point numbers, Booleans, and characters.
-
-  #floating_points
-  #bool
+  #block(spacing: 15pt)[
+    #bool
+    #char
+    #floating_points
+  ]
 
   #pagebreak()
   #intergers
