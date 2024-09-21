@@ -41,8 +41,10 @@
     },
   )
 
-  codly(highlights: highlights) // 只高亮源代码
-  raw(code, lang: "rust", block: true)
+  if code != none {
+    codly(highlights: highlights) // 只高亮源代码
+    raw(code, lang: "rust", block: true)
+  }
 
   if out != none {
     if new_page {

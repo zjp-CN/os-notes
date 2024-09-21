@@ -37,6 +37,8 @@
     ]
   ]
 
+  #show emph: it => text(fill: orange, it)
+
   #import "./variables-and-mutability.typ"
   #variables-and-mutability.content
 
@@ -48,5 +50,8 @@
 
   #import "./comments.typ"
   #comments.content
+
+  #import "./control-flow.typ"
+  #control-flow.content
 
 ]

@@ -96,6 +96,10 @@ For more information about this error, try `rustc --explain E0384`.",
         end: 7,
         fill: red,
       ),
+      (
+        line: 3,
+        fill: red,
+      ),
     ),
   )
 

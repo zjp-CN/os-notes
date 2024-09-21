@@ -252,8 +252,6 @@ index out of bounds: the len is 1 but the index is 1",
 
 #let content = [
 
-  #show emph: it => text(fill: orange, it)
-
   == 基本数据类型
 
   === (1) Scalar Types
