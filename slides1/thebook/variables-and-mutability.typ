@@ -1,44 +1,5 @@
 #import "utils.typ": *
 
-#let rust(code, out: none, size: 8pt, highlights: none, new_page: false) = {
-  show raw.where(block: true): it => text(size, it)
-  set block(breakable: false, spacing: 8pt)
-
-  codly(
-    languages: (
-      rust: (
-        name: "Rust",
-        icon: text(font: "tabler-icons", "\u{fa53}"),
-        color: rgb("#CE412B"),
-      ),
-    ),
-    display-name: true,
-    display-icon: true,
-    zebra-fill: none,
-    fill: codeblock_bg,
-    number-format: it => [ #text(fill: gray, str(it)) ],
-    number-align: right + horizon,
-  )
-
-  codly(highlights: highlights) // 只高亮源代码
-  raw(code, lang: "rust", block: true)
-
-  if out != none {
-    if new_page {
-      pagebreak()
-      codly(highlights: highlights) // 只高亮源代码
-      raw(code, lang: "rust", block: true)
-    }
-    codly(
-      highlights: none,
-      fill: rgb("F6F7FC"),
-      display-name: false,
-      display-icon: false,
-    )
-    raw(out, lang: "rust", block: true)
-  }
-}
-
 #let content = [
 
   == 变量和可变性

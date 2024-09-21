@@ -40,4 +40,7 @@
   #import "./variables-and-mutability.typ"
   #variables-and-mutability.content
 
+  #import "./scalar-primitive-compound-types.typ"
+  #scalar-primitive-compound-types.content
+
 ]
