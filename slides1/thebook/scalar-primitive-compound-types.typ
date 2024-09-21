@@ -105,8 +105,10 @@ println!(\"\
   ]
 
   #let snip = [
-    #rust("let x = 2.0;      // x: f64
-let y: f32 = 3.0; // y: f32")
+    #rust("let a = 0.1;        // a: f64
+let b = 12E+99_f64; // b: f64
+let c = 0.1f32      // c: f32
+let d: f32 = 0.2;   // d: f32")
   ]
 
   #grid(
@@ -117,6 +119,43 @@ let y: f32 = 3.0; // y: f32")
     grid.cell(align: horizon, snip),
   )
 
+]
+
+#let bool = [
+
+  _Bool_
+
+  #let t = [
+    #table(
+      align: center + horizon,
+      columns: 2,
+      table.header(
+        [*Value*],
+        [*Bit Pattern*],
+      ),
+
+      [`false`], [`0x00`],
+      [`true`], [`0x01`],
+    )
+  ]
+
+  #let snip = [
+    #rust("let x = false;
+let y: bool = true;")
+
+    #text(size: 6.9pt, style: "italic")[
+      Note: It is undefined behavior for an object with the boolean type
+      to have *any other* bit pattern.
+    ]
+  ]
+
+  #grid(
+    columns: 2,
+    rows: 1,
+    gutter: 5pt,
+    t,
+    grid.cell(align: horizon, snip),
+  )
 
 ]
 
@@ -131,6 +170,7 @@ let y: f32 = 3.0; // y: f32")
   Integers, floating-point numbers, Booleans, and characters.
 
   #floating_points
+  #bool
 
   #pagebreak()
   #intergers
