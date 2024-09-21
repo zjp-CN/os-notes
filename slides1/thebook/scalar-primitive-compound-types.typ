@@ -71,11 +71,58 @@ println!(\"\
         #interger_types #integer_literals
       ],
     ),
-    grid.cell(rowspan: 2, align: horizon, integer_snip)
+    grid.cell(
+      rowspan: 2,
+      align: horizon,
+      [
+        #integer_snip
+
+        #v(2pt)
+        #text(size: 8pt, fill: gray)[
+          Literal Tokens: https://doc.rust-lang.org/reference/tokens.html
+        ]
+      ],
+    )
   )
 ]
 
+#let floating_points = [
+
+  _Floating Points_
+
+  #let t = [
+    #table(
+      align: center + horizon,
+      columns: 2,
+      table.header(
+        [*Length*],
+        [*Types*],
+      ),
+
+      [32-bit], [f32],
+      [64-bit], [f64],
+    )
+  ]
+
+  #let snip = [
+    #rust("let x = 2.0;      // x: f64
+let y: f32 = 3.0; // y: f32")
+  ]
+
+  #grid(
+    columns: 2,
+    rows: 1,
+    gutter: 24pt,
+    t,
+    grid.cell(align: horizon, snip),
+  )
+
+
+]
+
 #let content = [
+
+  #show emph: it => text(fill: orange, it)
 
   == 基本数据类型
 
@@ -83,6 +130,7 @@ println!(\"\
 
   Integers, floating-point numbers, Booleans, and characters.
 
+  #floating_points
 
   #pagebreak()
   #intergers
