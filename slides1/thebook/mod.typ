@@ -43,4 +43,7 @@
   #import "./scalar-primitive-compound-types.typ"
   #scalar-primitive-compound-types.content
 
+  #import "./functions.typ"
+  #functions.content
+
 ]
