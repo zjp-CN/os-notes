@@ -1,6 +1,6 @@
 #import "utils.typ": *
 
-#let rust(code, out: none, size: 8pt, highlights: none) = {
+#let rust(code, out: none, size: 8pt, highlights: none, new_page: false) = {
   show raw.where(block: true): it => text(size, it)
   set block(breakable: false, spacing: 8pt)
 
@@ -24,6 +24,11 @@
   raw(code, lang: "rust", block: true)
 
   if out != none {
+    if new_page {
+      pagebreak()
+      codly(highlights: highlights) // 只高亮源代码
+      raw(code, lang: "rust", block: true)
+    }
     codly(
       highlights: none,
       fill: rgb("F6F7FC"),
@@ -38,6 +43,69 @@
 
   == 变量和可变性
 
+  #let snip_print = "fn main() {
+  let x = 5;
+  println!(\"The value of x is: {x}\");
+}"
+  #let snip_out_print = "$ cargo run
+The value of x is: 5"
+  #rust(
+    snip_print,
+    size: 15pt,
+    highlights: (
+      (
+        line: 1,
+        start: 4,
+        end: 20,
+        fill: green,
+      ),
+    ),
+  )
+  #pagebreak()
+  #rust(
+    snip_print,
+    size: 15pt,
+    highlights: (
+      (
+        line: 2,
+        start: 4,
+        end: 40,
+        fill: green,
+      ),
+    ),
+  )
+  #pagebreak()
+  #let snip_format = "format!(\"Hello\");                 // => \"Hello\"
+format!(\"Hello, {}!\", \"world\");   // => \"Hello, world!\"
+format!(\"The number is {}\", 1);   // => \"The number is 1\"
+format!(\"{:?}\", (3, 4));          // => \"(3, 4)\"
+format!(\"{value}\", value = 4);    // => \"4\"
+
+let people = \"Rustaceans\";
+format!(\"Hello {people}!\");       // => \"Hello Rustaceans!\"
+
+format!(\"{} {}\", 1, 2);           // => \"1 2\"
+format!(\"{:04}\", 42);             // => \"0042\" with leading zeros
+format!(\"{:#?}\", (100, 200));     // => \"(
+                                  //       100,
+                                  //       200,
+                                  //     )\""
+  #rust(snip_format)
+
+  `format!` 官方文档： https://doc.rust-lang.org/std/fmt/index.html
+
+  #link(
+    "https://www.yuque.com/zhoujiping/programming/pygvaf#sUK2v",
+    text[👉 我画的 `format!` 语法导图],
+  )
+  #pagebreak()
+  #rust(
+    snip_print,
+    out: snip_out_print,
+    size: 15pt,
+  )
+  #pagebreak()
+
   #rust(
     "fn main() {
   let x = 5;
@@ -46,7 +114,6 @@
   println!(\"The value of x is: {x}\");
 }",
     out: "$ cargo run
-   Compiling variables v0.1.0 (file:///projects/variables)
 error[E0384]: cannot assign twice to immutable variable `x`
  --> src/main.rs:4:5
   |
@@ -59,9 +126,8 @@ error[E0384]: cannot assign twice to immutable variable `x`
 4 |     x = 6;
   |     ^^^^^ cannot assign twice to immutable variable
 
-For more information about this error, try `rustc --explain E0384`.
-error: could not compile `variables` (bin \"variables\") due to 1 previous error",
-    size: 6.5pt,
+For more information about this error, try `rustc --explain E0384`.",
+    size: 7pt,
     highlights: (
       (
         line: 1,
