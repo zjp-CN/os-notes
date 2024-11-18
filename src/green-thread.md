@@ -44,17 +44,24 @@ green-thread 位于 `src/main.rs`，是参照更新过的源码，我稍微改�
 * 目前在 x86-64 架构上 Ubuntu 22.04 LTS 和 Windows11 机器上已经测试通过
 * 由于仍然使用 `#[naked]` 这个夜间功能，你需要 nightly Rust 才能运行它
 
-## `cargo r --bin full`
+更新：
+* 此代码需要 2024 年 10 月之后的 nightly，因为 naked 函数现在只能使用 `naked_asm!`
+* 基于 lewiszlw 的 [博客][lewiszlw-blog] 和 [代码][lewiszlw-code]，现在支持 risc-v 64，你可以使用
+  `cargo r --target riscv64gc-unknown-linux-gnu` 运行，已在 ubuntu 机器上测试通过；首次运行需要以下命令
 
-full 位于 `src/bin/full.rs`，这是原作者更新过的源码，green-thread 基于它。
+[lewiszlw-blog]: https://systemxlabs.github.io/blog/green-threads-in-200-lines-of-rust/
+[lewiszlw-code]: https://github.com/systemxlabs/green-threads-in-200-lines-of-rust
 
-## `cargo r --bin linux-only`
+```shell
+# install risc-v toolchain
+sudo apt install gcc-riscv64-linux-gnu g++-riscv64-linux-gnu libc6-dev-riscv64-cross
+# install qemu
+sudo apt install qemu-system-riscv64
+sudo apt install qemu-user-static
+# add target
+rustup target add riscv64gc-unknown-linux-gnu
+```
 
-linux-only 位于 `src/bin/linux-only.rs`，是参照未更新的代码（来自中文翻译的 200 行讲 Futures），在训练营第三阶段第一周和“人造人”一起改的。
-
-修复一些错误和警告，并增加了一些日志式的打印，它可以跑在 stable Rust 中，因为 `#[naked]` 被替换成了类似 rCore 那样的纯汇编写法。
-
-它无法在 Windows 上跑通，如果你想解决它，需要阅读我上面给的英文原文，里面介绍了支持 Windows 系统的思路，或者直接研究/运行 green-thread 代码。
 
 # `asm!` 宏
 
@@ -66,6 +73,10 @@ linux-only 位于 `src/bin/linux-only.rs`，是参照未更新的代码（来自
 [Reference: inline assembly]: https://doc.rust-lang.org/stable/reference/inline-assembly.html
 
 # `#[naked]` 属性
+
+> 注意：此部分内容有些过时，在 2024 年 10 月之后的 nightly rustc 中，`#[naked]` 函数内部必须使用 `naked_asm!`，不运行使用 `asm!`，见 [#128651]。
+
+[#128651]: https://github.com/rust-lang/rust/pull/128651
 
 > 这部分内容整理自 [RFC#2972: naked]
 
