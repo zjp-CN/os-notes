@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>embassy: sync - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html" class="active"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/embassy-sync.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <p>记录一些 embassy-sync 库提供的高级同步原语，它们与执行器无关，既可用于 embassy-executor，又可用于其他异步运行时。</p>
+<h1 id="zerocopy_channel-spsc"><a class="header" href="#zerocopy_channel-spsc">zerocopy_channel (SPSC)</a></h1>
+<blockquote>
+<p>A zero-copy queue for sending values between asynchronous tasks.</p>
+<p>It can be used concurrently by a producer (sender) and a consumer (receiver), i.e. it is an “SPSC channel”.</p>
+<p>This queue takes a Mutex type so that various targets can be attained. For example, a ThreadModeMutex can be used for single-core Cortex-M targets where messages are only passed between tasks running in thread mode. Similarly, a CriticalSectionMutex can also be used for single-core targets where messages are to be passed from exception mode e.g. out of an interrupt handler.</p>
+<p>This module provides a bounded channel that has a limit on the number of messages that it can store, and if this limit is reached, trying to send another message will result in an error being returned.</p>
+<p>src: <a href="https://docs.embassy.dev/embassy-sync/git/default/zerocopy_channel/index.html">embassy_sync::zerocopy_channel</a> 文档</p>
+</blockquote>
+<p>除了上述文档提到的特点，我还发现 zerocopy_channel 在 API 上一些有趣的设计：</p>
+<ul>
+<li>提供同步和异步两种方式收发消息</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>API</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>fn try_send(&amp;mut Sender) -&gt; Option&lt;&amp;mut T&gt;</code></td><td>同步发送</td></tr>
+<tr><td><code>async fn send(&amp;mut Sender) -&gt; &amp;mut T</code></td><td>异步发送</td></tr>
+<tr><td><code>fn send_done(&amp;mut Sender)</code></td><td>通知已发送</td></tr>
+<tr><td><code>fn try_receive(&amp;mut Receiver) -&gt; Option&lt;&amp;mut T&gt;</code></td><td>同步接收</td></tr>
+<tr><td><code>async fn receive(&amp;mut Receiver) -&gt; &amp;mut T</code></td><td>异步接收</td></tr>
+<tr><td><code>fn receive_done(&amp;mut Receiver)</code></td><td>通知已接收</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li>发送方通过 <code>&amp;mut T</code> 来写入 <code>T</code> 值（而不是直接作为参数传递给发送函数）：比如 <code>let val = sender.send().await; *val = new_value;</code></li>
+<li>执行发送或者接收，必须调用通知函数，否则另一方无法继续（即使缓冲区还有空间，也无法继续）
+<ul>
+<li>发送方必须通过调用 send_done 来通知完成发送完成，才能让接收方拿到值</li>
+<li>接收方必须通过调用 receive_done 来通知完成接受完成，才能让发送方继续发送</li>
+</ul>
+</li>
+<li>双向通道：接收方也可以通过 <code>&amp;mut T</code> 写入值让发送方看到，也就是说，消费者和生产者可以原地转换角色，这不同于传统的 SPSC </li>
+<li><code>Channel&lt;'_, M, T&gt;::split(&amp;mut self) -&gt; (Sender&lt;'_, M, T&gt;, Receiver&lt;'_, M, T&gt;)</code> 使用了一个巧妙的技巧来实现内部可变性：通过将生命周期转移到
+PhantomData，利用裸指针构造 Sender 和 Receiver，它们内部的 channel 为 <code>&amp;Channel</code> 而不是 <code>&amp;mut Channel</code>（因为借用规则）。此外，还可以注意到
+Sender 和 Receiver 在发送和接收等函数上使用 <code>&amp;mut self</code>，这是因为 SPSC 每次只能从缓冲区/切片上对一个元素进行操作（获取、修改、通知），这自然是独占的。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Channel&lt;'a, M: RawMutex, T&gt; {
+    buf: *mut T,
+    phantom: PhantomData&lt;&amp;'a mut T&gt;,
+    state: Mutex&lt;M, RefCell&lt;State&gt;&gt;,
+}
+
+impl&lt;'a, M: RawMutex, T&gt; Channel&lt;'a, M, T&gt; {
+    pub fn split(&amp;mut self) -&gt; (Sender&lt;'_, M, T&gt;, Receiver&lt;'_, M, T&gt;) {
+        (Sender { channel: self }, Receiver { channel: self })
+    }
+}
+
+impl&lt;'a, M: RawMutex, T&gt; Sender&lt;'a, M, T&gt; {
+    /// Attempts to send a value over the channel.
+    pub fn try_send(&amp;mut self) -&gt; Option&lt;&amp;mut T&gt; { ... }
+
+    /// Asynchronously send a value over the channel.
+    pub async fn send(&amp;mut self) -&gt; &amp;mut T { ... }
+
+    /// Notify the channel that the sending of the value has been finalized.
+    pub fn send_done(&amp;mut self) { ... }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="基础示例"><a class="header" href="#基础示例">基础示例</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use colored::Colorize;
+</span><span class="boring">use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
+</span><span class="boring">use embassy_sync::zerocopy_channel::{self as channel, Channel};
+</span><span class="boring">use embassy_time::Timer;
+</span><span class="boring">
+</span>#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+<span class="boring">    const N: usize = 2;
+</span>    let buf = Box::into_raw(Box::new([0; N]) as Box&lt;[_]&gt;);
+
+    let channel = Box::leak(Box::new(Channel::&lt;'static, CriticalSectionRawMutex, _&gt;::new(unsafe { &amp;mut *buf })));
+    let (sender, recv) = channel.split();
+
+    spawner.spawn(consumer(recv)).unwrap();
+    spawner.spawn(producer(sender)).unwrap(); // tasks start in reverse order
+}
+
+<span class="boring">type Sender = channel::Sender&lt;'static, CriticalSectionRawMutex, i32&gt;;
+</span><span class="boring">type Receiver = channel::Receiver&lt;'static, CriticalSectionRawMutex, i32&gt;;
+</span><span class="boring">
+</span>#[embassy_executor::task]
+async fn producer(mut sender: Sender) {
+    loop {
+        let val = sender.send().await;
+<span class="boring">        println!(&quot;{}&quot;, format!(&quot;before send: val={val}&quot;).white());
+</span>        *val += 1;
+<span class="boring">        println!(&quot;{}&quot;, format!(&quot;send: val={val}&quot;).green().bold());
+</span>        sender.send_done();
+        Timer::after_secs(1).await;
+    }
+}
+
+#[embassy_executor::task]
+async fn consumer(mut receiver: Receiver) {
+    loop {
+        let val = receiver.receive().await;
+<span class="boring">        println!(&quot;{}&quot;, format!(&quot;recv: val={val}&quot;).blue().bold().on_white());
+</span>        *val += 2;
+<span class="boring">        println!(&quot;{}&quot;, format!(&quot;after recv: val={val}&quot;).white());
+</span>        receiver.receive_done();
+        Timer::after_secs(1).await;
+    }
+}</code></pre></pre>
+<details>
+<summary>点击展开/收起 打印结果</summary>
+<pre><code class="language-text">before send: val=0
+send: val=1
+recv: val=1
+after recv: val=3
+before send: val=0
+send: val=1
+recv: val=1
+after recv: val=3
+before send: val=3
+send: val=4
+recv: val=4
+after recv: val=6
+before send: val=3
+send: val=4
+recv: val=4
+after recv: val=6
+before send: val=6
+send: val=7
+recv: val=7
+after recv: val=9
+</code></pre>
+</details>
+<p>上面是缓冲 2 个值的情况，如果你设置缓冲 1 个值 (N=1)，能清晰地看到双向通道中的数据传递：</p>
+<pre><code>before send: val=0
+[send] ++1 val=1
+recv: val=1
+[recv] ++2 val=3
+before send: val=3
+[send] ++1 val=4
+recv: val=4
+[recv] ++2 val=6
+before send: val=6
+[send] ++1 val=7
+recv: val=7
+[recv] ++2 val=9
+</code></pre>
+<p>它在 embassy 项目内部的使用方式见 <a href="https://github.com/embassy-rs/embassy/blob/b0172bb58217d625a13fed8122827b8d0b03c46a/embassy-net-driver-channel/src/lib.rs#L81">embassy-net-driver-channel</a> 和 <a href="https://github.com/embassy-rs/embassy/blob/b0172bb58217d625a13fed8122827b8d0b03c46a/examples/rp/src/bin/zerocopy.rs#L2">zerocopy example</a>。</p>
+<h2 id="背压示例"><a class="header" href="#背压示例">背压示例</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">use embassy_futures::yield_now;
+</span><span class="boring">use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
+</span><span class="boring">use embassy_sync::zerocopy_channel::{self as channel, Channel};
+</span><span class="boring">use embassy_time as _; // prevent symbol _embassy_time_* from removing due to dead code in linking
+</span><span class="boring">
+</span><span class="boring">const N: usize = 2;
+</span><span class="boring">
+</span>#[embassy_executor::main]
+async fn main(spawner: embassy_executor::Spawner) {
+    let buf = Box::into_raw(Box::new([0; N]) as Box&lt;[_]&gt;);
+
+    let channel = Box::leak(Box::new(Channel::&lt;'static, CriticalSectionRawMutex, _&gt;::new(unsafe { &amp;mut *buf })));
+    let (sender, recv) = channel.split();
+
+    spawner.spawn(consumer(recv)).unwrap();
+    spawner.spawn(producer(sender)).unwrap(); // tasks start in reverse order
+}
+
+<span class="boring">type Sender = channel::Sender&lt;'static, CriticalSectionRawMutex, i32&gt;;
+</span><span class="boring">type Receiver = channel::Receiver&lt;'static, CriticalSectionRawMutex, i32&gt;;
+</span><span class="boring">
+</span>#[embassy_executor::task]
+async fn producer(mut sender: Sender) {
+    let mut send = |n| {
+        if let Some(val) = sender.try_send() {
+            *val = n;
+            println!(&quot;send {n}&quot;);
+            sender.send_done();
+        } else {
+            println!(&quot;send failure: {n}&quot;); // back pressure
+        }
+    };
+    for m in 1..10 {
+        for n in 0..N {
+            send((n + m * 10) as i32);
+        }
+        yield_now().await;
+    }
+}
+
+#[embassy_executor::task]
+async fn consumer(mut receiver: Receiver) {
+    let mut recv = || {
+        if let Some(val) = receiver.try_receive() {
+            println!(&quot;recv {val}&quot;);
+            receiver.receive_done();
+        }
+    };
+    loop {
+        recv();
+        yield_now().await;
+    }
+}</code></pre></pre>
+<pre><code class="language-text">send 10
+send 11
+recv 10
+recv 11
+send 20
+send 21
+send failure: 30
+send failure: 31
+recv 20
+recv 21
+send 40
+send 41
+send failure: 50
+send failure: 51
+recv 40
+recv 41
+send 60
+send 61
+send failure: 70
+send failure: 71
+recv 60
+recv 61
+send 80
+send 81
+send failure: 90
+send failure: 91
+recv 80
+recv 81
+</code></pre>
+<h2 id="与执行器无关"><a class="header" href="#与执行器无关">与执行器无关</a></h2>
+<p>这里使用 <a href="https://docs.rs/pollster">pollster</a> 运行时展示：</p>
+<pre><pre class="playground"><code class="language-rust">//! 亮点：
+//! * 非 'static 的方式使用 `embassy_sync::zerocopy_channel::Channel`
+//! * 非 embassy-executor 执行器
+
+#![feature(future_join)]
+
+use embassy_sync::{
+    blocking_mutex::raw::NoopRawMutex,
+    zerocopy_channel::{self as zc, Channel},
+};
+
+#[pollster::main]
+async fn main() {
+    let mut buf = [const { Side::Producer(0) }; BUF_LEN];
+    let mut channel = Channel::&lt;NoopRawMutex, _&gt;::new(&amp;mut buf);
+    let (tx, rx) = channel.split();
+
+    core::future::join!(consumer(rx), producer(tx)).await;
+}
+
+type Sender&lt;'a&gt; = zc::Sender&lt;'a, NoopRawMutex, Side&gt;;
+type Receiver&lt;'a&gt; = zc::Receiver&lt;'a, NoopRawMutex, Side&gt;;
+
+#[derive(Debug)]
+enum Side {
+    Producer(i32),
+    Consumer(i32),
+}
+
+const BUF_LEN: usize = 1;
+const STOP: usize = 10;
+
+async fn producer(mut sender: Sender&lt;'_&gt;) {
+    for i in 0..STOP {
+        let val = sender.send().await;
+        match val {
+            Side::Producer(0) =&gt; (), // ignore init value
+            Side::Producer(_) =&gt; eprintln!(&quot;Not good: a producer got {val:?}&quot;),
+            &amp;mut Side::Consumer(n) =&gt; {
+                *val = Side::Producer(n + 1);
+                println!(&quot;[producer] i={i} got={:?}&quot;, Side::Consumer(n));
+            }
+        }
+        sender.send_done();
+    }
+}
+
+async fn consumer(mut receiver: Receiver&lt;'_&gt;) {
+    for j in 0..STOP {
+        let val = receiver.receive().await;
+        match val {
+            &amp;mut Side::Producer(n) =&gt; {
+                *val = Side::Consumer(n + 1);
+                println!(&quot;[consumer] j={j} got={:?}&quot;, Side::Producer(n));
+            }
+            Side::Consumer(_) =&gt; eprintln!(&quot;Not good: a consumer got {val:?}&quot;),
+        }
+        receiver.receive_done();
+    }
+}</code></pre></pre>
+<pre><code>    BUF_LEN=1 LOOP=9                            BUF_LEN=3 LOOP=9          
+[consumer] j=0 got=Producer(0)              [consumer] j=0 got=Producer(0)
+[producer] i=1 got=Consumer(1)              [consumer] j=1 got=Producer(0)
+[consumer] j=1 got=Producer(2)              [consumer] j=2 got=Producer(0)
+[producer] i=2 got=Consumer(3)              [producer] i=3 got=Consumer(1)
+[consumer] j=2 got=Producer(4)              [producer] i=4 got=Consumer(1)
+[producer] i=3 got=Consumer(5)              [producer] i=5 got=Consumer(1)
+[consumer] j=3 got=Producer(6)              [consumer] j=3 got=Producer(2)
+[producer] i=4 got=Consumer(7)              [consumer] j=4 got=Producer(2)
+[consumer] j=4 got=Producer(8)              [consumer] j=5 got=Producer(2)
+[producer] i=5 got=Consumer(9)              [producer] i=6 got=Consumer(3)
+[consumer] j=5 got=Producer(10)             [producer] i=7 got=Consumer(3)
+[producer] i=6 got=Consumer(11)             [producer] i=8 got=Consumer(3)
+[consumer] j=6 got=Producer(12)             [consumer] j=6 got=Producer(4)
+[producer] i=7 got=Consumer(13)             [consumer] j=7 got=Producer(4)
+[consumer] j=7 got=Producer(14)             [consumer] j=8 got=Producer(4)
+[producer] i=8 got=Consumer(15)             [producer] i=9 got=Consumer(5)
+[consumer] j=8 got=Producer(16)             [consumer] j=9 got=Producer(6)
+[producer] i=9 got=Consumer(17)
+[consumer] j=9 got=Producer(18)
+</code></pre>
+<h1 id="mpmc-channel"><a class="header" href="#mpmc-channel">MPMC Channel</a></h1>
+<blockquote>
+<p>Channel - A Multiple Producer Multiple Consumer (MPMC) channel. Each message is only received by a single consumer.</p>
+<p>A bounded channel for communicating between asynchronous tasks with backpressure.</p>
+<p>The channel will buffer up to the provided number of messages. Once the buffer is full, attempts to send new messages will wait until a message is received from the channel.</p>
+<p>All data sent will become available in the same order as it was sent.</p>
+<p>src: <a href="https://docs.embassy.dev/embassy-sync/git/default/channel/struct.Channel.html">embassy_sync::channel::Channel</a> 文档</p>
+</blockquote>
+<p>一个有趣的设计是，<code>Channel</code> 具有动态分发的形式 <code>&amp;dyn DynamicChannel&lt;T&gt;</code>（比如基于此的 <code>DynamicSender</code> 和 <code>DynamicReceiver</code>），
+它擦除了两个类型参数 M （互斥锁类型） 和 N （队列大小），只与 T （传递的数据）有关，这会带来使用上的便利。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Channel&lt;M, T, const N: usize&gt;
+where
+    M: RawMutex,
+{
+    inner: Mutex&lt;M, RefCell&lt;ChannelState&lt;T, N&gt;&gt;&gt;,
+}
+
+impl&lt;M: RawMutex, T, const N: usize&gt; Channel&lt;M, T, N&gt;
+{
+    /// Get a sender for this channel using dynamic dispatch.
+    pub fn dyn_sender(&amp;self) -&gt; DynamicSender&lt;'_, T&gt; {
+        DynamicSender { channel: self }
+    }
+
+    /// Get a receiver for this channel using dynamic dispatch.
+    pub fn dyn_receiver(&amp;self) -&gt; DynamicReceiver&lt;'_, T&gt; {
+        DynamicReceiver { channel: self }
+    }
+}
+
+// trait object: 擦除 Channel 上的 M （互斥锁类型） 和 N （队列大小）
+pub(crate) trait DynamicChannel&lt;T&gt; {
+    fn try_send_with_context(&amp;self, message: T, cx: Option&lt;&amp;mut Context&lt;'_&gt;&gt;) -&gt; Result&lt;(), TrySendError&lt;T&gt;&gt;;
+
+    fn try_receive_with_context(&amp;self, cx: Option&lt;&amp;mut Context&lt;'_&gt;&gt;) -&gt; Result&lt;T, TryReceiveError&gt;;
+
+    fn poll_ready_to_send(&amp;self, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;()&gt;;
+    fn poll_ready_to_receive(&amp;self, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;()&gt;;
+
+    fn poll_receive(&amp;self, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;T&gt;;
+}
+impl&lt;M: RawMutex, T, const N: usize&gt; Channel&lt;M, T, N&gt; { ... }
+
+/// Send-only access to a [`Channel`] without knowing channel size.
+pub struct DynamicSender&lt;'ch, T&gt; {
+    pub(crate) channel: &amp;'ch dyn DynamicChannel&lt;T&gt;,
+}
+
+/// Receive-only access to a [`Channel`] without knowing channel size.
+pub struct DynamicReceiver&lt;'ch, T&gt; {
+    pub(crate) channel: &amp;'ch dyn DynamicChannel&lt;T&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<h1 id="名词解释"><a class="header" href="#名词解释">名词解释</a></h1>
+<p>结果来自 kimi (AI)，不保证完全准确。</p>
+<h2 id="backpressure-背压"><a class="header" href="#backpressure-背压">Backpressure (背压)</a></h2>
+<p>在并发编程中，背压（Backpressure）是一种机制，用于处理在数据流或消息传递系统中，生产者（发送方）生成数据的速度超过消费者（接收方）处理数据的速度的情况。背压的目的是防止系统过载，避免资源耗尽，保证系统的稳定性和可靠性。</p>
+<ul>
+<li>
+<p>背压的工作原理：</p>
+<ol>
+<li>
+<p><strong>生产者-消费者模型</strong>：在生产者-消费者模型中，生产者生成数据，消费者处理数据。当消费者处理速度跟不上生产者生成速度时，就需要背压机制介入。</p>
+</li>
+<li>
+<p><strong>信号反馈</strong>：消费者通过某种方式向生产者发出信号，告知其处理能力。这可以是直接的反馈信号，也可以是通过队列长度等间接方式。</p>
+</li>
+<li>
+<p><strong>生产者调节</strong>：接收到背压信号后，生产者会减少数据生成的速度，或者暂停生成，直到消费者能够赶上。</p>
+</li>
+<li>
+<p><strong>动态调整</strong>：背压机制通常需要动态调整，以适应不断变化的系统负载和处理能力。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>背压的实现方式：</p>
+<ol>
+<li>
+<p><strong>阻塞队列</strong>：使用阻塞队列，当队列满时，生产者会被阻塞，直到队列中有空间。</p>
+</li>
+<li>
+<p><strong>流控制</strong>：在流式处理系统中，如Reactive Streams，通过请求-响应模式来控制数据流。</p>
+</li>
+<li>
+<p><strong>信用模型</strong>：在某些协议中，如TCP，使用信用模型来控制数据的发送，接收方告诉发送方可以发送多少数据。</p>
+</li>
+<li>
+<p><strong>限流算法</strong>：如令牌桶算法或漏桶算法，通过控制数据生成或传输的速率来实现背压。</p>
+</li>
+<li>
+<p><strong>资源池管理</strong>：通过动态调整资源池的大小，如线程池或连接池，来适应当前的负载。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>背压的重要性：</p>
+<ul>
+<li><strong>防止系统过载</strong>：避免因处理能力不足而导致的系统崩溃。</li>
+<li><strong>提高资源利用率</strong>：合理分配资源，避免资源浪费。</li>
+<li><strong>保证服务质量</strong>：通过控制数据流，保证系统的响应时间和吞吐量。</li>
+</ul>
+</li>
+</ul>
+<p>背压是并发编程中一个重要的概念，正确实现背压机制对于构建高效、稳定和可扩展的系统至关重要。</p>
+<h2 id="spsc"><a class="header" href="#spsc">SPSC</a></h2>
+<p>SPSC（Single-Producer Single-Consumer）通道是一种特定的队列，它被设计为只由一个生产者（Producer）和一个消费者（Consumer）访问。这种设计模式可以提供高效率的数据交换，因为它避免了多线程环境下的锁竞争和同步开销。</p>
+<ul>
+<li>
+<p>SPSC通道的特点：</p>
+<ol>
+<li>
+<p><strong>无锁设计</strong>：由于只有一个生产者和一个消费者，SPSC通道通常不需要使用锁来保护数据结构，从而减少了锁的开销。</p>
+</li>
+<li>
+<p><strong>线程安全</strong>：尽管没有锁，但SPSC通道在设计上保证了线程安全，因为只有一个生产者和一个消费者，所以不会出现数据竞争的问题。</p>
+</li>
+<li>
+<p><strong>高吞吐量</strong>：由于没有同步开销，SPSC通道可以提供很高的数据吞吐量。</p>
+</li>
+<li>
+<p><strong>低延迟</strong>：无锁设计还可以减少延迟，因为生产者和消费者不需要等待锁的释放。</p>
+</li>
+<li>
+<p><strong>简单性</strong>：SPSC通道的实现相对简单，因为只需要考虑单向的数据流。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>SPSC通道的实现：</p>
+<ol>
+<li>
+<p><strong>环形缓冲区</strong>：SPSC通道通常使用环形缓冲区（Ring Buffer）来存储数据。生产者在缓冲区的一端添加数据，消费者从另一端取出数据。</p>
+</li>
+<li>
+<p><strong>索引管理</strong>：生产者和消费者各自维护一个索引来跟踪它们在环形缓冲区中的位置。</p>
+</li>
+<li>
+<p><strong>边界条件处理</strong>：当生产者或消费者到达环形缓冲区的末端时，需要正确处理边界条件，以确保数据的正确插入和取出。</p>
+</li>
+<li>
+<p><strong>内存对齐</strong>：为了提高性能，SPSC通道的实现通常会考虑内存对齐和缓存行的使用。</p>
+</li>
+<li>
+<p><strong>避免伪共享</strong>：在多核处理器上，避免伪共享（False Sharing）也是提高性能的关键。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>使用场景：</p>
+<ul>
+<li><strong>实时系统</strong>：在需要高吞吐量和低延迟的实时系统中，SPSC通道可以提供优秀的性能。</li>
+<li><strong>消息传递</strong>：在多线程或多进程间的消息传递中，SPSC通道可以作为一种高效的通信机制。</li>
+<li><strong>数据流处理</strong>：在需要高效数据流处理的场景中，例如视频编码、网络数据传输等。</li>
+</ul>
+</li>
+</ul>
+<p>SPSC通道是一种高效的并发数据结构，适用于特定的单生产者单消费者场景。然而，它并不适用于多生产者或多消费者的场景，这些场景可能需要更复杂的同步机制或不同的数据结构。</p>
+<h2 id="two-way-channel--bidirectional-queue"><a class="header" href="#two-way-channel--bidirectional-queue">Two-Way Channel / Bidirectional Queue</a></h2>
+<p>双向通道或双端队列是一种数据结构，允许两个端点（通常称为端点A和端点B）进行双向通信。这种队列可以看作是两个SPSC队列的组合，每个端点都有一个独立的发送和接收队列。以下是双向通道或双端队列的一些关键特点：</p>
+<ol>
+<li>
+<p><strong>独立队列</strong>：每个端点都有自己的发送队列和接收队列。端点A可以向自己的发送队列中添加数据，端点B可以从端点A的接收队列中取出数据；反之亦然。</p>
+</li>
+<li>
+<p><strong>无阻塞通信</strong>：如果设计得当，双向通道可以实现无阻塞通信，即生产者和消费者可以继续工作而不会被对方阻塞。</p>
+</li>
+<li>
+<p><strong>同步机制</strong>：尽管每个端点都有自己的队列，但在某些情况下可能需要同步机制来确保数据的一致性和完整性。</p>
+</li>
+<li>
+<p><strong>角色可转换</strong>：在某些实现中，端点可以在发送者和接收者之间转换角色，这要求通道能够处理这种角色转换。</p>
+</li>
+<li>
+<p><strong>流控制</strong>：双向通道可能需要更复杂的流控制机制，以确保数据的发送和接收速率相匹配，避免缓冲区溢出或饥饿。</p>
+</li>
+<li>
+<p><strong>低延迟</strong>：设计良好的双向通道可以提供低延迟的通信，这对于实时系统或高性能应用非常重要。</p>
+</li>
+<li>
+<p><strong>高吞吐量</strong>：通过优化数据结构和同步机制，双向通道可以实现高吞吐量的数据处理。</p>
+</li>
+<li>
+<p><strong>适用场景</strong>：双向通道适用于需要端点之间进行频繁、双向通信的场景，如对等网络、实时通信系统、分布式计算等。</p>
+</li>
+</ol>
+<p>实现双向通道或双端队列时，需要考虑以下方面：</p>
+<ul>
+<li><strong>数据结构</strong>：选择合适的数据结构来存储发送和接收队列中的数据。</li>
+<li><strong>同步和锁</strong>：确定是否需要使用锁或其他同步机制来保护共享数据。</li>
+<li><strong>性能优化</strong>：通过减少锁的使用、优化内存访问和利用现代CPU架构来提高性能。</li>
+<li><strong>错误处理</strong>：设计错误处理机制来处理通信过程中可能出现的问题，如缓冲区溢出、数据损坏等。</li>
+<li><strong>API设计</strong>：设计简洁直观的API，使得端点可以方便地发送和接收数据。</li>
+</ul>
+<p>双向通道或双端队列是一种灵活的通信机制，可以在多种应用场景中实现高效的数据交换。然而，它的实现比单向通道更复杂，需要仔细设计以确保性能和可靠性。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="embassy-interrupt.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="submodules.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="embassy-interrupt.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="submodules.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
