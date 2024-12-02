@@ -36,12 +36,12 @@
 
 cfsamson 的代码仓库自然也被他自己删除了，所以这个仓库记录的代码主要是由我搜集和改动的。
 
-## `cargo r --bin green-thread`
+## `cargo run`
 
 green-thread 位于 `src/main.rs`，是参照更新过的源码，我稍微改动了一下：
-* 将不同目标平台的条件编译代码拆分到模块
+* 将不同目标平台的条件编译代码拆分到模块：运行 `cargo run` 会根据 host OS 运行相应的代码
 * 修复 clippy 的建议
-* 目前在 x86-64 架构上 Ubuntu 22.04 LTS 和 Windows11 机器上已经测试通过
+* 目前在 x86-64 架构上 Ubuntu 22.04 LTS 和 Windows11 机器上已经测试通过，暂不支持 MacOS
 * 由于仍然使用 `#[naked]` 这个夜间功能，你需要 nightly Rust 才能运行它
 
 更新：
