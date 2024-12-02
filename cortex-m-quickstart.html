@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>cortex-m-quickstart - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html" class="active"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/cortex-m-quickstart.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="cortex-m-quickstart-的-qemu-模拟记录"><a class="header" href="#cortex-m-quickstart-的-qemu-模拟记录">cortex-m-quickstart 的 qemu 模拟记录</a></h1>
+<p>时间：2024-06-13</p>
+<p><a href="https://github.com/rust-embedded">rust-embedded</a> 组织有一本关于 Rust 做嵌入式的书籍 《<a href="https://docs.rust-embedded.org/book/start/qemu.html">The Embedded Rust Book</a>》。</p>
+<p>在那里有基于 qemu 模拟的 <a href="https://github.com/rust-embedded/cortex-m-quickstart">cortex-m-quickstart</a> 项目流程介绍：<a href="https://docs.rust-embedded.org/book/start/qemu.html">https://docs.rust-embedded.org/book/start/qemu.html</a>。</p>
+<p>整体过程非常清楚，我跑通了几个示例。那里有的细节我不在这里重复，但提取一下重点，补充一点细节吧。</p>
+<h2 id="环境准备"><a class="header" href="#环境准备">环境准备</a></h2>
+<h3 id="rustup"><a class="header" href="#rustup">rustup</a></h3>
+<p>使用 Rust 交叉编译需要相应的工具链。设置 Rust 工具链的方式主要有两种</p>
+<ul>
+<li>项目内的固定工具链 <code>rust-toolchain.toml</code>（参考 <a href="https://github.com/embassy-rs/embassy/blob/main/rust-toolchain.toml">embassy/rust-toolchain.toml</a>，建议去掉那些你不想要的目标名）</li>
+<li>通过 rustup 命令行灵活添加工具链，比如对于 <code>thumbv6m-none-eabi</code>，使用</li>
+</ul>
+<pre><code class="language-console">rustup target add thumbv7m-none-eabi
+</code></pre>
+<h3 id="qemu"><a class="header" href="#qemu">qemu</a></h3>
+<p>虽然最新的版本是 9（鼓励使用最新版本），但我本地已经有 8.2.2，所以拿这个 8 的版本来说吧。</p>
+<pre><code class="language-console">cd /root/qemu/qemu-8.2.2 # 替换你本地解压后的 qemu 源码目录
+
+# --target-list=arm-softmmu 指定了 ARM 架构的软模拟
+# enable-pie 启用位置无关可执行文件
+./configure --target-list=arm-softmmu --enable-pie
+
+# 编译 qemu，二进制产物为 /root/qemu/qemu-8.2.2/build/qemu-system-arm
+make -j$(nproc)
+</code></pre>
+<h3 id="gdb"><a class="header" href="#gdb">gdb</a></h3>
+<p>和我之前编译 riscv 的流程是一样的，把目标平台从 <code>riscv64-unknown-elf</code> 改成 <code>arm-none-eabi</code>（编译目录也要换）。</p>
+<p>嗯... 这些目标名是怎么知道的呢，我翻过 gdb 的手册，印象中有提到它的<a href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Config-Names.html#Config-Names">目标三元组的编码规则</a> 为 <code>architecture-vendor-os</code>，但绝对没有直接给这些三元组列表 ：)</p>
+<p>实际上，在 gdb 的文档里介绍两种方式去了解目标名：</p>
+<ol>
+<li>阅读随源码附带的 config.sub 脚本（这被用于 ./configure 脚本来替换缩写）</li>
+<li>运行这个脚本尝试三元组</li>
+</ol>
+<p>相当原始和易于出错，因为根据文档：</p>
+<ul>
+<li>当你尝试查询 <code>i386-linux</code>，会得到良好的 <code>i386-pc-linux-gnu</code></li>
+<li>而实际上如果你查询 <code>arm-eabi</code> ，会得到 <code>arm-unknown-eabi</code>，而不是 <code>arm-none-eabi</code></li>
+<li>查询 <code>arm-none</code> 呢？结果是 <code>arm-unknown-none</code></li>
+</ul>
+<p>是的，你只有输入 <code>arm-none-eabi</code> 才会得到良好的 <code>arm-none-eabi</code>。</p>
+<p>你可能会争辩，使用 <code>arm-unknown-eabi</code> 就好了，可是经过搜索，从经验角度看，这似乎并不是一个常见的目标名。</p>
+<p>unknown 和 none 肯定在含义上有交叉，但我真的没有兴趣去了解它们的区别。</p>
+<p>背景故事结束，那么我在这把修改后的安装流程贴在这（gdb 的版本号自己改一下）：</p>
+<pre><code class="language-console"># 1. 首先一些依赖项，其中 libncurses5-dev 提供了 TUI 库（--enable-tui 需要它)
+sudo apt-get install libncurses5-dev texinfo libreadline-dev # python python-dev 
+# 这里的 python 和 python-dev 并不必须是 python2，我本地的默认 python 就是 3，可以编译成功并且正常使用
+
+# 2. 检查本地 python 路径
+which python # 或者 ll $(which python) 查看链接到那个 python，我的是 /usr/local/sbin/python -&gt; /usr/bin/python3
+
+# 3. 下载最新的 GDB 源码，清华镜像地址： https://mirrors.tuna.tsinghua.edu.cn/gnu/gdb/?C=M&amp;O=D
+wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gdb/gdb-14.2.tar.xz
+
+# 4. 解压缩它（你可以使用 tar 命令，我懒得查和记，因为我一直使用 ouch ），源码在 $PWD/gdb-14.2/ 文件夹下 
+ouch d gdb-14.2.tar.xz
+
+# 5. 进入这个目录，并在里面创建另一个目录，用来存放编译结果和二进制文件
+cd gdb-14.2
+mkdir build-arm-eabi
+
+# 适当阅读一下 gdb-14.2/gdb/README，这可是 GDB 的官方安装说明
+
+# 6. 进入 gdb-14.4/build-arm-eabi 目录，准备编译
+cd build-arm-eabi
+../configure --prefix=/root/qemu/gdb-14.2/build-arm-eabi --with-python=/usr/local/sbin/python --target=arm-none-eabi --enable-tui=yes
+
+# 7. 编译并生成二进制文件 
+make -j$(nproc)
+make install
+
+# 8. 编译好的 GDB 存放在 build-arm-eabi/bin/ 目录下，你可以只保留这个目录，然后添加这个目录到环境变量。
+# 确认 GDB 可以运行
+./bin/arm-none-eabi-gdb --version
+# 在 `~/.bashrc` 文件中，添加以下一行，然后开启新的终端（或者重启终端），那么 
+export PATH=&quot;/root/qemu/gdb-14.2/build-arm-eabi/bin:$PATH&quot;
+
+# 9. 安装 gdb-dashboard：仅仅是下载一个 python 文件到 ~/.gdbinit 来做 gdb 的启动拓展
+wget -P ~ https://github.com/cyrus-and/gdb-dashboard/raw/master/.gdbinit
+</code></pre>
+<h2 id="cortex-m-quickstart-是什么"><a class="header" href="#cortex-m-quickstart-是什么">cortex-m-quickstart 是什么</a></h2>
+<p><a href="https://github.com/rust-embedded/cortex-m-quickstart">cortex-m-quickstart</a> 是 ARM Cortex-M 微控制器项目的应用程序模板，相当于编写各个目标编译平台的最简应用程序。</p>
+<p>具体有以下平台：</p>
+<pre><code class="language-toml"># .cargo/config.toml
+[build]
+# Pick ONE of these compilation targets
+# target = &quot;thumbv6m-none-eabi&quot;    # Cortex-M0 and Cortex-M0+
+# target = &quot;thumbv7m-none-eabi&quot;    # Cortex-M3
+# target = &quot;thumbv7em-none-eabi&quot;   # Cortex-M4 and Cortex-M7 (no FPU)
+# target = &quot;thumbv7em-none-eabihf&quot; # Cortex-M4F and Cortex-M7F (with FPU)
+# target = &quot;thumbv8m.base-none-eabi&quot;   # Cortex-M23
+# target = &quot;thumbv8m.main-none-eabi&quot;   # Cortex-M33 (no FPU)
+# target = &quot;thumbv8m.main-none-eabihf&quot; # Cortex-M33 (with FPU)
+</code></pre>
+<p>我在官方 qemu 上成功运行和（结合 gdb）调试过 thumbv7m-none-eabi 和 thumbv7em-none-eabihf。</p>
+<h2 id="thumbv7m-none-eabi"><a class="header" href="#thumbv7m-none-eabi">thumbv7m-none-eabi</a></h2>
+<p>book 里面的例子就是基于 <code>examples/hello.rs</code> 文件，一种做法是修改 <code>.cargo/config.toml</code> 文件</p>
+<ul>
+<li>把 <code>[build]</code> 键的 <code>target = &quot;thumbv7m-none-eabi&quot;</code> 取消注释，这样 <code>cargo build</code> 无需指定目标名就能交叉编译那个目标</li>
+<li>然后在 <code>[target.thumbv7m-none-eabi]</code> 键，编写 qemu 的运行命令，这样 <code>cargo run</code> 就能通过 qemu 运行那个目标的二进制文件</li>
+</ul>
+<pre><code class="language-toml">[target.thumbv7m-none-eabi]
+# uncomment this to make `cargo run` execute programs on QEMU
+runner = &quot;qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semihosting-config enable=on,target=native -kernel&quot;
+
+[build]
+target = &quot;thumbv7m-none-eabi&quot;
+</code></pre>
+<p>book 介绍了使用 gdb 进行调试，需要两个终端来分别运行这两个步骤：</p>
+<pre><code class="language-console"># 步骤1： qemu 运行二进制，通过 3333 端口让 gdb 远程调试
+qemu-system-arm \
+  -cpu cortex-m3 \
+  -machine lm3s6965evb \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -gdb tcp::3333 \
+  -S \
+  -kernel target/thumbv7m-none-eabi/debug/examples/hello
+
+# 步骤2：gdb 调试
+arm-none-eabi-gdb -ex 'file target/thumbv7m-none-eabi/debug/examples/hello' -ex 'target remote :3333'
+</code></pre>
+<p>有一些坑：</p>
+<ul>
+<li>qemu 官方只支持 stm32 的部分机器，<a href="https://www.qemu.org/docs/master/system/arm/stm32.html">见其文档</a>，或者通过
+<code>qemu-system-arm -machine help</code> 进行查询（见 <a href="#%E9%99%84%E5%BD%95-1qemu-%E6%94%AF%E6%8C%81%E7%9A%84-arm-%E6%9C%BA%E5%99%A8%E5%88%97%E8%A1%A8">附录 1</a>）</li>
+<li>gdb 也不一定支持一些目标架构，通过 <code>arm-none-eabi-gdb -ex 'set arch' -q</code> 可以看到没有 armv7m 
+架构（但有 armv7 和 armv7e-m）。可能这造成 gdb 运行 <code>start</code> 命令却无法执行程序（但远程调试可以执行和调试）。</li>
+</ul>
+<pre><code class="language-console">&gt;&gt;&gt; set architecture
+arm, armv2, armv2a, armv3, armv3m, armv4, armv4t, armv5, armv5t, armv5te,
+xscale, ep9312, iwmmxt, iwmmxt2, armv5tej, armv6, armv6kz, armv6t2, armv6k,
+armv7, armv6-m, armv6s-m, armv7e-m,
+armv8-a, armv8-r, armv8-m.base, armv8-m.main, armv8.1-m.main, armv9-a, arm_any, auto
+
+&gt;&gt;&gt; start
+Don't know how to run.  Try &quot;help target&quot;.
+</code></pre>
+<p>整体来说，这套做法适用于单目标编译，但不适用于多目标编译。</p>
+<p>我将在下一小节给出 makefile 来根据 example 名设置编译目标和 gdb 相关的命令。</p>
+<h2 id="thumbv7em-none-eabihf"><a class="header" href="#thumbv7em-none-eabihf">thumbv7em-none-eabihf</a></h2>
+<p>这个编译目标没有在 book 作为示例。</p>
+<p>我测试它主要是因为 gdb 支持 armv7e-m 架构，用来测试 gdb 能不能直接执行程序，结果是不能，还是得远程调试才行。</p>
+<p>这里直接贴 makefile 内容，这是不同于上一小节的启动方式，所以不需要动 <code>.cargo/config.toml</code> 文件。</p>
+<pre><code class="language-makefile">qemu := /root/qemu/qemu-8.2.2/build/qemu-system-arm
+
+bin ?= hello
+
+ifeq ($(bin),device)
+	cpu := cortex-m4
+	machine := netduinoplus2  
+	target := thumbv7em-none-eabihf
+	device_cargo := echo &quot;\033[41m\033[1mCargo.toml needs stm32f3 dependency for device example: uncomment it\033[0m&quot;
+else
+	cpu := cortex-m3
+	machine := lm3s6965evb  
+	target := thumbv7m-none-eabi 
+	device_cargo :=
+endif
+
+build:
+	@$(device_cargo)
+	cargo build --example $(bin) --target $(target)
+
+run: build
+	$(qemu) \
+  -cpu $(cpu) \
+  -machine $(machine) \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -kernel target/$(target)/debug/examples/$(bin)
+
+gdbserver: build
+	$(qemu) \
+  -cpu $(cpu) \
+  -machine $(machine) \
+  -nographic \
+  -semihosting-config enable=on,target=native \
+  -gdb tcp::3333 \
+  -S \
+  -kernel target/$(target)/debug/examples/$(bin)
+
+
+GDB_PATH := /root/qemu/gdb-14.2/build-arm-eabi/bin/arm-none-eabi-gdb
+gdb := RUST_GDB=$(GDB_PATH) rust-gdb
+
+gdbclient:
+	$(gdb) -ex 'file target/$(target)/debug/examples/$(bin)' -ex 'target remote :3333'
+</code></pre>
+<p>使用说明：</p>
+<ul>
+<li>先把第一行 qemu 的路径改成你本地的 </li>
+<li><code>make build</code>、<code>make run</code>、<code>make gdbserver</code> 和 <code>make gdbclient</code> 默认都是运行示例 hello </li>
+<li><code>thumbv7em-none-eabihf</code> 对应的示例为 device，在上述 make 子命令中添加 <code>bin=device</code> 即可运行或者调试
+<ul>
+<li>注意：需要取消注释 Cargo.toml 中的 <code>[dependencies.stm32f3]</code> 整个表，因为 device 需要 stm32f3 依赖</li>
+<li><code>make run bin=device</code> 运行程序</li>
+<li>两个终端分别运行 <code>make gdbserver bin=device</code> 和 <code>make gdbclient bin=device</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="附录-1官方-qemu-支持的-arm-机器列表"><a class="header" href="#附录-1官方-qemu-支持的-arm-机器列表">附录 1：官方 qemu 支持的 arm 机器列表</a></h2>
+<pre><code class="language-console"># qemu arm 模拟器支持的机器（每行末尾括号内为 cpu 型号，传递给 -cpu 参数，但注意改成小写）
+$ /root/qemu/qemu-8.2.2/build/qemu-system-arm -machine help
+Supported machines are:
+akita                Sharp SL-C1000 (Akita) PDA (PXA270)
+ast1030-evb          Aspeed AST1030 MiniBMC (Cortex-M4)
+ast2500-evb          Aspeed AST2500 EVB (ARM1176)
+ast2600-evb          Aspeed AST2600 EVB (Cortex-A7)
+bletchley-bmc        Facebook Bletchley BMC (Cortex-A7)
+borzoi               Sharp SL-C3100 (Borzoi) PDA (PXA270)
+bpim2u               Bananapi M2U (Cortex-A7)
+canon-a1100          Canon PowerShot A1100 IS (ARM946)
+cheetah              Palm Tungsten|E aka. Cheetah PDA (OMAP310)
+collie               Sharp SL-5500 (Collie) PDA (SA-1110)
+connex               Gumstix Connex (PXA255)
+cubieboard           cubietech cubieboard (Cortex-A8)
+emcraft-sf2          SmartFusion2 SOM kit from Emcraft (M2S010)
+fby35-bmc            Facebook fby35 BMC (Cortex-A7)
+fby35                Meta Platforms fby35
+fp5280g2-bmc         Inspur FP5280G2 BMC (ARM1176)
+fuji-bmc             Facebook Fuji BMC (Cortex-A7)
+g220a-bmc            Bytedance G220A BMC (ARM1176)
+highbank             Calxeda Highbank (ECX-1000)
+imx25-pdk            ARM i.MX25 PDK board (ARM926)
+integratorcp         ARM Integrator/CP (ARM926EJ-S)
+kudo-bmc             Kudo BMC (Cortex-A9)
+kzm                  ARM KZM Emulation Baseboard (ARM1136)
+lm3s6965evb          Stellaris LM3S6965EVB (Cortex-M3)
+lm3s811evb           Stellaris LM3S811EVB (Cortex-M3)
+mainstone            Mainstone II (PXA27x)
+mcimx6ul-evk         Freescale i.MX6UL Evaluation Kit (Cortex-A7)
+mcimx7d-sabre        Freescale i.MX7 DUAL SABRE (Cortex-A7)
+microbit             BBC micro:bit (Cortex-M0)
+midway               Calxeda Midway (ECX-2000)
+mori-bmc             Mori BMC (Cortex-A9)
+mps2-an385           ARM MPS2 with AN385 FPGA image for Cortex-M3
+mps2-an386           ARM MPS2 with AN386 FPGA image for Cortex-M4
+mps2-an500           ARM MPS2 with AN500 FPGA image for Cortex-M7
+mps2-an505           ARM MPS2 with AN505 FPGA image for Cortex-M33
+mps2-an511           ARM MPS2 with AN511 DesignStart FPGA image for Cortex-M3
+mps2-an521           ARM MPS2 with AN521 FPGA image for dual Cortex-M33
+mps3-an524           ARM MPS3 with AN524 FPGA image for dual Cortex-M33
+mps3-an547           ARM MPS3 with AN547 FPGA image for Cortex-M55
+musca-a              ARM Musca-A board (dual Cortex-M33)
+musca-b1             ARM Musca-B1 board (dual Cortex-M33)
+musicpal             Marvell 88w8618 / MusicPal (ARM926EJ-S)
+n800                 Nokia N800 tablet aka. RX-34 (OMAP2420)
+n810                 Nokia N810 tablet aka. RX-44 (OMAP2420)
+netduino2            Netduino 2 Machine (Cortex-M3)
+netduinoplus2        Netduino Plus 2 Machine (Cortex-M4)
+none                 empty machine
+npcm750-evb          Nuvoton NPCM750 Evaluation Board (Cortex-A9)
+nuri                 Samsung NURI board (Exynos4210)
+olimex-stm32-h405    Olimex STM32-H405 (Cortex-M4)
+orangepi-pc          Orange Pi PC (Cortex-A7)
+palmetto-bmc         OpenPOWER Palmetto BMC (ARM926EJ-S)
+qcom-dc-scm-v1-bmc   Qualcomm DC-SCM V1 BMC (Cortex A7)
+qcom-firework-bmc    Qualcomm DC-SCM V1/Firework BMC (Cortex A7)
+quanta-gbs-bmc       Quanta GBS (Cortex-A9)
+quanta-gsj           Quanta GSJ (Cortex-A9)
+quanta-q71l-bmc      Quanta-Q71l BMC (ARM926EJ-S)
+rainier-bmc          IBM Rainier BMC (Cortex-A7)
+raspi0               Raspberry Pi Zero (revision 1.2)
+raspi1ap             Raspberry Pi A+ (revision 1.1)
+raspi2b              Raspberry Pi 2B (revision 1.1)
+realview-eb          ARM RealView Emulation Baseboard (ARM926EJ-S)
+realview-eb-mpcore   ARM RealView Emulation Baseboard (ARM11MPCore)
+realview-pb-a8       ARM RealView Platform Baseboard for Cortex-A8
+realview-pbx-a9      ARM RealView Platform Baseboard Explore for Cortex-A9
+romulus-bmc          OpenPOWER Romulus BMC (ARM1176)
+sabrelite            Freescale i.MX6 Quad SABRE Lite Board (Cortex-A9)
+smdkc210             Samsung SMDKC210 board (Exynos4210)
+sonorapass-bmc       OCP SonoraPass BMC (ARM1176)
+spitz                Sharp SL-C3000 (Spitz) PDA (PXA270)
+stm32vldiscovery     ST STM32VLDISCOVERY (Cortex-M3)
+supermicro-x11spi-bmc Supermicro X11 SPI BMC (ARM1176)
+supermicrox11-bmc    Supermicro X11 BMC (ARM926EJ-S)
+sx1                  Siemens SX1 (OMAP310) V2
+sx1-v1               Siemens SX1 (OMAP310) V1
+tacoma-bmc           OpenPOWER Tacoma BMC (Cortex-A7)
+terrier              Sharp SL-C3200 (Terrier) PDA (PXA270)
+tiogapass-bmc        Facebook Tiogapass BMC (ARM1176)
+tosa                 Sharp SL-6000 (Tosa) PDA (PXA255)
+verdex               Gumstix Verdex Pro XL6P COMs (PXA270)
+versatileab          ARM Versatile/AB (ARM926EJ-S)
+versatilepb          ARM Versatile/PB (ARM926EJ-S)
+vexpress-a15         ARM Versatile Express for Cortex-A15
+vexpress-a9          ARM Versatile Express for Cortex-A9
+virt-2.10            QEMU 2.10 ARM Virtual Machine
+virt-2.11            QEMU 2.11 ARM Virtual Machine
+virt-2.12            QEMU 2.12 ARM Virtual Machine
+virt-2.6             QEMU 2.6 ARM Virtual Machine
+virt-2.7             QEMU 2.7 ARM Virtual Machine
+virt-2.8             QEMU 2.8 ARM Virtual Machine
+virt-2.9             QEMU 2.9 ARM Virtual Machine
+virt-3.0             QEMU 3.0 ARM Virtual Machine
+virt-3.1             QEMU 3.1 ARM Virtual Machine
+virt-4.0             QEMU 4.0 ARM Virtual Machine
+virt-4.1             QEMU 4.1 ARM Virtual Machine
+virt-4.2             QEMU 4.2 ARM Virtual Machine
+virt-5.0             QEMU 5.0 ARM Virtual Machine
+virt-5.1             QEMU 5.1 ARM Virtual Machine
+virt-5.2             QEMU 5.2 ARM Virtual Machine
+virt-6.0             QEMU 6.0 ARM Virtual Machine
+virt-6.1             QEMU 6.1 ARM Virtual Machine
+virt-6.2             QEMU 6.2 ARM Virtual Machine
+virt-7.0             QEMU 7.0 ARM Virtual Machine
+virt-7.1             QEMU 7.1 ARM Virtual Machine
+virt-7.2             QEMU 7.2 ARM Virtual Machine
+virt-8.0             QEMU 8.0 ARM Virtual Machine
+virt-8.1             QEMU 8.1 ARM Virtual Machine
+virt                 QEMU 8.2 ARM Virtual Machine (alias of virt-8.2)
+virt-8.2             QEMU 8.2 ARM Virtual Machine
+witherspoon-bmc      OpenPOWER Witherspoon BMC (ARM1176)
+xilinx-zynq-a9       Xilinx Zynq Platform Baseboard for Cortex-A9
+yosemitev2-bmc       Facebook YosemiteV2 BMC (ARM1176)
+z2                   Zipit Z2 (PXA27x)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="embassy-usage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="green-thread.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="embassy-usage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="green-thread.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
