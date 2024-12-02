@@ -78,6 +78,11 @@ rustup target add riscv64gc-unknown-linux-gnu
 
 [#128651]: https://github.com/rust-lang/rust/pull/128651
 
+
+<details>
+
+<summary>官方文档内容已过时，目前不建议查看</summary>
+
 > 这部分内容整理自 [RFC#2972: naked]
 
 [RFC#2972: naked]: https://github.com/rust-lang/rfcs/blob/master/text/2972-constrained-naked.md
@@ -102,7 +107,7 @@ rustup target add riscv64gc-unknown-linux-gnu
 
 [options]: https://doc.rust-lang.org/stable/reference/inline-assembly.html#options
 
-> 还有一个重要的限制：无法在 Rust 中使用函数参数。
+> 还有一个重要的限制：无法在 Rust 中使用函数参数。（更新：这一条限制来自 RFC，但由于该 RFC 已经有些过时，而我发现实际上现在编译器允许裸函数使用函数参数，因此这条不再成立）
 > 
 > 任何使用函数参数（即便用作操作数）的尝试都可能导致栈访问或修改。同样，任何寄存器操作数都可能导致编译器尝试在栈上保留寄存器。由于该函数没有 prologue，因此这是有问题的。为了避免这个问题，我们只是拒绝允许在 Rust 中使用任何函数参数。
 > 
@@ -110,7 +115,7 @@ rustup target add riscv64gc-unknown-linux-gnu
 >
 > 也就是说，必须通过汇编代码和调用约定来访问函数参数，而不能直接在 Rust 代码中访问它们。
 
-
+</details>
 
 # 名词解释
 
