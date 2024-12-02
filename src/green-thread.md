@@ -74,7 +74,7 @@ rustup target add riscv64gc-unknown-linux-gnu
 
 # `#[naked]` 属性
 
-> 注意：此部分内容有些过时，在 2024 年 10 月之后的 nightly rustc 中，`#[naked]` 函数内部必须使用 `naked_asm!`，不运行使用 `asm!`，见 [#128651]。
+> 注意：此部分内容有些过时，在 2024 年 10 月之后的 nightly rustc 中，`#[naked]` 函数内部必须使用 `naked_asm!`，不允许使用 `asm!`，见 [#128651]。
 
 [#128651]: https://github.com/rust-lang/rust/pull/128651
 
