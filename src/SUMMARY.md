@@ -40,6 +40,7 @@
   - [已阅读清单]()
     - [RTIC & embassy](./after-class/read-list/RTIC-embassyHAL.md)
     - [embassy 作者演讲](./after-class/read-list/embassy-speech.md)
+    - [短篇博客文章](./after-class/read-list/posts.md)
   - [待阅读清单](./after-class/todo-readling-list.md)
   - [杂项]()
     - [板子](./after-class/board.md)
