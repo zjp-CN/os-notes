@@ -45,3 +45,6 @@
   - [杂项]()
     - [板子](./after-class/board.md)
     - [Rust Embedded](./after-class/rust-embedded.md)
+
+- [冬季训练营]()
+  - [io_uring](./2024-winter/io_uring.md)
