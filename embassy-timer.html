@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>embassy: timer - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html" class="active"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/embassy-timer.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="embassy_time_driverdriver"><a class="header" href="#embassy_time_driverdriver"><code>embassy_time_driver::Driver</code></a></h1>
+<p>在 embassy 中，计时器的核心抽象是 Driver 接口：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub trait Driver: Send + Sync + 'static {
+    fn now(&amp;self) -&gt; u64;
+
+    unsafe fn allocate_alarm(&amp;self) -&gt; Option&lt;AlarmHandle&gt;;
+
+    fn set_alarm_callback(
+        &amp;self,
+        alarm: AlarmHandle,
+        callback: fn(_: *mut ()),
+        ctx: *mut ()
+    );
+
+    fn set_alarm(&amp;self, alarm: AlarmHandle, timestamp: u64) -&gt; bool;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>结合 embassy 一些实现代码，我发现 <code>Driver</code> trait 的类型大多有以下行为：</p>
+<ul>
+<li><code>now</code> 函数提供 tick 级别的、自开机以来的时间（不一定作为字段存储在类型上，因为可以直接读取状态寄存器来获取时间）</li>
+<li><code>allocate_alarm</code> 函数提供 alarm 分配逻辑：
+<ul>
+<li>alarm 应该有自己的数据结构（比如 AlarmState），存储来自执行器设置的回调函数和执行器实例</li>
+<li>alarm 的功能：适时执行回调函数</li>
+<li>分配 alarm 的数量通常是有上限的，该数量尤其是编译时已知的，比如 <code>[AlarmState; N]</code>，其中索引为 AlarmHandle </li>
+<li>AlarmHandle 实际上是一个整数编号的包装器类型，所以分配一个 alarm，就是分配一个索引/编号（当然，也可能包含一些设置 AlarmState 的逻辑）</li>
+</ul>
+</li>
+<li><code>set_alarm_callback</code> 函数其实就是对第 n 个 alarm 在运行时进行初始化，通常由执行器设置</li>
+<li><code>set_alarm</code> 函数通过告知第 n 个 alram，以及一个给定的 tick 时刻来安排执行回调函数
+<ul>
+<li>当这个给定的时刻处于将来，那么它返回 true，以非同步方式安排回调函数执行，这意味着不要在 set_alarm 函数内直接运行回调函数！</li>
+<li>当这个给定的时刻已经过去，那么它返回 false，无需安排回调函数执行</li>
+<li><code>embassy-executor</code> 开启 <code>integrated-timers</code> feature 之后，一旦 set_alarm 返回 true，那么结束一轮 poll；如果 set_alarm 
+一直返回 false，那么将这轮 poll 会一直持续下去</li>
+</ul>
+</li>
+</ul>
+<p>这个 <a href="https://github.com/embassy-rs/embassy/blob/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-executor/src/raw/mod.rs#L359">回调函数</a> 目前仅仅是调用 <code>__pender</code> 函数，相应的代码如下：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 每个编译目标提供：
+// * embassy 在 arch* feature 上提供默认的 __pender
+// * 如果自己提供，不要开启 embassy 任何 arch 开头的 feature
+//
+// context 实际上是 raw::Executor::new(context) 中的参数，由自己构造，
+// 比如在我写的 embassy-usage 中为一个类似唤醒的结构
+#[export_name = &quot;__pender&quot;]
+fn __pender(context: *mut ()) { ... } 
+
+impl SyncExecutor { // Executor 的内部结构
+    #[cfg(feature = &quot;integrated-timers&quot;)]
+    fn alarm_callback(ctx: *mut ()) {
+        let this: &amp;Self = unsafe { &amp;*(ctx as *const Self) };
+        this.pender.pend(); // 最终调用 __pender
+    }
+
+    pub(crate) unsafe fn poll(&amp;'static self) {
+        #[cfg(feature = &quot;integrated-timers&quot;)]
+        // 由执行器注册回调函数 (__pender)
+        embassy_time_driver::set_alarm_callback(self.alarm, Self::alarm_callback, self as *const _ as *mut ());
+        ...
+        loop {
+            ...
+            #[cfg(feature = &quot;integrated-timers&quot;)]
+            {
+                // If this is already in the past, set_alarm might return false
+                // In that case do another poll loop iteration.
+                let next_expiration = self.timer_queue.next_expiration();
+                if embassy_time_driver::set_alarm(self.alarm, next_expiration) {
+                    // 当 set_alarm 返回 true，结束这轮 poll，安排执行 __pender
+                    break;
+                }
+            }
+        }
+        ...
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="now"><a class="header" href="#now"><code>now</code></a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn now(&amp;self) -&gt; u64
+<span class="boring">}</span></code></pre></pre>
+<p>当前的时间戳，用 tick 计算；必须保证：</p>
+<ul>
+<li>单调增加：调用的结果总是比之前调用的结果更大或者相等（时间不能回退）</li>
+<li>不能溢出：可以运行足够长的时间</li>
+</ul>
+<h2 id="allocate_alarm"><a class="header" href="#allocate_alarm"><code>allocate_alarm</code></a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe fn allocate_alarm(&amp;self) -&gt; Option&lt;AlarmHandle&gt;
+<span class="boring">}</span></code></pre></pre>
+<p>试图分配一个“警报器” (alarm, 用来在某个时间到了调用回调函数)。</p>
+<p>alarm 应该携带一个回调函数和上下文指针：</p>
+<ul>
+<li>初始化 alarm 的时候，没有 callback，ctx 为 null</li>
+<li>executor 会通过 <code>set_alarm_callback</code>，给这个 alram 设置回调和上下文。
+safty: 在设置回调之前触发 alarm，是 UB 行为。</li>
+</ul>
+<p>如果 alarm 用完了，那么返回 None。</p>
+<h2 id="set_alarm_callback"><a class="header" href="#set_alarm_callback"><code>set_alarm_callback</code></a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn set_alarm_callback(
+    &amp;self,
+    alarm: AlarmHandle,
+    callback: fn(_: *mut ()),
+    ctx: *mut ()
+)
+<span class="boring">}</span></code></pre></pre>
+<p>给一个 alarm 设置回调函数和上下文。</p>
+<p>这个回调函数：</p>
+<ul>
+<li>应在触发 alarm 时调用</li>
+<li>参数是 ctx</li>
+<li>可能从任何上下文调用（中断、或者 thread mode）</li>
+</ul>
+<h2 id="set_alarm"><a class="header" href="#set_alarm"><code>set_alarm</code></a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn set_alarm(&amp;self, alarm: AlarmHandle, timestamp: u64) -&gt; bool
+<span class="boring">}</span></code></pre></pre>
+<p>如果当前时间戳达到这个给定的时间戳，应调用回调函数。</p>
+<p>返回值</p>
+<ul>
+<li>true 表示设置/触发 alarm，应尽快安排 <strong>异步</strong> 调用 alarm 的回调函数：此函数绝不能同步调用回调函数；当前时间 &lt;= 给定的时间
+<ul>
+<li>如果给定的时间马上就要发生，并且设置 alarm 后，这个时间滑入过去，情况有些复杂</li>
+</ul>
+</li>
+<li>false 表示不设置 alarm：当前时间 &gt; 给定时间</li>
+</ul>
+<p>当调用回调函数时，必须保证 now() 返回的时间 &gt;= 给定时间。</p>
+<p>每个 AlarmHandle 一次只能设置一个 alarm：如果之前设置了 alarm，后面设置的 alarm 应该覆盖之前设置的 alarm。</p>
+<h1 id="实现例子"><a class="header" href="#实现例子">实现例子</a></h1>
+<p>实现 <code>__pender</code> 函数的例子：<a href="https://github.com/embassy-rs/embassy/tree/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-executor/src/arch">embassy-executor/src/arch</a> 。</p>
+<p>实现 Driver trait 的例子：</p>
+<ul>
+<li><a href="https://github.com/embassy-rs/embassy/blob/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-time/src/driver_std.rs#L115">embassy-time/src/driver_std.rs</a></li>
+<li><a href="https://github.com/embassy-rs/embassy/blob/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-time/src/driver_mock.rs#L81">embassy-time/src/driver_mock.rs</a></li>
+<li><a href="https://github.com/embassy-rs/embassy/blob/74739997bd70d3c23b5c58d25aa5c9ba4db55f35/embassy-stm32/src/time_driver.rs#L518">embassy-stm32/src/time_driver.rs</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="embassy-task.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="embassy-integrated-timers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="embassy-task.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="embassy-integrated-timers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

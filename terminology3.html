@@ -1,0 +1,623 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>专业名词集锦 3 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html" class="active"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/terminology3.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <p>记录我查的专业名词，大部分解释来自 kimi (AI)。</p>
+<h1 id="cpu-时钟的工作方式"><a class="header" href="#cpu-时钟的工作方式">CPU 时钟的工作方式</a></h1>
+<p>CPU（中央处理器）的时钟，通常被称为时钟频率或CPU频率，是衡量CPU性能的一个重要指标。它指的是CPU内部时钟的频率，以赫兹（Hz）为单位，表示CPU每秒钟可以进行的周期性操作次数。以下是CPU时钟工作方式的一些基本要点：</p>
+<ol>
+<li>
+<p><strong>时钟周期</strong>：CPU的操作是周期性的，每个周期内CPU完成一系列指令。时钟周期是CPU执行操作的基本时间单位。</p>
+</li>
+<li>
+<p><strong>时钟频率</strong>：CPU的时钟频率是时钟周期的倒数，通常以兆赫兹（MHz）或吉赫兹（GHz）表示。例如，一个3GHz的CPU每秒可以进行30亿个周期性操作。</p>
+</li>
+<li>
+<p><strong>指令执行</strong>：在每个时钟周期内，CPU可以执行一个或多个指令。这取决于CPU的架构和设计，有些CPU可以在一个周期内执行多个指令（如超标量架构）。</p>
+</li>
+<li>
+<p><strong>流水线</strong>：现代CPU通常采用流水线技术，将指令的执行过程分解为多个阶段，每个阶段在一个时钟周期内完成。这样可以在不同的时钟周期内同时处理多个指令，提高效率。</p>
+</li>
+<li>
+<p><strong>超频</strong>：通过提高CPU的时钟频率，可以增加其性能，但同时也可能导致更高的功耗和热量产生。超频需要谨慎操作，以避免损坏硬件。</p>
+</li>
+<li>
+<p><strong>多核处理器</strong>：现代CPU通常包含多个核心，每个核心都有自己的时钟频率和执行单元。多核处理器可以同时处理多个任务，提高整体性能。</p>
+</li>
+<li>
+<p><strong>时钟同步</strong>：在多核或多处理器系统中，保持时钟同步非常重要，以确保数据一致性和系统稳定性。</p>
+</li>
+<li>
+<p><strong>电源管理</strong>：现代CPU具有电源管理功能，可以根据负载动态调整时钟频率和电压，以优化性能和能效。</p>
+</li>
+<li>
+<p><strong>时钟中断</strong>：CPU使用时钟中断来处理定时任务，如操作系统的调度和硬件设备的定时操作。</p>
+</li>
+</ol>
+<p>了解CPU时钟的工作方式有助于理解计算机的性能和响应速度，以及如何通过硬件和软件优化来提高效率。</p>
+<h2 id="可以手动调整时钟频率吗"><a class="header" href="#可以手动调整时钟频率吗">可以手动调整时钟频率吗</a></h2>
+<p>时钟频率通常是在CPU设计和制造过程中确定的，并且是硬件的一个固有属性。然而，用户或系统管理员在一定程度上可以手动调整时钟频率，主要通过以下几种方式：</p>
+<ol>
+<li>
+<p><strong>超频</strong>：超频是提高CPU时钟频率的一种方法，通过软件或BIOS设置来增加CPU的运行速度，使其超过制造商设定的标准频率。超频可以提高性能，但也可能导致系统不稳定和硬件损坏，特别是在没有适当散热和电源管理的情况下。</p>
+</li>
+<li>
+<p><strong>降频</strong>：与超频相反，降频是降低CPU时钟频率以减少功耗和热量产生。这通常用于电池供电的设备，如笔记本电脑，以延长电池寿命。</p>
+</li>
+<li>
+<p><strong>动态频率调整</strong>：现代CPU具有动态频率调整技术，如Intel的Turbo Boost或AMD的Turbo Core，这些技术可以在需要时自动提高CPU频率，在负载较低时降低频率，以优化性能和能效。</p>
+</li>
+<li>
+<p><strong>电源管理设置</strong>：操作系统和BIOS提供了电源管理设置，允许用户选择不同的电源计划，这些计划可以影响CPU的频率。例如，在“高性能”模式下，CPU可能会运行在更高的频率，而在“节能”模式下，CPU频率可能会降低。</p>
+</li>
+<li>
+<p><strong>BIOS/UEFI设置</strong>：在某些情况下，用户可以通过BIOS或UEFI设置手动调整CPU的时钟频率和其他相关参数，如电压和内存频率。这需要一定的技术知识，并且如果设置不当，可能会损坏硬件。</p>
+</li>
+<li>
+<p><strong>软件工具</strong>：有些软件工具可以用于调整CPU频率，但这些工具通常依赖于操作系统的电源管理功能或BIOS设置。</p>
+</li>
+</ol>
+<p>需要注意的是，手动调整CPU时钟频率可能会影响保修条款，并且如果操作不当，可能会对硬件造成永久性损坏。因此，在进行任何调整之前，建议仔细阅读文档，了解风险，并在必要时寻求专业建议。</p>
+<h2 id="cpu-时钟和硬件定时器的联系"><a class="header" href="#cpu-时钟和硬件定时器的联系">CPU 时钟和硬件定时器的联系</a></h2>
+<p>CPU时钟和硬件定时器之间存在紧密的联系，它们共同作用于计算机系统的定时和同步功能。以下是它们之间的一些主要联系：</p>
+<ol>
+<li>
+<p><strong>同步机制</strong>：CPU时钟提供了一个同步信号，确保计算机系统中的各个组件能够按照统一的节奏运行。硬件定时器通常使用这个时钟信号来生成定时事件。</p>
+</li>
+<li>
+<p><strong>周期性操作</strong>：CPU的每个时钟周期内会执行一定的操作。硬件定时器也会根据CPU时钟的周期性来设置和触发定时事件。</p>
+</li>
+<li>
+<p><strong>指令执行</strong>：CPU执行指令时，每个指令可能需要多个时钟周期来完成。硬件定时器可以用于监控这些周期，以确保指令在预期的时间内执行。</p>
+</li>
+<li>
+<p><strong>中断生成</strong>：硬件定时器可以设置为在特定的时钟周期数后触发中断，这是操作系统调度任务和处理定时事件的基础。</p>
+</li>
+<li>
+<p><strong>性能监控</strong>：硬件定时器可以用来监控CPU的性能，例如，通过测量执行特定任务所需的时钟周期数。</p>
+</li>
+<li>
+<p><strong>电源管理</strong>：硬件定时器可以与电源管理功能相结合，通过在CPU空闲时降低时钟频率或关闭某些组件来节省能源。</p>
+</li>
+<li>
+<p><strong>系统启动</strong>：在系统启动过程中，硬件定时器可以用于初始化和同步系统时钟，确保系统稳定运行。</p>
+</li>
+<li>
+<p><strong>实时系统</strong>：在需要精确定时的实时系统中，硬件定时器是至关重要的，它们提供了精确的定时控制，以满足系统的实时性要求。</p>
+</li>
+<li>
+<p><strong>系统计时</strong>：硬件定时器通常用于系统计时，如记录系统运行时间、任务执行时间等。</p>
+</li>
+<li>
+<p><strong>硬件交互</strong>：硬件定时器可以与外部设备交互，例如，与网络接口卡（NIC）同步，以确保数据传输的时序正确。</p>
+</li>
+</ol>
+<p>总的来说，CPU时钟为硬件定时器提供了基础的时序信号，而硬件定时器则利用这些信号来执行各种定时和同步任务，两者共同确保了计算机系统的稳定和高效运行。</p>
+<h2 id="cpu-时钟的同步信号"><a class="header" href="#cpu-时钟的同步信号">CPU 时钟的同步信号</a></h2>
+<p>CPU时钟提供的同步信号是计算机系统中非常重要的一个概念，它确保了系统内各个组件能够协调一致地工作。以下是对CPU时钟同步信号的一些详细解释：</p>
+<ol>
+<li>
+<p><strong>基本功能</strong>：CPU时钟是一个周期性的信号，通常以方波形式出现，它的上升沿或下降沿可以作为同步点。这个信号告诉CPU和其他系统组件在特定的时间点开始或结束一个操作周期。</p>
+</li>
+<li>
+<p><strong>指令执行同步</strong>：在CPU内部，指令的执行是分阶段进行的，每个阶段都需要在时钟信号的控制下进行。时钟信号确保了指令的各个阶段能够在正确的时间开始和结束。</p>
+</li>
+<li>
+<p><strong>数据传输同步</strong>：在CPU与内存、输入/输出设备等其他系统组件之间进行数据传输时，时钟信号用于同步数据的发送和接收，确保数据在正确的时钟周期内被读取或写入。</p>
+</li>
+<li>
+<p><strong>总线控制</strong>：CPU时钟信号也用于控制系统总线，包括地址总线、数据总线和控制总线。时钟信号确保了总线上的数据和命令在正确的时间被访问和执行。</p>
+</li>
+<li>
+<p><strong>内存刷新</strong>：对于动态随机存取存储器（DRAM）来说，需要定期刷新以保持数据。CPU时钟信号可以用于触发内存的刷新操作。</p>
+</li>
+<li>
+<p><strong>中断处理</strong>：当外部设备或内部条件触发中断时，CPU时钟信号可以用于同步中断请求和中断服务程序的执行。</p>
+</li>
+<li>
+<p><strong>电源管理</strong>：在现代CPU中，时钟信号还可以用于控制电源管理功能，如动态调整时钟频率和电压，以优化能效。</p>
+</li>
+<li>
+<p><strong>多处理器同步</strong>：在多处理器系统中，CPU时钟信号用于确保所有处理器的时钟周期同步，从而协调它们的操作和数据交换。</p>
+</li>
+<li>
+<p><strong>系统稳定性</strong>：同步信号有助于维持整个系统的稳定性。如果组件之间的同步出现问题，可能会导致数据损坏、系统崩溃或其他错误。</p>
+</li>
+<li>
+<p><strong>性能优化</strong>：通过精确控制时钟信号，可以优化CPU和其他组件的性能，例如通过流水线技术、超标量架构等。</p>
+</li>
+</ol>
+<p>CPU时钟提供的同步信号是计算机系统设计中的一个基础概念，它对于确保数据的一致性、系统的稳定性和性能至关重要。</p>
+<h2 id="总线"><a class="header" href="#总线">总线</a></h2>
+<p>总线（Bus）是计算机体系结构中的一个关键概念，它指的是一组信号线，用于在计算机的各个组件之间传输数据、地址和控制信号。以下是总线的几种主要类型和它们的作用：</p>
+<ol>
+<li>
+<p><strong>数据总线（Data Bus）</strong>：</p>
+<ul>
+<li>用于传输实际的数据，如处理器和内存之间或处理器和输入/输出设备之间的数据交换。</li>
+<li>数据总线的宽度（以位为单位）决定了一次可以传输的数据量，例如32位数据总线一次可以传输32位数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>地址总线（Address Bus）</strong>：</p>
+<ul>
+<li>用于指定数据传输的目标地址，即告诉系统数据应该从哪里读取或写入到哪里。</li>
+<li>地址总线的宽度决定了可以寻址的内存空间大小，例如32位地址总线可以寻址高达4GB的内存空间。</li>
+</ul>
+</li>
+<li>
+<p><strong>控制总线（Control Bus）</strong>：</p>
+<ul>
+<li>传输控制信号，用于协调和管理数据和地址总线上的操作。</li>
+<li>控制信号可能包括读写指令、中断请求、设备选择信号等。</li>
+</ul>
+</li>
+<li>
+<p><strong>系统总线（System Bus）</strong>：</p>
+<ul>
+<li>是连接CPU、内存和输入/输出设备的一组总线，包括数据总线、地址总线和控制总线。</li>
+<li>系统总线是计算机内部通信的主干道。</li>
+</ul>
+</li>
+<li>
+<p><strong>外部总线（External Bus）</strong>：</p>
+<ul>
+<li>用于连接计算机外部设备，如硬盘、网络卡、打印机等。</li>
+<li>常见的外部总线标准包括PCI、PCIe、USB等。</li>
+</ul>
+</li>
+<li>
+<p><strong>前端总线（Front Side Bus, FSB）</strong>：</p>
+<ul>
+<li>在某些旧的计算机架构中，前端总线是CPU与高速缓存和主内存之间的连接。</li>
+<li>随着技术的发展，前端总线的概念已经被点对点连接（如Intel的QuickPath Interconnect）所取代。</li>
+</ul>
+</li>
+<li>
+<p><strong>后端总线（Back Side Bus）</strong>：</p>
+<ul>
+<li>通常指的是CPU与其他系统组件（如北桥芯片）之间的连接。</li>
+<li>后端总线负责将CPU与系统的其他部分连接起来。</li>
+</ul>
+</li>
+<li>
+<p><strong>存储总线（Memory Bus）</strong>：</p>
+<ul>
+<li>专门用于内存和CPU之间的数据交换。</li>
+<li>存储总线的设计影响着内存访问的速度和效率。</li>
+</ul>
+</li>
+<li>
+<p><strong>多总线结构</strong>：</p>
+<ul>
+<li>在复杂的系统中，可能存在多条总线，以提高数据传输的效率和灵活性。</li>
+</ul>
+</li>
+</ol>
+<p>总线的设计和性能对整个计算机系统的性能有重要影响。随着技术的发展，总线技术也在不断进步，以满足更高的数据传输速率和更复杂的系统架构需求。</p>
+<blockquote>
+<p>问 1：总线就是计算机不同组件之间连接起来的线路，并用来传递信号？</p>
+<p>答 1：是的，您的理解是正确的。总线在计算机中确实是一种连接不同组件的线路，它用于传递信号，包括数据、地址和控制信号。以下是总线在计算机系统中的一些关键作用和特点：</p>
+<ol>
+<li>
+<p><strong>数据传输</strong>：总线允许数据在计算机的各个组件之间流动，例如从CPU到内存或从内存到硬盘。</p>
+</li>
+<li>
+<p><strong>地址指定</strong>：地址总线用于指定数据传输的目标地址，确保数据能够被正确地存取。</p>
+</li>
+<li>
+<p><strong>控制信号</strong>：控制总线携带各种控制信号，如读写命令、中断请求等，以协调数据传输和其他操作。</p>
+</li>
+<li>
+<p><strong>通信媒介</strong>：总线作为计算机内部组件之间的通信媒介，使得组件可以协同工作。</p>
+</li>
+<li>
+<p><strong>系统架构</strong>：总线的设计和宽度（位宽）对计算机的系统架构和性能有直接影响。</p>
+</li>
+<li>
+<p><strong>扩展性</strong>：通过使用外部总线，计算机可以连接更多的外部设备，如打印机、扫描仪等。</p>
+</li>
+<li>
+<p><strong>标准化</strong>：许多总线设计遵循特定的标准，以确保不同制造商的硬件和软件可以兼容。</p>
+</li>
+<li>
+<p><strong>性能影响</strong>：总线的带宽（即每秒可以传输的数据量）和延迟（数据从发送到接收所需的时间）对系统性能有重要影响。</p>
+</li>
+<li>
+<p><strong>同步机制</strong>：总线上的操作通常需要同步信号，如CPU时钟，以确保数据在正确的时间被传输和接收。</p>
+</li>
+<li>
+<p><strong>错误检测</strong>：某些总线设计还包括错误检测机制，以确保数据传输的准确性。</p>
+</li>
+</ol>
+<p>总线是计算机系统中不可或缺的一部分，它的设计和实现对整个系统的性能、可靠性和扩展性起着至关重要的作用。随着技术的发展，总线技术也在不断进步，以适应更高的数据传输需求和更复杂的系统架构。</p>
+</blockquote>
+<blockquote>
+<p>问 2：具体对于数据总线，还是以电信号这种形式传递的实际的数据吗？</p>
+<p>答 2：是的，数据总线用于以电信号的形式传递实际的数据。在计算机系统中，数据总线是一组导线，每根导线可以表示一个二进制位（bit），整个数据总线的宽度（以位为单位）决定了一次可以传输的数据量。以下是数据总线传输数据的一些关键点：</p>
+<ol>
+<li>
+<p><strong>二进制数据</strong>：数据在计算机中以二进制形式表示，即0和1。数据总线上的每个信号线可以表示一个位。</p>
+</li>
+<li>
+<p><strong>电平状态</strong>：电信号通过不同的电压电平来表示二进制数据。例如，低电平可能表示0，高电平表示1，或者反之。</p>
+</li>
+<li>
+<p><strong>位宽</strong>：数据总线的位宽（如8位、16位、32位或64位）决定了它一次可以传输的二进制位数，从而影响每次传输的数据量。</p>
+</li>
+<li>
+<p><strong>数据传输速率</strong>：数据总线的传输速率，通常以Mbps（兆比特每秒）或Gbps（吉比特每秒）计量，影响计算机处理数据的速度。</p>
+</li>
+<li>
+<p><strong>信号完整性</strong>：为了确保数据的准确性，数据总线设计需要考虑信号完整性，包括避免信号干扰和衰减。</p>
+</li>
+<li>
+<p><strong>时钟同步</strong>：数据传输通常需要时钟信号来同步，确保数据在正确的时钟周期内被读取或写入。</p>
+</li>
+<li>
+<p><strong>多路复用</strong>：在某些情况下，数据总线可能与地址总线或控制总线复用，即在不同的时钟周期内传输不同类型的信号。</p>
+</li>
+<li>
+<p><strong>差分信号</strong>：为了提高信号的抗干扰能力，数据总线可能使用差分信号传输，即每条信号线都有一对互补的线路。</p>
+</li>
+<li>
+<p><strong>数据缓冲</strong>：在数据传输过程中，可能使用缓冲器（Buffer）来暂时存储数据，以适应不同组件之间的速度差异。</p>
+</li>
+<li>
+<p><strong>错误检测</strong>：某些数据总线设计包括错误检测机制，如奇偶校验位，以确保数据传输的可靠性。</p>
+</li>
+</ol>
+<p>数据总线的电信号传输是计算机内部和外部通信的基础，其设计和实现对整个系统的性能和稳定性至关重要。随着技术的发展，数据总线的设计也在不断优化，以支持更高的数据传输速率和更复杂的系统需求。</p>
+</blockquote>
+<h2 id="分频应用于不同的硬件组件"><a class="header" href="#分频应用于不同的硬件组件">分频应用于不同的硬件组件</a></h2>
+<p>分频（Frequency Division）是一种在电子和计算机系统中常见的技术，用于将一个较高的频率信号转换成一个较低的频率信号。在不同的上下文中，分频可以应用于不同的硬件组件，包括计时器和CPU时钟。以下是分频在这两种情况下的一些应用：</p>
+<ol>
+<li>
+<p><strong>计时器的分频</strong>：</p>
+<ul>
+<li>分频经常用于计时器或定时器，以生成所需的时钟频率。例如，在微控制器或计算机系统中，一个高频率的时钟信号可能被分频以驱动一个较低频率的定时器。</li>
+<li>分频可以减少功耗，因为较低频率的时钟信号通常消耗较少的能量。</li>
+<li>在某些系统中，分频后的频率可能用于特定的定时任务，如周期性中断、系统休眠唤醒等。</li>
+</ul>
+</li>
+<li>
+<p><strong>CPU时钟的分频</strong>：</p>
+<ul>
+<li>在某些CPU设计中，主时钟频率可能通过分频来提供给CPU内部的不同部分，以适应不同组件的工作频率。</li>
+<li>分频也可用于动态调整CPU频率，这是现代CPU的节能特性之一，如Intel的SpeedStep或AMD的Cool'n'Quiet技术。</li>
+<li>分频还可以用于与外部设备的同步，例如，当CPU需要与较慢的外部设备通信时，可能会降低其时钟频率。</li>
+</ul>
+</li>
+<li>
+<p><strong>多级分频</strong>：</p>
+<ul>
+<li>在复杂的系统中，可能存在多级分频，以满足不同组件的时钟需求。</li>
+</ul>
+</li>
+<li>
+<p><strong>系统同步</strong>：</p>
+<ul>
+<li>分频有助于保持系统内部不同组件的同步，尤其是在多处理器或多核心系统中。</li>
+</ul>
+</li>
+<li>
+<p><strong>可编程分频</strong>：</p>
+<ul>
+<li>在某些系统中，分频器可能是可编程的，允许用户或系统根据需要调整分频比。</li>
+</ul>
+</li>
+<li>
+<p><strong>硬件与软件的结合</strong>：</p>
+<ul>
+<li>分频既可以通过硬件电路实现，也可以通过软件控制，这取决于系统的设计。</li>
+</ul>
+</li>
+<li>
+<p><strong>性能与功耗的平衡</strong>：</p>
+<ul>
+<li>分频是平衡性能和功耗的一种手段，通过降低频率可以减少功耗，而提高频率可以提升性能。</li>
+</ul>
+</li>
+</ol>
+<p>分频是一种灵活的技术，可以在不同的硬件组件和不同的应用场景中使用。在设计计算机系统时，工程师会根据系统的需求和性能目标来决定如何使用分频技术。</p>
+<h1 id="电子定时器--硬件定时器"><a class="header" href="#电子定时器--硬件定时器">电子定时器 / 硬件定时器</a></h1>
+<blockquote>
+<p>src: <a href="https://en.wikipedia.org/wiki/Timer">https://en.wikipedia.org/wiki/Timer</a></p>
+</blockquote>
+<p>电子定时器本质上是带有特殊电子元件的石英钟，可以达到比机械定时器更高的精度。它们具有数字电子设备，但可能具有模拟或数字显示器。集成电路使数字逻辑变得如此便宜，以至于电子定时器现在比许多机械和机电定时器便宜。单个计时器被实现为一个简单的单芯片计算机系统，类似于手表，通常使用相同的批量生产技术。</p>
+<p>如今，许多定时器都是在软件中实现的。现代控制器使用可编程逻辑控制器 （PLC） 而不是装满机电部件的盒子。逻辑通常被设计成中继，利用一种称为梯形逻辑的特殊计算机语言。在PLC中，定时器通常由控制器内置的软件进行仿真。每个计时器只是软件维护的表中的一个条目。</p>
+<p>计算机系统通常至少有一个硬件计时器。这些通常是以固定频率递增或递减的数字计数器，该频率通常是可配置的，并且在达到零时中断处理器。另一种设计使用具有足够大字大小的计数器，使其在系统寿命结束之前不会达到其溢出限制。</p>
+<p>更复杂的定时器可能具有比较逻辑，用于将定时器值与软件设置的特定值进行比较，当定时器值与预设值匹配时，会触发一些操作。例如，这可用于测量事件或生成脉宽调制波形以控制电机的速度（使用 D 类数字电子放大器）。</p>
+<p>硬件定时器在计算机系统中的一个专业用途是作为看门狗定时器，它旨在在软件发生故障时执行系统的硬件重置。</p>
+<h1 id="不重要术语"><a class="header" href="#不重要术语">不重要术语</a></h1>
+<h2 id="机电定时器"><a class="header" href="#机电定时器">机电定时器</a></h2>
+<p>Electromechanical timers是使用机械装置和电子元件结合来测量和控制时间的一种设备。它们通常由以下几个部分组成：</p>
+<ol>
+<li>
+<p><strong>计时机构</strong>：这是定时器的核心部分，可以是齿轮、凸轮、棘轮等机械结构，用于控制计时过程。</p>
+</li>
+<li>
+<p><strong>电源</strong>：定时器需要电源来驱动其内部的电子和机械部件。</p>
+</li>
+<li>
+<p><strong>控制电路</strong>：控制电路负责接收外部信号并触发定时器开始、停止或复位。</p>
+</li>
+<li>
+<p><strong>输出装置</strong>：定时器的输出可以是开关触点、继电器触点或电子信号，用于控制其他设备或电路。</p>
+</li>
+<li>
+<p><strong>设置旋钮或拨盘</strong>：用于设置定时器的延时时间或周期。</p>
+</li>
+<li>
+<p><strong>指示器</strong>：可以是指针、数字显示或LED指示灯，用于显示当前的计时状态或剩余时间。</p>
+</li>
+</ol>
+<p>Electromechanical timers的工作原理通常包括以下几个步骤：</p>
+<ul>
+<li>用户通过设置旋钮或拨盘设定所需的延时或周期。</li>
+<li>当定时器接收到启动信号时，计时机构开始运作。</li>
+<li>计时机构按照设定的时间运行，当达到设定时间后，触发输出装置。</li>
+<li>输出装置可以是闭合或断开触点，以控制外部电路或设备。</li>
+</ul>
+<p>Electromechanical timers的应用非常广泛，包括：</p>
+<ul>
+<li>工业自动化：用于控制机器的启动、停止或周期性操作。</li>
+<li>家用电器：如洗衣机、微波炉等，用于控制加热或洗涤的时间。</li>
+<li>电力系统：用于控制电路的定时开关，如定时供电或断电。</li>
+<li>实验室设备：用于实验过程中的定时控制，如化学反应或样品加热。</li>
+<li>交通信号灯：用于控制交通信号灯的变换周期。</li>
+</ul>
+<p>Electromechanical timers的优点包括：</p>
+<ul>
+<li>结构简单，易于维护和修理。</li>
+<li>可靠性高，机械部件的寿命长。</li>
+<li>可以承受较大的环境变化，如温度、湿度等。</li>
+</ul>
+<p>然而，它们也有一些缺点，如：</p>
+<ul>
+<li>精度可能受到机械磨损和老化的影响。</li>
+<li>响应速度较慢，不适合快速或高频的计时需求。</li>
+<li>体积和重量相对较大，不适合便携式或紧凑空间的应用。</li>
+</ul>
+<p>随着技术的发展，许多应用已经转向使用电子定时器或微控制器定时器，这些设备具有更高的精度、灵活性和小型化的优势。但Electromechanical timers仍然在一些特定领域因其独特的优势而得到应用。</p>
+<h2 id="机电继电器"><a class="header" href="#机电继电器">机电继电器</a></h2>
+<p>Electromechanical relay是一种使用电磁原理来控制电路的开关设备。它由以下几个主要部分组成：</p>
+<ol>
+<li>
+<p><strong>线圈（Coil）</strong>：线圈是电磁继电器的核心部分，通常绕在一个铁芯上。当电流通过线圈时，它会产生磁场。</p>
+</li>
+<li>
+<p><strong>铁芯（Armature）</strong>：铁芯是一块导磁材料，通常由铁制成。当线圈通电产生磁场时，铁芯会被磁化，吸引或排斥与线圈相连的移动部件。</p>
+</li>
+<li>
+<p><strong>接触点（Contacts）</strong>：接触点是继电器的输出部分，通常包括一组常开（Normally Open, NO）和/或常闭（Normally Closed, NC）触点。当线圈通电，铁芯移动时，这些触点会改变其状态，从而实现电路的连接或断开。</p>
+</li>
+<li>
+<p><strong>弹簧（Spring）</strong>：弹簧用于在继电器断电时将铁芯复位到其原始位置。</p>
+</li>
+<li>
+<p><strong>外壳（Housing）</strong>：外壳是继电器的保护部分，通常由塑料或金属制成，用于固定内部组件并保护它们免受外界影响。</p>
+</li>
+</ol>
+<p>Electromechanical relay的工作原理是：</p>
+<ul>
+<li>当线圈通电时，产生的磁场吸引铁芯，使它移动并与接触点接触，从而改变电路的状态。</li>
+<li>当线圈断电时，铁芯在弹簧的作用下返回到原始位置，恢复电路的原始状态。</li>
+</ul>
+<p>Electromechanical relay的应用非常广泛，包括：</p>
+<ul>
+<li>电力系统：用于控制高功率电路的开关。</li>
+<li>通信系统：用于信号的切换和路由。</li>
+<li>控制系统：用于实现自动化控制逻辑。</li>
+<li>安全系统：用于在紧急情况下切断电源或激活备用电源。</li>
+</ul>
+<p>Electromechanical relay的优点包括：</p>
+<ul>
+<li>可靠性高：由于其简单的机械结构，电磁继电器在正确维护下非常可靠。</li>
+<li>负载能力强：可以控制高电压和大电流的电路。</li>
+<li>易于控制：可以通过简单的电气信号来控制复杂的机械操作。</li>
+</ul>
+<p>然而，它们也有一些缺点，如响应时间较慢（由于机械运动），体积较大，以及在高频操作下可能产生噪声。随着电子技术的发展，许多应用已经转向使用固态继电器（SSR）等更先进的技术，但电磁继电器仍然在特定领域发挥着重要作用。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="terminology2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="riscv-timer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="terminology2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="riscv-timer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
