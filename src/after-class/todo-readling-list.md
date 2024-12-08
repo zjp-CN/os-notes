@@ -11,6 +11,7 @@
   * Disclaimer: This was written by someone who doesn’t (or didn’t) know anything about Rust or operating systems.
     The result is probably not idiomatic Rust or a sensible OS design.
     If you are looking for a usable operating system implemented in Rust then [Redox] OS is probably what you want.
+* [Pico Pico - Embedded Programming with Rust](https://pico.implrust.com/)：使用 Rust 在 Raspberry Pi Pico 2 中进行外设实验
 
 [Redox]: https://www.redox-os.org/
 
