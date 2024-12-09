@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>项目六：异步操作系统 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html" class="active"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/async-os.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <p>进展记录：<a href="https://shimo.im/docs/KlkKvegZoeudw7qd">向老师的石墨文档</a></p>
+<p>最终报告 PPT：<a href="https://docs.qq.com/slide/DTG1vc2FKR2xsYmpL">《阶段 3 学习总结 + 实现 rCore 异步定时器驱动》</a></p>
+<h1 id="每周任务均完成"><a class="header" href="#每周任务均完成">每周任务（均完成）</a></h1>
+<ul>
+<li>第 2 周：<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=404a64695ff36c37b18e4e3d92f849d1">用户态协程（爬虫）</a></li>
+<li>第 3 周：向 embassy 提交修复 Waker unsoundness 的 PR（已合并）
+<ul>
+<li><a href="https://github.com/embassy-rs/embassy/pull/3059">embassy#3059: use nightly waker_getters APIs</a></li>
+<li><a href="https://github.com/embassy-rs/embassy/pull/3069">embassy#3069: minimize cfg code in task_from_waker</a></li>
+</ul>
+</li>
+<li>第 4-6 周：将 embassy 应用于 rCore 定时器驱动
+<ul>
+<li>仓库地址：<a href="https://gitee.com/ZIP97/rCore-tutorial-code-2024S-embassy">rCore-tutorial-code-2024S-embassy</a></li>
+<li>文档：仓库 README 或者 <a href="https://zjp-cn.github.io/os-notes/rCore-embassy-timer.html">os-notes/rCore-embassy-timer</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="开发日志"><a class="header" href="#开发日志">开发日志</a></h1>
+<ul>
+<li><a href="https://zjp-cn.github.io/os-notes/async-os-dev-log_rCore-N.html">rCore-N (共享调度器 fork) 搭建和踩坑</a></li>
+<li><a href="https://zjp-cn.github.io/os-notes/cortex-m-quickstart.html">cortex-m-quickstart 的 qemu 模拟记录</a></li>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy-usage.html">embassy-usage</a>（学习 embassy 时，自己编写的<a href="https://gitee.com/ZIP97/embassy-usage">示例仓库</a>）</li>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy.html">研究 embassy 库的经验之谈</a> （RA 配置、条件编译、check-cfg）</li>
+<li><a href="https://zjp-cn.github.io/os-notes/green-thread.html">green-thread</a>（整合绿色线程代码到单独的<a href="https://gitee.com/ZIP97/green-thread">仓库</a>）</li>
+</ul>
+<h1 id="学习笔记"><a class="header" href="#学习笔记">学习笔记</a></h1>
+<ul>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy-task.html">embassy: TaskStorage</a></li>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy-timer.html">embassy: embassy_time_driver::Driver</a></li>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy-sync.html">embassy: sync</a>：zerocopy_channel (SPSC) 和 MPMC Channel</li>
+<li><a href="https://zjp-cn.github.io/os-notes/embassy-integrated-timers.html">embassy: integrated-timers 和任务机制</a>：任务类别、任务调度与执行、任务的状态与改变、添加和删除任务、任务与 Future</li>
+</ul>
+<h1 id="其他工作"><a class="header" href="#其他工作">其他工作</a></h1>
+<ul>
+<li>学习 rCore-N 共享调度器项目代码</li>
+<li>学习 embassy std 例子时，使用 Miri 碰到 UB 和 ICE
+<ul>
+<li>报告 ICE 给 Miri：<a href="https://github.com/rust-lang/miri/issues/3647">ICE due to overflow when using a large timeout with futexes</a></li>
+<li>在造成 UB 的 critical-section 仓库下留言，提供更多信息：<a href="https://github.com/rust-embedded/critical-section/pull/46">Mitigate Miri violation</a></li>
+</ul>
+</li>
+<li>每周线上讨论时准备的 PPT
+<ul>
+<li><a href="https://docs.qq.com/slide/DTE5Ta2FXZ1NjSldN">第 1 周</a></li>
+<li><a href="https://docs.qq.com/slide/DTFNkQ0hwaHp2TkxW">第 2 周</a></li>
+<li><a href="https://docs.qq.com/slide/DTHpYQ05HdGZwWUZv">第 3 周</a></li>
+</ul>
+</li>
+<li>补充基础知识：反复观看讨论的视频回放，把里面提及的新知识全部查一遍
+<ul>
+<li>【笔记】<a href="https://zjp-cn.github.io/os-notes/terminology.html">专业名词集锦</a></li>
+<li>【笔记】<a href="https://zjp-cn.github.io/os-notes/terminology2.html">专业名词集锦 2</a></li>
+<li>【笔记】<a href="https://zjp-cn.github.io/os-notes/terminology3.html">专业名词集锦 3</a></li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="rcore-qemu.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="async-os-rust-futures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="rcore-qemu.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="async-os-rust-futures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>io_uring - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="../rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="../rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="../rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="../rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="../rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="../rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="../rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="../async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="../embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="../embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="../embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="../embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="../embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="../submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="../embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="../embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="../cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="../green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="../shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="../terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="../terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="../riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="../after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="../after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="../after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2024-winter/io_uring.html" class="active"><strong aria-hidden="true">7.1.</strong> io_uring</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/2024-winter/io_uring.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="io_uring"><a class="header" href="#io_uring">io_uring</a></h1>
+<p>整理自：<a href="https://kernel.dk/io_uring.pdf">https://kernel.dk/io_uring.pdf</a></p>
+<h2 id="背景"><a class="header" href="#背景">背景</a></h2>
+<p>以前 Linux 的文件 IO 调用以传统的同步功能为主，异步功能设计不佳并且性能不好。</p>
+<p>synchronous interfaces:</p>
+<ul>
+<li>read(2), write(2): oldest and most basic</li>
+<li>pread(2), pwrite(2): allow passing in of an offset</li>
+<li>preadv(2), pwritev(2): vector-based</li>
+<li>preadv2(2), pwritev2(2): allow modifier flags</li>
+</ul>
+<p>asynchronous interface:</p>
+<ul>
+<li>aio_read(3), aio_write(3): POSIX, lackluster, poor performance</li>
+<li>native async IO interface (aio):
+<ul>
+<li>only supports async IO for O_DIRECT (or un-buffered) accesses; cache bypassing and size/alignment restraints</li>
+<li>for normal (buffered) IO, the interface behaves in a synchronous manner</li>
+<li>if meta data is required to perform IO, the submission will block waiting for that</li>
+<li>API isn't great and is slow: 104 bytes of memory copy, for IO that's supposedly zero copy; always requires at least two system calls (submit + wait-for-completion)</li>
+</ul>
+</li>
+</ul>
+<p>Arrival of devices that are capable of both sub-10usec latencies and very high IOPS, but 
+submission latencies are slow and non-deterministic.</p>
+<p>aio 经历了错误的改进之路，认为在原来的接口上进行改进，工作量少、复用现有的测试设施，又能避免新接口的缺点（需要长时间地审查、完成和采用）。
+但实际上，东补西补只会把代码越变越复杂，更难维护。</p>
+<p>修改原来的接口导致工作量更大，最终放弃修复原来的接口，只能重新设计接口。</p>
+<p>新接口设计目标，重要性从低到高，尽管有些目标是互斥的：</p>
+<ul>
+<li>易用，但不容易误用</li>
+<li>可拓展 (Extendable)：虽然背景问题主要是 block oriented IO，但是希望支持 networking 和 non-block storage，甚至为将来的新接口设计形状</li>
+<li>功能丰富：成为应用的一部分（的一部分）；不要只满足部分应用的功能；避免应用重新实现相同的功能（比如 IO 线程池）</li>
+<li>高效：仍然必须提高 block storage IO 效率；但在不携带数据的请求上，减少每个请求的开销</li>
+<li>大规模可拓展 (Scalability)：在高峰时段提供最佳性能也很重要</li>
+</ul>
+<h2 id="io_uring-1"><a class="header" href="#io_uring-1">io_uring</a></h2>
+<p>最初的设计就是考虑效率，而且必须一开始就考虑效率，而不是在接口做好之后才考虑。</p>
+<p>在提交和完成事件上，不要复制内存，也不要间接的内存。因此，内核和应用之间共享内存和 IO 结构，然后处理同步问题。</p>
+<p>在处理同步问题上，如果应用和内核共享锁，那么需要系统调用，这会降低效率：因此使用单生产者单消费者环形缓冲区，避免共享锁和一些内存顺序、屏障上的技巧。</p>
+<p>异步接口的两个基本操作：</p>
+<ul>
+<li>提交请求：submission queue (SQ)
+<ul>
+<li>提交 IO 请求时：应用是生产者，内核是消费者</li>
+</ul>
+</li>
+<li>该请求完成时的关联事件：completion queue (CQ)
+<ul>
+<li>完成事件时：内核是生产者，应用是消费者</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c">struct io_uring_cqe { // Completion Queue Event
+  __u64 user_data;
+  __s32 res;
+  __u32 flags;
+};
+</code></pre>
+<ul>
+<li><code>user_data</code>：来自初始的请求提交，包含应用识别请求的信息；通常用于指向原请求；内核不触碰该字段；</li>
+<li><code>res</code>：表示请求的结果，就像系统调用的返回值那样；对于常规的读取，它像 read(2) 或 write(2) 的返回值；
+<ul>
+<li>成功时，表示传输的字节数；</li>
+<li>失败时，是一个负数错误码（比如出现 IO 错误，值为 <code>-EIO</code>）；</li>
+</ul>
+</li>
+<li><code>flags</code>：该操作相关的元数据，目前未被使用。</li>
+</ul>
+<pre><code class="language-c">struct io_uring_sqe { // Submission Queue Entry
+  __u8 opcode;
+  __u8 flags;
+  __u16 ioprio;
+  __s32 fd;
+  __u64 off;
+  __u64 addr;
+  __u32 len;
+  union {
+    __kernel_rwf_t rw_flags;
+    __u32 fsync_flags;
+    __u16 poll_events;
+    __u32 sync_range_flags;
+    __u32 msg_flags;
+  };
+  __u64 user_data;
+  union {
+    __u16 buf_index;
+    __u64 __pad2[3];
+  };
+};
+</code></pre>
+<p>sqe 不仅需要包含完成事件的信息，还需要包含将来拓展到其他请求类型的信息。 </p>
+<ul>
+<li><code>opcode</code>：该请求的操作码，比如 <code>IORING_OP_READV</code> 表示 vectored read；</li>
+<li><code>flags</code>：modifier flags that are common across command types；</li>
+<li><code>ioprio</code>：该请求的优先级，对于常规读写，其含义见 <code>ioprio_set (2)</code>；</li>
+<li><code>fd</code>：该请求关联的文件描述符；</li>
+<li><code>off</code>：该操作应该发生的偏移量；</li>
+<li><code>addr</code> 和 <code>len</code>：
+<ul>
+<li>如果操作码表示 non-vetored 读写，那么 addr 表示该操作应该执行 IO 的地址，len 表示传输的字节数；</li>
+<li>如果是一个 vectored 读写，那么它指向 struct iovec array，用于 <code>preadv(2)</code>，len 表示传输的向量数；</li>
+</ul>
+</li>
+<li>第一个 union 与操作码相关，比如对于 <code>IORING_OP_READV</code>，flags 对应于 <code>preadv2 (2)</code>；</li>
+<li><code>user_data</code>：在所有操作码上都不会被内核触碰，它只会复制给 cqe；</li>
+<li><code>buf_index</code>：见高级用例</li>
+<li>最后是一些 padding 字节：既用于 64 字节对齐，又用于将来添加请求描述数据时保留位置
+<ul>
+<li>比如键值存储的命令</li>
+<li>或者端对端数据保护：传递应用写入数据的预先计算校验和</li>
+</ul>
+</li>
+</ul>
+<h2 id="communication-channel"><a class="header" href="#communication-channel">communication channel</a></h2>
+<p>Completion Queue:</p>
+<blockquote>
+<p>Since the cqe's are produced by the kernel, only the kernel is actually modifying
+the cqe entries. The communication is managed by a ring buffer. Whenever a new event is posted by the kernel to the
+CQ ring, it updates the tail associated with it. When the application consumes an entry, it updates the head. Hence, if
+the tail is different than the head, the application knows that it has one or more events available for consumption. The
+ring counters themselves are free flowing 32-bit integers, and rely on natural wrapping when the number of completed
+events exceed the capacity of the ring. One advantage of this approach is that we can utilize the full size of the ring
+without having to manage a &quot;ring is full&quot; flag on the side, which would have complicated the management of the ring.
+With that, it also follows that the ring must be a power of 2 in size.</p>
+</blockquote>
+<p>Submission Queue:</p>
+<blockquote>
+<p>The application is the one updating the tail, and the kernel consumes
+entries (and updates) the head. One important difference is that while the CQ ring is directly indexing the shared array
+of cqes, the submission side has an indirection array between them. Hence the submission side ring buffer is an index
+into this array, which in turn contains the index into the sqes. This might initially seem odd and confusing, but there's
+some reasoning behind it. Some applications may embed request units inside internal data structures, and this allows
+them the flexibility to do so while retaining the ability to submit multiple sqes in one operation. That in turns allows for
+easier conversion of said applications to the io_uring interface.</p>
+<p>As soon as an sqe is consumed by the kernel, the application is free to reuse that sqe entry. This is true even for cases
+where the kernel isn't completely done with a given sqe yet. If the kernel does need to access it after the entry has been
+consumed, it will have made a stable copy of it. Why this can happen isn't necessarily important, but it has an
+important side effect for the application. Normally an application would ask for a ring of a given size, and the
+assumption may be that this size corresponds directly to how many requests the application can have pending in the
+kernel. However, since the sqe lifetime is only that of the actual submission of it, it's possible for the application to
+drive a higher pending request count than the SQ ring size would indicate. The application must take care not to do so,
+or it could risk overflowing the CQ ring. By default, the CQ ring is twice the size of the SQ ring. This allows the
+application some amount of flexibility in managing this aspect, but it doesn't completely remove the need to do so. If
+the application does violate this restriction, it will be tracked as an overflow condition in the CQ ring. </p>
+</blockquote>
+<p>Completion events may arrive in any order, there is no ordering between the request submission and the association
+completion. The SQ and CQ ring run independently of each other. However, a completion event will always correspond
+to a given submission request. Hence, a completion event will always be associated with a specific submission request.</p>
+<h2 id="名词解释"><a class="header" href="#名词解释">名词解释</a></h2>
+<details>
+<summary>
+来自 Kimi (AI)，仅供参考。
+</summary>
+<div style="font-size: 3.5rem"><code>read(2)</code> 中的 2 的含义</div>
+<p>在 Unix 和类 Unix 操作系统中，<code>read(2)</code> 中的数字 <code>2</code> 表示这是一个系统调用的手册页（man page）的节编号。Unix 手册页被分为多个节，每个节用于描述不同类型的文档：</p>
+<ol>
+<li><strong>第 1 节（Section 1）</strong>：用户命令和程序。</li>
+<li><strong>第 2 节（Section 2）</strong>：系统调用和库函数。</li>
+<li><strong>第 3 节（Section 3）</strong>：库函数，与第 2 节不同，这些是 C 库提供的函数。</li>
+<li><strong>第 4 节（Section 4）</strong>：特殊文件、驱动程序和内核接口。</li>
+<li><strong>第 5 节（Section 5）</strong>：文件格式和约定。</li>
+<li><strong>第 6 节（Section 6）</strong>：游戏和娱乐程序。</li>
+<li><strong>第 7 节（Section 7）</strong>：杂项（包括宏和约定）。</li>
+<li><strong>第 8 节（Section 8）</strong>：系统管理和维护命令。</li>
+</ol>
+<p><code>read(2)</code> 指的是第 2 节中的 <code>read</code> 系统调用，它属于系统调用的范畴。当你在终端中输入 <code>man 2 read</code> 时，你会得到关于 <code>read</code> 系统调用的手册页，其中包含了该系统调用的详细描述、函数原型、参数、返回值、错误代码等信息。这种编号方式有助于用户快速定位到他们需要查看的手册页部分。</p>
+<div style="font-size: 3.5rem"><code>_t</code> 后缀</div>
+<p>在C语言中，类型后缀 <code>_t</code> 通常用来表示该类型是一个类型定义（typedef），它为一个基本数据类型提供一个更具描述性的名称。这种命名约定有助于提高代码的可读性和可维护性。以下是一些常见的带有 <code>_t</code> 后缀的类型：</p>
+<ol>
+<li><strong>size_t</strong>：表示对象大小的无符号整数类型。</li>
+<li><strong>ssize_t</strong>：表示有符号的大小或计数的整数类型。</li>
+<li><strong>ptrdiff_t</strong>：表示两个指针之间的差值的有符号整数类型。</li>
+<li><strong>intptr_t</strong> 和 <strong>uintptr_t</strong>：分别表示有符号和无符号的整数类型，用于存储指针值。</li>
+<li><strong>uint8_t</strong>、<strong>int8_t</strong>、<strong>uint16_t</strong>、<strong>int16_t</strong>、<strong>uint32_t</strong>、<strong>int32_t</strong>、<strong>uint64_t</strong>、<strong>int64_t</strong>：分别表示8位、16位、32位和64位的无符号和有符号整数类型。</li>
+<li><strong>float_t</strong> 和 <strong>double_t</strong>：表示浮点数的类型，通常用于实现内部的浮点数操作。</li>
+</ol>
+<p>这些类型定义通常在 <code>&lt;stddef.h&gt;</code>、<code>&lt;stdint.h&gt;</code> 和 <code>&lt;limits.h&gt;</code> 等标准头文件中定义。使用 <code>_t</code> 后缀的目的是为了让类型名称更具描述性，从而使得代码更加清晰和易于理解。例如，<code>size_t</code> 比简单的 <code>unsigned int</code> 更能清楚地表达其用途和含义。</p>
+<div style="font-size: 3.5rem">read/write 及其变体的签名</div>
+<p>它们都定义在<code>unistd.h</code>头文件中：</p>
+<ol>
+<li>
+<p><strong>read(2)</strong>：</p>
+<pre><code class="language-c">ssize_t read(int fd, void *buf, size_t count);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>buf</code>：指向缓冲区的指针，用于存储读取的数据。</li>
+<li><code>count</code>：要读取的字节数。</li>
+</ul>
+</li>
+<li>
+<p><strong>write(2)</strong>：</p>
+<pre><code class="language-c">ssize_t write(int fd, const void *buf, size_t count);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>buf</code>：指向包含要写入数据的缓冲区的指针。</li>
+<li><code>count</code>：要写入的字节数。</li>
+</ul>
+</li>
+<li>
+<p><strong>pread(2)</strong>：</p>
+<pre><code class="language-c">ssize_t pread(int fd, void *buf, size_t count, off_t offset);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>buf</code>：指向缓冲区的指针，用于存储读取的数据。</li>
+<li><code>count</code>：要读取的字节数。</li>
+<li><code>offset</code>：相对于文件开始处的偏移量。</li>
+</ul>
+</li>
+<li>
+<p><strong>pwrite(2)</strong>：</p>
+<pre><code class="language-c">ssize_t pwrite(int fd, const void *buf, size_t count, off_t offset);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>buf</code>：指向包含要写入数据的缓冲区的指针。</li>
+<li><code>count</code>：要写入的字节数。</li>
+<li><code>offset</code>：相对于文件开始处的偏移量。</li>
+</ul>
+</li>
+<li>
+<p><strong>preadv(2)</strong>：</p>
+<pre><code class="language-c">ssize_t preadv(int fd, const struct iovec *iov, int iovcnt, off_t offset);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>iov</code>：指向<code>iovec</code>结构体数组的指针，每个<code>iovec</code>包含一个内存地址和要读取的长度。</li>
+<li><code>iovcnt</code>：<code>iovec</code>数组中的元素数量。</li>
+<li><code>offset</code>：相对于文件开始处的偏移量。</li>
+</ul>
+</li>
+<li>
+<p><strong>pwritev(2)</strong>：</p>
+<pre><code class="language-c">ssize_t pwritev(int fd, const struct iovec *iov, int iovcnt, off_t offset);
+</code></pre>
+<ul>
+<li><code>fd</code>：文件描述符。</li>
+<li><code>iov</code>：指向<code>iovec</code>结构体数组的指针，每个<code>iovec</code>包含一个内存地址和要写入的长度。</li>
+<li><code>iovcnt</code>：<code>iovec</code>数组中的元素数量。</li>
+<li><code>offset</code>：相对于文件开始处的偏移量。</li>
+</ul>
+</li>
+</ol>
+<p>这些系统调用的返回值通常是读取或写入的字节数，如果发生错误则返回-1，并设置<code>errno</code>以指示错误原因。<code>pread</code>和<code>pwrite</code>系列调用不会改变文件的当前偏移量，而<code>read</code>和<code>write</code>系列调用会改变文件的当前偏移量。<code>preadv</code>和<code>pwritev</code>允许从文件中分散读取或向文件分散写入数据。</p>
+<div style="font-size: 3.5rem"> offload</div>
+<p><strong>Offload</strong> 是一个在计算机科学和网络技术中常用的术语，指的是将某些计算或处理任务从一个系统或组件转移到另一个系统或组件，以减轻主系统的负担，提高效率。</p>
+<p>Offload 的定义:
+在一般意义上，offload 指的是将不想要的负担或任务转移给其他人或系统。例如，在计算机网络中，可以将数据处理任务从CPU转移到网络接口卡（NIC）上，以降低CPU的负担并提高处理性能。</p>
+<p>Offload 在存储系统中的应用:
+在存储系统中，offload 技术常用于优化内存使用。例如，在深度学习模型训练过程中，当GPU显存不足时，可以将部分数据暂时存储到CPU内存中，从而释放GPU显存用于计算。此外，offload 还可以用于数据预处理和长期数据存储，以减少对昂贵存储资源的占用。</p>
+<p>Offload 技术可以分为多种类型，主要包括：</p>
+<ul>
+<li><strong>TCP Offload Engine (TOE)</strong>：将TCP连接过程中的计算任务转移到专用硬件（如网卡），以释放CPU资源。</li>
+<li><strong>Large Segment Offload (LSO)</strong> 和 <strong>Large Receive Offload (LRO)</strong>：分别用于将数据包的分段和合并工作转移到网卡硬件上，从而提高网络性能。</li>
+<li><strong>Dynamic Computation Offloading</strong>：在AI框架中，offload技术用于将模型权重和中间结果卸载到CPU或其他存储系统，以优化内存使用。</li>
+</ul>
+<p>Offload 的优势:</p>
+<ul>
+<li><strong>性能提升</strong>：通过将计算任务转移到更适合的硬件上，可以显著提高系统的整体性能。</li>
+<li><strong>资源优化</strong>：减少主系统的负担，使其能够更专注于关键任务。</li>
+<li><strong>灵活性</strong>：支持在不同设备和资源之间动态分配任务，提高系统的灵活性和响应能力。</li>
+</ul>
+<p>总之，offload 是一种有效的技术手段，广泛应用于计算机系统、网络和存储管理中，以提高性能和优化资源使用。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../after-class/rust-embedded.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../after-class/rust-embedded.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

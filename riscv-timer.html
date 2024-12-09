@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>RISC-V 定时器 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html" class="active"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/riscv-timer.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <p>记录我查的专业名词，大部分解释来自 kimi (AI)。</p>
+<h1 id="如何设置时钟中断"><a class="header" href="#如何设置时钟中断">如何设置时钟中断</a></h1>
+<p>问：risc-v 如何设置时钟中断，在 M 模式和 S 模式分别说明</p>
+<p>答：在RISC-V架构中，设置时钟中断主要涉及到几个关键的寄存器和步骤，这些步骤在机器模式（M模式）和监管者模式（S模式）中有所不同。以下是在两种模式下设置时钟中断的一般流程：</p>
+<ul>
+<li>
+<p>M模式（Machine Mode）设置时钟中断：</p>
+<ol>
+<li><strong>初始化时钟中断寄存器</strong>：首先需要初始化<code>mtime</code>（当前时间计数器）和<code>mtimecmp</code>（时钟中断比较寄存器）。<code>mtimecmp</code>通常被设置为<code>mtime</code>的当前值加上某个间隔，从而在达到这个值时触发中断。</li>
+<li><strong>设置中断使能位</strong>：通过设置<code>mie</code>（机器中断使能寄存器）中的<code>MTIE</code>（时钟中断使能位），来使能时钟中断。</li>
+<li><strong>配置中断向量</strong>：设置<code>mtvec</code>（机器中断向量寄存器），用于定义中断服务程序的入口地址。</li>
+<li><strong>全局中断使能</strong>：确保<code>mstatus</code>寄存器中的<code>MIE</code>位被设置，以允许全局中断。</li>
+</ol>
+</li>
+<li>
+<p>S模式（Supervisor Mode）设置时钟中断：</p>
+<ol>
+<li><strong>使能S模式时钟中断</strong>：在S模式下，需要设置<code>sie</code>（监管者中断使能寄存器）中的<code>STIE</code>（时钟中断使能位）来使能时钟中断。</li>
+<li><strong>处理M模式到S模式的中断委派</strong>：如果系统配置了中断委派，M模式可以将时钟中断的响应权交给S模式处理。这通过设置<code>mideleg</code>（机器中断委派寄存器）来实现。</li>
+<li><strong>S模式中断处理</strong>：S模式下的操作系统需要配置自己的中断处理程序，并在<code>stvec</code>（监管者中断向量寄存器）中设置中断服务程序的入口地址。</li>
+<li><strong>软件触发S模式中断</strong>：在M模式下处理时钟中断后，可以通过向<code>sip</code>（监管者中断挂起寄存器）中的<code>SSIP</code>（软件中断挂起位）写入值来触发S模式下的软件中断，从而将控制权转交给S模式的中断处理程序。</li>
+</ol>
+</li>
+</ul>
+<p>在M模式下，时钟中断是直接由硬件触发的，而在S模式下，时钟中断可能需要通过M模式下的中断处理程序来间接触发。这是因为时钟中断默认是M模式中断，不能直接委派给S模式，除非通过软件触发的方式。在S模式下，操作系统可以利用时钟中断来进行任务调度、计时等功能的实现。</p>
+<h1 id="mideleg"><a class="header" href="#mideleg">mideleg</a></h1>
+<p><code>mideleg</code>（Machine Interrupt Delegation Register）是RISC-V架构中的一个控制和状态寄存器（CSR），用于定义哪些中断可以被委派到监管者模式（S-Mode）。这个寄存器允许机器模式（M-Mode）将某些中断的处理权交给S-Mode，从而允许操作系统在S-Mode下处理这些中断，而不是直接在M-Mode下处理。</p>
+<ul>
+<li>
+<p>mideleg寄存器的主要功能：</p>
+<ul>
+<li><strong>中断委派</strong>：<code>mideleg</code>寄存器中的每个位对应一种中断类型。如果某位被设置为1，则表示对应的中断可以被委派到S-Mode。</li>
+<li><strong>减少M-Mode中断处理</strong>：通过委派中断，可以减少M-Mode需要直接处理的中断数量，从而允许操作系统在S-Mode下更灵活地管理中断。</li>
+</ul>
+</li>
+<li>
+<p>mideleg寄存器的位定义：</p>
+<ul>
+<li>通常，<code>mideleg</code>寄存器的位与<code>mcause</code>寄存器中的中断原因编码相对应。例如，如果<code>mcause</code>中的第i位表示某种中断，则<code>mideleg</code>中的第i位可以用来控制是否将该中断委派到S-Mode。</li>
+<li>标准RISC-V中断类型包括软件中断、定时器中断和外部中断等，它们在<code>mideleg</code>中都有对应的位。</li>
+</ul>
+</li>
+<li>
+<p>使用mideleg寄存器的步骤：</p>
+<ol>
+<li><strong>确定中断类型</strong>：确定需要委派的中断类型，并找到<code>mideleg</code>中对应的位。</li>
+<li><strong>设置委派位</strong>：将<code>mideleg</code>中对应中断类型的位设置为1，以启用对该中断类型的委派。</li>
+<li><strong>配置S-Mode中断处理</strong>：在S-Mode下配置相应的中断处理程序，并确保<code>sie</code>寄存器中对应的中断使能位也被设置，以便S-Mode可以接收并处理这些中断。</li>
+</ol>
+</li>
+<li>
+<p>注意事项：</p>
+<ul>
+<li><strong>中断委派的限制</strong>：并非所有中断都可以被委派。例如，非屏蔽中断（NMI）通常不能被委派。</li>
+<li><strong>硬件实现差异</strong>：不同的RISC-V实现可能对中断委派的支持程度不同。有些实现可能不支持将某些类型的中断委派给S-Mode。</li>
+</ul>
+</li>
+</ul>
+<p><code>mideleg</code>寄存器的使用可以提高系统的灵活性和效率，允许操作系统在适当的特权级别处理中断，同时减少对M-Mode的依赖。</p>
+<blockquote>
+<p>问：mideleg 的设置权限在 M 还是 S</p>
+<p>答：<code>mideleg</code>（Machine Interrupt Delegation Register）的设置权限在机器模式（M模式）。这是因为<code>mideleg</code>是一个机器级别的控制寄存器，它决定了哪些中断可以被委派到监管者模式（S模式）。只有具备修改机器级别寄存器权限的代码才能设置<code>mideleg</code>，即在M模式下运行的代码或者具有相应权限的固件或操作系统代码。</p>
+<p>以下是<code>mideleg</code>设置的一般流程：</p>
+<ol>
+<li>
+<p><strong>进入M模式</strong>：如果当前不在M模式，需要首先从当前模式（无论是U模式、S模式还是其他）切换到M模式。这通常通过触发异常或中断，或者使用特定的特权指令来实现。</p>
+</li>
+<li>
+<p><strong>修改<code>mideleg</code></strong>：在M模式下，具有权限的代码可以读取<code>mideleg</code>寄存器的当前值，然后修改它以委派所需的中断到S模式。这通常涉及到设置<code>mideleg</code>寄存器中对应中断类型的位。</p>
+</li>
+<li>
+<p><strong>保存并退出</strong>：修改完<code>mideleg</code>后，代码需要保存更改并可能需要退出M模式，返回到之前的执行模式。</p>
+</li>
+</ol>
+<p>由于<code>mideleg</code>的修改直接影响到系统的中断处理流程，因此这种修改通常由系统固件、引导加载程序或操作系统内核在系统启动或配置过程中进行，而不是由普通的用户模式应用程序执行。此外，出于安全和稳定性的考虑，只有经过验证和授权的代码才能进行这类更改。</p>
+</blockquote>
+<h1 id="wfi-指令"><a class="header" href="#wfi-指令">wfi 指令</a></h1>
+<p><code>wfi</code>（Wait For Interrupt）是RISC-V指令集架构中的一项指令，用于实现低功耗等待状态。当处理器执行<code>wfi</code>指令时，它会进入一种特殊的休眠模式，在这种模式下，处理器会暂停执行后续指令，直到发生以下任一事件才会被唤醒：</p>
+<ol>
+<li><strong>中断</strong>：如果处理器配置为响应中断，那么当有中断发生时，处理器会从<code>wfi</code>状态唤醒并处理中断。</li>
+<li><strong>外部事件</strong>：某些实现可能允许其他类型的外部事件唤醒处理器，例如系统信号或特定的硬件信号。</li>
+</ol>
+<p><code>wfi</code>指令的主要特点和用途包括：</p>
+<ul>
+<li><strong>节能</strong>：在不需要立即响应的情况下，使用<code>wfi</code>可以减少处理器的能耗，因为它允许处理器在等待事件发生时进入低功耗状态。</li>
+<li><strong>响应性</strong>：尽管处理器在执行<code>wfi</code>时会暂停执行，但它仍然能够快速响应中断或其他唤醒事件，从而保证了系统的响应性。</li>
+<li><strong>编程模型</strong>：<code>wfi</code>为编程模型提供了一种机制，使得软件能够在不需要频繁轮询的情况下等待事件发生。</li>
+</ul>
+<p>在操作系统或设备驱动程序中，<code>wfi</code>可以用于实现以下场景：</p>
+<ul>
+<li><strong>空闲循环</strong>：操作系统的调度器可能会在没有任务可调度时使用<code>wfi</code>，以减少CPU的能耗。</li>
+<li><strong>等待I/O操作</strong>：驱动程序在等待I/O操作完成时可以使用<code>wfi</code>，以避免在CPU上浪费资源。</li>
+<li><strong>低功耗模式</strong>：在电池供电的设备中，<code>wfi</code>可以作为进入低功耗状态的一种手段。</li>
+</ul>
+<p>使用<code>wfi</code>指令时，需要注意以下几点：</p>
+<ul>
+<li><strong>中断使能</strong>：确保处理器已经使能了所需的中断，否则<code>wfi</code>可能永远不会被唤醒。</li>
+<li><strong>上下文保存</strong>：在执行<code>wfi</code>之前，可能需要保存处理器的状态，以便在唤醒后能够恢复执行。</li>
+<li><strong>实现依赖性</strong>：<code>wfi</code>的行为可能依赖于具体的RISC-V实现，因此在不同的硬件上可能有不同的行为。</li>
+</ul>
+<p>总的来说，<code>wfi</code>是RISC-V架构中一项重要的指令，它为实现节能和高效的中断驱动编程提供了支持。</p>
+<h1 id="如何触发软件中断"><a class="header" href="#如何触发软件中断">如何触发软件中断</a></h1>
+<p>在RISC-V架构中，触发软件中断通常涉及以下几个步骤：</p>
+<ol>
+<li>
+<p><strong>使能软件中断</strong>：在RISC-V的中断使能寄存器（<code>mie</code>）中设置软件中断使能位（<code>MSIE</code>）。这样，当软件中断被触发时，处理器将响应这个中断。</p>
+</li>
+<li>
+<p><strong>写入软件中断挂起寄存器</strong>：通过向软件中断挂起寄存器（<code>sip</code>）写入1，可以触发软件中断。在RISC-V中，<code>sip</code>寄存器的<code>SSIP</code>位（Software Interrupt Pending bit）用于触发软件中断。</p>
+</li>
+<li>
+<p><strong>处理软件中断</strong>：一旦软件中断被触发，处理器将执行中断服务程序。在S模式下，这通常涉及到从<code>stvec</code>寄存器指定的中断向量地址跳转，并执行相应的中断处理代码。</p>
+</li>
+<li>
+<p><strong>清除软件中断</strong>：软件中断处理完成后，需要清除软件中断挂起位，通常是通过向<code>sip</code>寄存器写入0来完成。这表示软件中断已经被处理，不会再触发中断流程。</p>
+</li>
+<li>
+<p><strong>返回中断</strong>：中断处理完成后，使用中断返回指令（如<code>mret</code>或<code>sret</code>）返回到中断发生前执行的程序位置。</p>
+</li>
+</ol>
+<p>请注意，具体的实现细节可能会根据不同的RISC-V实现和操作系统而有所不同。上述步骤提供了一个通用的触发和处理软件中断的流程。</p>
+<blockquote>
+<p>S 模式不直接控制时钟中断和软件中断，而是使用 ecall 指令请求 M 模式设置定时器或代表它发送处理器间中断。此软件约定是监管程序二进制接口
+（Supervisor Binary Interface）的一部分。</p>
+<p>src: The RISC-V Reader</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="terminology3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="after-class/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="terminology3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="after-class/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
