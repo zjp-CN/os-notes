@@ -8,3 +8,5 @@
 
 
 Microbit v2 使用的 nrf52833 型号代码可使用 embassy [nrf52840](https://github.com/embassy-rs/embassy/tree/main/examples/nrf52840) 示例。
+
+* [2024 LLVM Developers' Meeting - Rust ❤️ LLVM by Nikita Popov](https://www.youtube.com/watch?v=Kqz-umsAnk8&ab_channel=LLVM)
