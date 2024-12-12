@@ -10,44 +10,35 @@ use std::{
 };
 
 fn main() {
-    let (sender, receiver) = channel();
-    let spawner = Spawner::new(sender);
-
-    // spawn two tasks
-    spawner.spawn(TimerFuture::new(2.0));
-    spawner.spawn(TimerFuture::new(1.0));
-
-    spawner.spawn(async {
+    Executor::block_on(|spawner| async move {
+        // spawn two tasks
+        spawner.spawn(TimerFuture::new(2.0));
+        spawner.spawn(TimerFuture::new(1.0));
         TimerFuture::new(0.5).await;
         TimerFuture::new(0.8).await;
     });
-
-    // decrement a sender count to wake up receive side
-    drop(spawner);
-
-    Executor::new(receiver).run();
 }
-// Pending: Timer for 2 secs
-// [0] Pending
-// Pending: Timer for 1 secs
-// [1] Pending
 // Pending: Timer for 0.5 secs
+// [0] Pending
+// Pending: Timer for 2 secs
+// [1] Pending
+// Pending: Timer for 1 secs
 // [2] Pending
-// Sleep for 2 sec
 // Sleep for 1 sec
+// Sleep for 2 sec
 // Sleep for 0.5 sec
-// Completed for 0.5sec
+// Completed for 0.5 sec
 // Ready: Timer for 0.5 secs
 // Pending: Timer for 0.8 secs
 // [3] Pending
 // Sleep for 0.8 sec
-// Completed for 1sec
+// Completed for 1 sec
 // Ready: Timer for 1 secs
 // [4] Done
-// Completed for 0.8sec
+// Completed for 0.8 sec
 // Ready: Timer for 0.8 secs
 // [5] Done
-// Completed for 2sec
+// Completed for 2 sec
 // Ready: Timer for 2 secs
 // [6] Done
 
@@ -154,10 +145,22 @@ impl Executor {
             let cx = &mut Context::from_waker(&waker);
             match my_waker.task.lock().unwrap().as_mut().poll(cx) {
                 Poll::Ready(_) => println!("[{i}] Done"),
-                Poll::Pending => eprintln!("[{i}] Pending"),
+                Poll::Pending => println!("[{i}] Pending"),
             };
             i += 1;
         }
+    }
+
+    fn block_on<Fut: 'static + Send + Future<Output = ()>>(f: impl FnOnce(Arc<Spawner>) -> Fut) {
+        let (sender, receiver) = channel();
+        let spawner = Arc::new(Spawner::new(sender));
+
+        spawner.spawn(f(spawner.clone()));
+
+        // decrement a sender count to wake up receive side
+        drop(spawner);
+
+        Executor::new(receiver).run();
     }
 }
 
