@@ -51,6 +51,24 @@ fn main() {
 // Ready: Timer for 2 secs
 // [6] Done
 
+#[test]
+fn test_nested_spawn() {
+    let (sender, receiver) = channel();
+    let spawner = Arc::new(Spawner::new(sender));
+
+    spawner.spawn({
+        let spawner = spawner.clone();
+        async move {
+            spawner.spawn(TimerFuture::new(0.5));
+            spawner.spawn(TimerFuture::new(1.0));
+            TimerFuture::new(0.8).await;
+        }
+    });
+    drop(spawner);
+
+    Executor::new(receiver).run();
+}
+
 struct MyWaker {
     task: Mutex<Pin<Box<dyn Send + Future<Output = ()>>>>,
     sender: Sender<Arc<Self>>,
