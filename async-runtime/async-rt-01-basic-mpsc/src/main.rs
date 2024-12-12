@@ -13,6 +13,7 @@ fn main() {
     let (sender, receiver) = channel();
     let spawner = Spawner::new(sender);
     spawner.spawn(TimerFuture::new(2.0));
+    drop(spawner);
     Executor { receiver }.run();
 }
 
@@ -48,6 +49,7 @@ impl Future for TimerFuture {
     ) -> std::task::Poll<Self::Output> {
         let mut shared_state = self.state.lock().unwrap();
         if shared_state.complete {
+            shared_state.waker = None;
             Poll::Ready(())
         } else {
             shared_state.waker = Some(cx.waker().clone());
@@ -86,10 +88,7 @@ impl Executor {
             let waker = Waker::from(my_waker.clone());
             let cx = &mut Context::from_waker(&waker);
             match my_waker.task.lock().unwrap().as_mut().poll(cx) {
-                Poll::Ready(_) => {
-                    println!("Done");
-                    return;
-                }
+                Poll::Ready(_) => println!("Done"),
                 Poll::Pending => eprintln!("Pending"),
             };
         }
