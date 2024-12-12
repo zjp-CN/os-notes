@@ -12,11 +12,24 @@ use std::{
 fn main() {
     let (sender, receiver) = channel();
     let spawner = Spawner::new(sender);
+
+    // spawn two tasks
     spawner.spawn(TimerFuture::new(2.0));
     spawner.spawn(TimerFuture::new(1.0));
+
+    // decrement a sender count to wake up receive side
     drop(spawner);
-    Executor { receiver }.run();
+
+    Executor::new(receiver).run();
 }
+// Pending
+// Pending
+// Sleep for 2 sec
+// Sleep for 1 sec
+// Completed for 1sec
+// Done
+// Completed for 2sec
+// Done
 
 struct MyWaker {
     task: Mutex<Pin<Box<dyn Send + Future<Output = ()>>>>,
@@ -84,6 +97,10 @@ struct Executor {
 }
 
 impl Executor {
+    fn new(receiver: Receiver<Arc<MyWaker>>) -> Self {
+        Executor { receiver }
+    }
+
     fn run(&self) {
         while let Ok(my_waker) = self.receiver.recv() {
             let waker = Waker::from(my_waker.clone());
