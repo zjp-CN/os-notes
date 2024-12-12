@@ -3,4 +3,4 @@ resolver = "3"
 members = ["async-rt-01-basic-mpsc"]
 
 [workspace.dependencies]
-futures = "0.3"
+# futures = "0.3"
