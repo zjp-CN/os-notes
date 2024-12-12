@@ -13,6 +13,7 @@ fn main() {
     let (sender, receiver) = channel();
     let spawner = Spawner::new(sender);
     spawner.spawn(TimerFuture::new(2.0));
+    spawner.spawn(TimerFuture::new(1.0));
     drop(spawner);
     Executor { receiver }.run();
 }
@@ -67,11 +68,12 @@ impl TimerFuture {
         thread::spawn({
             let state = state.clone();
             move || {
+                println!("Sleep for {secs} sec");
                 thread::sleep(Duration::from_secs_f32(secs));
                 let mut lock = state.lock().unwrap();
                 lock.complete = true;
                 lock.waker.as_mut().unwrap().wake_by_ref();
-                println!("Completed");
+                println!("Completed for {secs}sec");
             }
         });
         TimerFuture { state }
