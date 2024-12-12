@@ -15,7 +15,7 @@ fn main() {
 }
 
 struct MyWaker {
-    task: Mutex<Task>,
+    task: Mutex<Pin<Box<dyn Send + Future<Output = ()>>>>,
     sender: Sender<Arc<Self>>,
 }
 
@@ -25,21 +25,6 @@ impl Wake for MyWaker {
     }
     fn wake_by_ref(self: &Arc<Self>) {
         self.sender.send(self.clone()).unwrap();
-    }
-}
-
-struct Task {
-    fut: Pin<Box<dyn Send + Future<Output = ()>>>,
-}
-
-impl Future for Task {
-    type Output = ();
-
-    fn poll(
-        mut self: std::pin::Pin<&mut Self>,
-        cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Self::Output> {
-        self.fut.as_mut().poll(cx)
     }
 }
 
@@ -97,9 +82,8 @@ struct Executor {
 impl Executor {
     fn run(&self, fut: impl 'static + Send + Future<Output = ()>) {
         let my_waker = {
-            let task = Task { fut: Box::pin(fut) };
             let my_waker = Arc::new(MyWaker {
-                task: Mutex::new(task),
+                task: Mutex::new(Box::pin(fut)),
                 sender: self.sender.clone(),
             });
             my_waker.sender.send(my_waker.clone()).unwrap();
@@ -108,7 +92,7 @@ impl Executor {
         let waker = Waker::from(my_waker);
         let cx = &mut Context::from_waker(&waker);
         while let Ok(w) = self.receiver.recv() {
-            match w.task.lock().unwrap().fut.as_mut().poll(cx) {
+            match w.task.lock().unwrap().as_mut().poll(cx) {
                 Poll::Ready(_) => {
                     println!("Done");
                     return;
