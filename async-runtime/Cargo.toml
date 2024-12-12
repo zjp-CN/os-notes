@@ -1,6 +1,9 @@
 [workspace]
 resolver = "3"
-members = ["async-rt-01-basic-mpsc"]
+members = ["async-rt-01-basic-mpsc", "async-rt-02-io-uring"]
 
 [workspace.dependencies]
 # futures = "0.3"
+io-uring = "0.7"
+slab = "0.4"
+libc = "0.2"

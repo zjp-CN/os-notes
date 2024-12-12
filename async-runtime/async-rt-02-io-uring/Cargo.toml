@@ -1,0 +1,9 @@
+[package]
+name = "async-rt-02-io-uring"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+io-uring = { workspace = true }
+slab = { workspace = true }
+libc = { workspace = true }
