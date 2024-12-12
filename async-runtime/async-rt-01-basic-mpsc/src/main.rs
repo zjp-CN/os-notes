@@ -11,7 +11,9 @@ use std::{
 
 fn main() {
     let (sender, receiver) = channel();
-    Executor { sender, receiver }.run(TimerFuture::new(2.0));
+    let spawner = Spawner::new(sender);
+    spawner.spawn(TimerFuture::new(2.0));
+    Executor { receiver }.run();
 }
 
 struct MyWaker {
@@ -76,23 +78,14 @@ impl TimerFuture {
 
 struct Executor {
     receiver: Receiver<Arc<MyWaker>>,
-    sender: Sender<Arc<MyWaker>>,
 }
 
 impl Executor {
-    fn run(&self, fut: impl 'static + Send + Future<Output = ()>) {
-        let my_waker = {
-            let my_waker = Arc::new(MyWaker {
-                task: Mutex::new(Box::pin(fut)),
-                sender: self.sender.clone(),
-            });
-            my_waker.sender.send(my_waker.clone()).unwrap();
-            my_waker
-        };
-        let waker = Waker::from(my_waker);
-        let cx = &mut Context::from_waker(&waker);
-        while let Ok(w) = self.receiver.recv() {
-            match w.task.lock().unwrap().as_mut().poll(cx) {
+    fn run(&self) {
+        while let Ok(my_waker) = self.receiver.recv() {
+            let waker = Waker::from(my_waker.clone());
+            let cx = &mut Context::from_waker(&waker);
+            match my_waker.task.lock().unwrap().as_mut().poll(cx) {
                 Poll::Ready(_) => {
                     println!("Done");
                     return;
@@ -100,5 +93,23 @@ impl Executor {
                 Poll::Pending => eprintln!("Pending"),
             };
         }
+    }
+}
+
+struct Spawner {
+    sender: Sender<Arc<MyWaker>>,
+}
+
+impl Spawner {
+    fn new(sender: Sender<Arc<MyWaker>>) -> Self {
+        Spawner { sender }
+    }
+
+    fn spawn(&self, fut: impl 'static + Send + Future<Output = ()>) {
+        let my_waker = Arc::new(MyWaker {
+            task: Mutex::new(Box::pin(fut)),
+            sender: self.sender.clone(),
+        });
+        self.sender.send(my_waker).unwrap();
     }
 }
