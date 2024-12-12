@@ -50,7 +50,6 @@ impl Future for TimerFuture {
     ) -> std::task::Poll<Self::Output> {
         let mut shared_state = self.state.lock().unwrap();
         if shared_state.complete {
-            shared_state.waker = None;
             Poll::Ready(())
         } else {
             shared_state.waker = Some(cx.waker().clone());
@@ -72,7 +71,7 @@ impl TimerFuture {
                 thread::sleep(Duration::from_secs_f32(secs));
                 let mut lock = state.lock().unwrap();
                 lock.complete = true;
-                lock.waker.as_mut().unwrap().wake_by_ref();
+                lock.waker.take().unwrap().wake();
                 println!("Completed for {secs}sec");
             }
         });
