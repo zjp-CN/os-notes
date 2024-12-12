@@ -17,19 +17,39 @@ fn main() {
     spawner.spawn(TimerFuture::new(2.0));
     spawner.spawn(TimerFuture::new(1.0));
 
+    spawner.spawn(async {
+        TimerFuture::new(0.5).await;
+        TimerFuture::new(0.8).await;
+    });
+
     // decrement a sender count to wake up receive side
     drop(spawner);
 
     Executor::new(receiver).run();
 }
-// Pending
-// Pending
+// Pending: Timer for 2 secs
+// [0] Pending
+// Pending: Timer for 1 secs
+// [1] Pending
+// Pending: Timer for 0.5 secs
+// [2] Pending
 // Sleep for 2 sec
 // Sleep for 1 sec
+// Sleep for 0.5 sec
+// Completed for 0.5sec
+// Ready: Timer for 0.5 secs
+// Pending: Timer for 0.8 secs
+// [3] Pending
+// Sleep for 0.8 sec
 // Completed for 1sec
-// Done
+// Ready: Timer for 1 secs
+// [4] Done
+// Completed for 0.8sec
+// Ready: Timer for 0.8 secs
+// [5] Done
 // Completed for 2sec
-// Done
+// Ready: Timer for 2 secs
+// [6] Done
 
 struct MyWaker {
     task: Mutex<Pin<Box<dyn Send + Future<Output = ()>>>>,
@@ -46,6 +66,7 @@ impl Wake for MyWaker {
 }
 
 struct SharedState {
+    duration: f32,
     complete: bool,
     waker: Option<Waker>,
 }
@@ -63,8 +84,10 @@ impl Future for TimerFuture {
     ) -> std::task::Poll<Self::Output> {
         let mut shared_state = self.state.lock().unwrap();
         if shared_state.complete {
+            println!("Ready: Timer for {} secs", shared_state.duration);
             Poll::Ready(())
         } else {
+            println!("Pending: Timer for {} secs", shared_state.duration);
             // set a waker which wakes up the task on completion
             shared_state.waker = Some(cx.waker().clone());
             Poll::Pending
@@ -75,6 +98,7 @@ impl Future for TimerFuture {
 impl TimerFuture {
     fn new(secs: f32) -> Self {
         let state = Arc::new(Mutex::new(SharedState {
+            duration: secs,
             complete: false,
             waker: None,
         }));
@@ -88,7 +112,7 @@ impl TimerFuture {
 
                 // wake up the task by sending the future to executor
                 lock.waker.take().unwrap().wake();
-                println!("Completed for {secs}sec");
+                println!("Completed for {secs} sec");
             }
         });
         TimerFuture { state }
@@ -105,14 +129,16 @@ impl Executor {
     }
 
     fn run(&self) {
+        let mut i = 0;
         // exit when senders are all droped
         while let Ok(my_waker) = self.receiver.recv() {
             let waker = Waker::from(my_waker.clone());
             let cx = &mut Context::from_waker(&waker);
             match my_waker.task.lock().unwrap().as_mut().poll(cx) {
-                Poll::Ready(_) => println!("Done"),
-                Poll::Pending => eprintln!("Pending"),
+                Poll::Ready(_) => println!("[{i}] Done"),
+                Poll::Pending => eprintln!("[{i}] Pending"),
             };
+            i += 1;
         }
     }
 }
