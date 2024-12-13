@@ -181,3 +181,26 @@ impl Spawner {
         self.sender.send(my_waker).unwrap();
     }
 }
+
+#[test]
+fn test_will_wake() {
+    let (sender, _) = channel();
+
+    let waker1 = Waker::from(Arc::new(MyWaker {
+        task: Mutex::new(Box::pin(TimerFuture::new(1.0))),
+        sender: sender.clone(),
+    }));
+
+    let waker2 = Waker::from(Arc::new(MyWaker {
+        task: Mutex::new(Box::pin(TimerFuture::new(1.0))),
+        sender: sender.clone(),
+    }));
+
+    // data and vtable is the same
+    assert!(waker1.will_wake(&waker1.clone()));
+
+    // data is not the same, but vtable is
+    assert!(!waker1.will_wake(&waker2));
+    assert!(waker1.data() != waker2.data());
+    assert!(waker1.vtable() == waker2.vtable());
+}
