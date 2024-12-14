@@ -1,0 +1,448 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>rCore-embassy-timer - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html" class="active"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li><li class="chapter-item expanded "><a href="2024-winter/tokio.html"><strong aria-hidden="true">7.2.</strong> tokio 源码阅读</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/rCore-embassy-timer.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="rcore-定时器与-embassy"><a class="header" href="#rcore-定时器与-embassy">rCore 定时器与 embassy</a></h1>
+<p><strong>将 embassy 应用于 rCore 定时器。</strong></p>
+<p>修改了 user 目录下的代码，所以获取本仓库时这样做：</p>
+<pre><code class="language-shell">git clone --recurse-submodules https://gitee.com/ZIP97/rCore-tutorial-code-2024S-embassy.git
+</code></pre>
+<h1 id="核心思路和代码修改"><a class="header" href="#核心思路和代码修改">核心思路和代码修改</a></h1>
+<p>核心思路：在 rCore 的时钟中断处理函数中，嵌入 embassy 运行时。</p>
+<p>具体在 <code>set_next_trigger</code> 中函数，将原来的 <code>set_timer</code> 函数移至 <code>&lt;TimerDriver as embassy_time_driver::Driver&gt;::set_alarm</code> 
+函数中，并将设置定时作为了一个异步任务，从而不仅可以实现原来的 rCore 的定时逻辑，更重要的是内核支持了任何异步任务。</p>
+<blockquote>
+<p>为了聚焦于实验的重点，我们采用更长的时间片来减少时间中断的次数，来观察两个用户态程序在 sleep 期间，内核的定时任务打印的执行情况。
+而不是采用 rCore 原来的设定的 1 秒钟打断 100 次作为定时任务。</p>
+</blockquote>
+<p>主要的代码修改在 <code>src/timer.rs</code> 模块：</p>
+<ul>
+<li>设置 embassy 运行时：添加一个 <code>embassy_runtime</code> 函数，通过全局静态变量，初始化执行器</li>
+<li>声明一些异步任务，比如设置定时打印任务，然后将任务注册到执行器（通过 <code>Spawner</code> 的 <code>spawn</code> 函数）</li>
+<li>调用一次 <a href="https://docs.embassy.dev/embassy-executor/git/riscv32/raw/struct.Executor.html#method.poll"><code>Executor::poll</code></a> 函数，轮询所有被注册的、但未被完成的任务：
+<ul>
+<li>在轮询过程中，这些异步任务会被推进一步，直至这些任务完成（完成的标志为 <code>Future::poll</code> 返回 Ready，然后该任务状态不再是 spawned）</li>
+<li>由于目前只调用一次 <code>Executor::poll</code>，这些异步任务不一定直接推进到完成，也就是说，异步任务可能会在未来进入时钟中断后的轮询中才完成</li>
+</ul>
+</li>
+</ul>
+<p>具体对于定时打印任务来说，它向执行器注册后，调用了 <a href="https://docs.embassy.dev/embassy-time/git/default/struct.Timer.html#method.poll"><code>&lt;Timer as Future&gt;::poll</code></a>，这个 Future 实现会把它放进执行器内部的定时任务栈；
+由于将来某个时刻才到期，那么该任务处于 Pending 状态而进入“睡眠”，其 CPU 执行权交还给执行器来推进其他任务（如果还有任务的话）；
+当设定的时刻到来，硬件会产生定时器中断信号，然后交由内核态的 ISR 处理时钟中断，于是 CPU 执行权来到 <code>Executor::poll</code>，推进这个定时任务从而打印了内容。</p>
+<p>rCore 的时钟处理和 embassy 之间的关联：定时操作变成了异步任务。依然由硬件触发时间中断，但处理时间中断的逻辑由 embassy 异步运行时管理，从同步变成了异步。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 定时器驱动
+struct TimerDriver {}
+
+impl Driver for TimerDriver {
+    fn now(&amp;self) -&gt; u64 { riscv::register::time::read64() }
+
+    // 该函数会在 embassy-executor 轮询一遍所有异步任务之后被调用
+    fn set_alarm(&amp;self, _alarm: AlarmHandle, timestamp: u64) -&gt; bool {
+        let set = self.now() &lt; timestamp;
+        if set {
+            set_timer(timestamp as usize);
+        }
+        set
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Set the next timer interrupt
+pub fn set_next_trigger() {
+    embassy_runtime();
+
+    // 原 rCore 的 set_timer，现放置于 &lt;TimerDriver as Driver&gt;::set_alarm 函数中
+    // set_timer(get_time() + CLOCK_FREQ / TICKS_PER_SEC);
+}
+
+fn embassy_runtime() {
+    embassy_time_driver::time_driver_impl!(static DRIVER: TimerDriver = TimerDriver{});
+
+    static mut RUNTIME: Option&lt;Executor&gt; = None;
+    let runtime = unsafe {
+        RUNTIME.get_or_insert_with(|| { // 全局初始化
+            info!(&quot;runtime init&quot;);
+            Executor::new(&amp;mut ())
+        })
+    };
+
+    let spawner = runtime.spawner();
+
+    spawner.spawn(run(1000, || /* 打印 */)).unwrap();
+    spawner.spawn(run(500, || /* 打印 */).unwrap();
+
+    unsafe { runtime.poll() };
+}
+<span class="boring">}</span></code></pre></pre>
+<p>为了简要展示打印信息，这里以一个异步打印任务为例：</p>
+<pre><code class="language-text">[ INFO] runtime init
+[ INFO] [now=13468888] [embassy_runtime] spawn a timer task: they will print in 1 sec
+[ INFO] [now=13575455] set_timer for timestamp=23563440
+
+... omit output from unrelated user code
+
+[user sapce] [ch3b_sleep] Start now=1504ms
+[user space] [ch3b_sleep1] Starts now=1514ms
+
+... omit output from unrelated user code
+
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=23609191] [embassy_runtime] spawn a timer task: they will print in 1 sec
+[now=23693536] [task 1 (0) done] tick for 1 sec
+[ INFO] [now=23743502] set_timer for timestamp=33743074
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=33790778] [embassy_runtime] spawn a timer task: they will print in 1 sec
+[now=33855220] [task 1 (1) done] tick for 1 sec
+[ INFO] [now=33888388] set_timer for timestamp=43887940
+
+[user space] [ch3b_sleep1] now=3520ms after sleeping 100 ticks, delta = 2006ms!
+[user space] [ch3b_sleep1]Test sleep1 passed! now=3526ms
+
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=43934302] [embassy_runtime] spawn a timer task: they will print in 1 sec
+[now=43995955] [task 1 (2) done] tick for 1 sec
+[ INFO] [now=44026432] set_timer for timestamp=54026064
+
+[user sapce] [ch3b_sleep] Test sleep OK! now=4504ms
+[kernel] Panicked at src/task/mod.rs:135 All applications completed!
+</code></pre>
+<p>这个日志报告的执行过程可表示为：</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">时间轴<br>(自开机以来)</th><th>kernel<br>(定时打印)</th><th>ch3b_sleep<br>(sleep 3 秒)</th><th>ch3b_sleep1<br>(sleep 2 秒)</th></tr></thead><tbody>
+<tr><td style="text-align: center">1.3s</td><td>内核初始化，设置下次打印为 1s 后</td><td>未执行</td><td>未执行</td></tr>
+<tr><td style="text-align: center">1.5s</td><td>-</td><td>开始执行 sleep</td><td>开始执行</td></tr>
+<tr><td style="text-align: center">2.3s</td><td>陷入时钟中断，并打印；设置下次打印为 1s 后</td><td>-</td><td>-</td></tr>
+<tr><td style="text-align: center">3.3s</td><td>陷入时钟中断，并打印；设置下次打印为 1s 后</td><td>-</td><td>-</td></tr>
+<tr><td style="text-align: center">3.5s</td><td>-</td><td>-</td><td>sleep 结束</td></tr>
+<tr><td style="text-align: center">4.3s</td><td>陷入时钟中断，并打印；设置下次打印为 1s 后</td><td>-</td><td>-</td></tr>
+<tr><td style="text-align: center">4.5s</td><td>-</td><td>sleep 结束，内核退出</td><td>-</td></tr>
+</tbody></table>
+</div><details>
+<summary>两个定时任务（1 秒和 0.5 秒后打印）的执行情况：点击 展开/折叠 输出结果</summary>
+<pre><code class="language-text">[ INFO] runtime init
+[ INFO] [now=8963079] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[ INFO] [now=9074716] set_timer for timestamp=14063168
+
+... omit output from unrelated user code
+
+[user sapce] [ch3b_sleep] Start now=1059ms
+[user space] [ch3b_sleep1] Starts now=1063ms
+
+... omit output from unrelated user code
+
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=14100964] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=14180971] [task 2 (0) done] tick for 0.5 sec
+[ INFO] [now=14217068] set_timer for timestamp=19072535
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=19110271] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=19180360] [task 1 (1) done] tick for 1 sec
+[ INFO] [now=19214358] set_timer for timestamp=19216534
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=19306211] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=19343169] [task 2 (2) done] tick for 0.5 sec
+[ INFO] [now=19362740] set_timer for timestamp=24213682
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=24252478] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=24324734] [task 1 (3) done] tick for 1 sec
+[now=24355001] [task 2 (4) done] tick for 0.5 sec
+[now=24388689] [task 2 (5) done] tick for 0.5 sec
+[ INFO] [now=24421088] set_timer for timestamp=29214028
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=29275492] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=29345915] [task 1 (6) done] tick for 1 sec
+[now=29382478] [task 1 (7) done] tick for 1 sec
+[now=29413583] [task 2 (8) done] tick for 0.5 sec
+[ INFO] [now=29442517] set_timer for timestamp=34381657
+
+[user space] [ch3b_sleep1] now=3067ms after sleeping 100 ticks, delta = 2004ms!
+[user space] [ch3b_sleep1]Test sleep1 passed! now=3072ms
+
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=34417918] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=34488639] [task 1 (9) done] tick for 1 sec
+[now=34519730] [task 2 (10) done] tick for 0.5 sec
+[ INFO] [now=34551988] set_timer for timestamp=39381982
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=39420027] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=39492751] [task 1 (11) done] tick for 1 sec
+[ INFO] [now=39524484] set_timer for timestamp=39551507
+[ WARN] Interrupt::SupervisorTimer
+[ INFO] [now=39584847] [embassy_runtime] spawn two timer tasks: they will print in 0.5 sec and 1 sec
+[now=39626547] [task 2 (12) done] tick for 0.5 sec
+[ INFO] [now=39645440] set_timer for timestamp=44523987
+
+[user sapce] [ch3b_sleep] Test sleep OK! now=4059ms
+[kernel] Panicked at src/task/mod.rs:135 All applications completed!
+</code></pre>
+</details>
+<h1 id="一些重要的细节"><a class="header" href="#一些重要的细节">一些重要的细节</a></h1>
+<h2 id="调整时钟频率"><a class="header" href="#调整时钟频率">调整时钟频率</a></h2>
+<p>rCore 中将 qemu 的时钟频率记录为 12_500_000 Hz，但这里采用 10_000_000 Hz。这个调整体现在 
+embassy-time 启用 tick-hz-10_000_000 feature，以及将内核代码中 CLOCK_FREQ 常量修改为 10_000_000。</p>
+<p>这个修改的目的是为了更好地观察计数器的值，<code>TimerDriver::now</code> 以 tick 作为时间单位而不是换算过的时间单位，那么从
+18M tick 计数开始 1 “秒”，只需观察 tick 计数在 28M 处的时间。</p>
+<p>这带来的最大影响，只是内核中的 1 秒钟比现实中的 1 秒钟更快，因为我们没有改动硬件上的时钟频率，所以依然是
+12.5 MHz 走完 1 秒，而现在 10 MHz 视为 1 秒，而实际并不花费 1 秒。</p>
+<p>这个差异对我们的实验并不重要，内核态和用户态的时间 tick 数是统一的，只是换算成的毫秒或者秒与实际时间有些差异而已。</p>
+<p>你也可以不调整这个，但存在两个问题：</p>
+<ul>
+<li>embassy-time 不具备 12.5MHz 的 feature，所以需要去调查如何设置它（我没有兴趣调查这个）</li>
+<li>如果 embassy-time 的时钟频率设置和 rCore 里的不一致，那么 <code>Timer</code> 相关的 API 计算的 ticks 数会不准确</li>
+</ul>
+<h2 id="简化了轮询代码"><a class="header" href="#简化了轮询代码">简化了轮询代码</a></h2>
+<p>我们只在每次定时器中断时，仅调用一次 <code>Executor::poll</code>，也就是把所有异步任务推进 1 步。</p>
+<p>推进 1 步，是指把任务执行到下个 Pending 状态（如果有的话）。</p>
+<p>你可以把异步任务推进 n 步，那么只需改成调用 <code>Executor::poll</code> n 次。</p>
+<p>但我们这里只考虑非常简单的定时任务，多次调用 <code>Executor::poll</code>，它们也必须在到期时间之后才能继续（甚至不会被放进执行任务栈），因此调用一次
+<code>Executor::poll</code> 既可以保持简单，又能让它们在到期后执行下去。</p>
+<h2 id="简化了定时任务"><a class="header" href="#简化了定时任务">简化了定时任务</a></h2>
+<p>体现在</p>
+<ul>
+<li>定时任务是简单的、一次性的：每次时钟中断固定设置 1 秒和 0.5 秒的定时</li>
+<li>设定的时间比原来 rCore 设定的定时器时间长很多：rCore 设定的时间片为一秒钟打断 100 次（<code>set_timer(get_time() + CLOCK_FREQ / TICKS_PER_SEC)</code>），
+但目前没有那样做，因为这会中断太多次而让输出看起来杂乱 —— 恢复 rCore 那种做法是很容易做到的，只需要设置一个相同时长的异步任务就行。不过，这也导致了
+那些用户态很快执行完的程序是按顺序执行的（因为它们还没在被打断之前就已经结束运行了）。为此，我将用户态的 <code>ch3_sleep</code> 和 <code>ch3_sleep1</code> 两个测例变成了
+基础测例（只需修改它们的文件名，以及需要在内核实现相关的系统调用），这样，就能在用户程序 sleep 期间，观察到内核态的异步定时任务执行过程。</li>
+<li>定时任务采用了最简单的、自动可重用的静态任务池： embassy 在任务上做了一个假设和规定，即使任务完成，不会（并且禁止）收回其内存资源（因为底层 API 
+<code>TaskStorage::spawn(&amp;'static self, ...)</code> 中包含一个 <code>'static</code> 生命周期，收回内存，会打破这个编译器的 invariant，导致 UB）。
+<code>#[embassy_executor::task]</code> 实际具有一些限制，如果有人对此有兴趣了解，或者想知道如何使用低级的 <code>TaskStorage</code> API 做更复杂的事情（比如动态任务、手动重用任务），见 <a href="https://zjp-cn.github.io/os-notes/embassy-task.html">我的笔记</a>。</li>
+</ul>
+<h2 id="先在-ch1-上应用"><a class="header" href="#先在-ch1-上应用">先在 ch1 上应用</a></h2>
+<p>向老师给出了特别重要的建议，让我们将问题拆分成三个步骤，每一步做到位就一定能成功：</p>
+<ol>
+<li>在裸机上，通过 embassy 设置定时，确保功能正常；</li>
+<li>将 rCore 的时钟中断处理替换成 embassy 能正常工作的代码；</li>
+<li>弄清楚 rCore 和 embassy 的边界。</li>
+</ol>
+<p>ch1 相当于一个 riscv 裸机环境，而 ch3 是一个初步的操作系统。</p>
+<p>我最先在 ch1 上进行实验（<a href="https://gitee.com/ZIP97/rCore-tutorial-code-2024S-embassy/blob/ch1-embassy/os/src/main.rs">代码在 ch1-embassy 分支上</a>），成功后才放置到 ch3 上面。</p>
+<p>ch1-embassy 的代码目前有点乱，核心改动在于：</p>
+<ul>
+<li>建立与 ch3 类似的 embassy 定时器驱动和运行时，几乎与上面的代码一模一样；</li>
+<li>异步任务永远在定时打印，而不是一次性的；</li>
+<li><code>Executor::poll</code> 是多次调用的（放置在循环内）；</li>
+<li>每次调用 <code>Executor::poll</code> 后，通过 wfi 指令让 CPU 休眠，并搭配计时器中断，从而唤醒 CPU、陷入中断处理，从而减少 CPU 使用，并且避免了无意义的 set_alarm 调用；</li>
+<li>中断处理函数 <code>handle_timer_trap</code> 并不使用汇编，因为没有用户态程序，我们甚至没有保存中断的上下文（不确定这是不是正确的，但打印结果已经是我们想要的）；</li>
+<li>记得开启时钟中断相关的状态，即调用 <code>sstatus::set_sie()</code> 和 <code>sie::set_stimer()</code>。有一个我们调试很久也无法解决的问题，sie CSR 在 S 态出现中断后，进入 
+ISR，机器会自动对它清零，从而不会出现中断嵌套；但我们需要在合适的时候使能 sie，通过开启时钟中断响应继续进入 ISR。我试过在某些地方放置 
+set_sie，观察到行为良好，但在其他地方出现莫名其妙的 bug（不限于打印意外字符而进入死循环、奇怪的指令错误等等）。</li>
+</ul>
+<h1 id="可能改进的地方"><a class="header" href="#可能改进的地方">可能改进的地方</a></h1>
+<ul>
+<li>现在只考虑了定时的异步任务，而 embassy 实际支持一般意义上的异步任务，那么我们希望在内核中除定时任务之外，支持什么样的异步任务呢？换句话说，如何拓展异步运行时到整个内核？
+<ul>
+<li>在第 3 章，rCore 最主要的任务就是通过时间片轮换来并发地执行用户态程序，这似乎已经与异步紧密联系，有可能利用 embassy 来调度用户态程序吗（任务的暂停点就是时间片结束）？</li>
+</ul>
+</li>
+<li>考虑支持需要多次推进才能完成的更复杂的异步任务。但这会带来一个问题，此时如何调用 <code>Executor::poll</code> 才更合理？显然当前一次时钟中断只调用它一次，
+那么所有任务必须等到下次时钟中断才能推进 1 步，这不足以让非定时的任务尽快完成。</li>
+</ul>
+<h1 id="致谢"><a class="header" href="#致谢">致谢</a></h1>
+<p>感谢向老师在这 6 周时间里倾囊相授，尤其对我充满了耐心、热情和鼓励。与您所交流的一切，远远大于我在训练营里学习的所有知识，也是我所得到的最具价值的收获。您是我遇见的最好的老师！</p>
+<p>感谢陶要仲同学将异步运行时放置到时间中断处理函数里面，这是完成向老师所提的第二个步骤的最重要的一环；也谢谢你在最后一周、连续三个晚上倾听我喋喋不休，最终我们愉快地合作成功。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="submodules.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="embassy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="submodules.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="embassy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

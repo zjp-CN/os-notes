@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>tokio 源码阅读 - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="../rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="../rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="../rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="../rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="../rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="../rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="../rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="../async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="../embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="../embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="../embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="../embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="../embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="../submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="../embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="../embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="../cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="../green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="../shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="../terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="../terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="../riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="../after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="../after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="../after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="../after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li><li class="chapter-item expanded "><a href="../2024-winter/tokio.html" class="active"><strong aria-hidden="true">7.2.</strong> tokio 源码阅读</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/2024-winter/tokio.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="tokio-源码阅读"><a class="header" href="#tokio-源码阅读">tokio 源码阅读</a></h1>
+<h2 id="budget"><a class="header" href="#budget">Budget</a></h2>
+<p>问题背景：在系统负载不高的情况下，接收资源的速度很快，那么任务在 await 点上一直返回 <code>Poll::Ready</code>，从而没有把执行权交还给调度器，因此该任务长时间运行导致其他任务饥饿，并且所有任务的延迟越来越高。</p>
+<p>一些可能的解决方法：</p>
+<ol>
+<li>使用者可以在自己的代码中插入 <code>yield_now()</code> 来强制把执行权还给调度器，从而让其他任务执行。但实际很少有人这么做。</li>
+<li>调度器实现抢占：但调度器只在任务的 await 点获取执行权，无法打断正在运行中的任务。</li>
+</ol>
+<p>tokio 的解决方法：在每个任务操作上施加预算策略 (budget)。其特点：</p>
+<ul>
+<li>调度器切换到一个任务时，会重置预算，目前一个任务有 128 个预算；</li>
+<li>该预算表示连续进行资源操作的最大次数：每操作一次资源，预算减 1；</li>
+<li>当预算为 0，调度器不再执行该任务，并切换到下一个任务 👉 这就是所谓的自动 yield；</li>
+<li>每个 tokio 资源（socket、timer、channel）都知道还有多少预算；
+<ul>
+<li>只要任务还有剩余预算（预算大于 0），资源就会正常运行；</li>
+<li>一旦任务超出预算（预算为 0），所有 tokio 资源将永远返回 not ready（即使背后的 IO 资源已经准备好了）。</li>
+</ul>
+</li>
+</ul>
+<p>因此从另一个角度看，这其实是任务持续地 <code>Poll::Ready</code>，在到达次数的上限时，调度器把执行权交给其他任务，从而这实现了一种抢占策略。</p>
+<p>注意：</p>
+<ul>
+<li>预算策略在 tokio 类型上，不是用户感知的：使用者不需要改动基于 tokio 资源的代码就能获得好处。</li>
+<li>预算策略特定于运行时：tokio 内部的类型知道预算，但外部的类型并不知道，因此如果使用其他库的、没有考虑 tokio 预算的资源类型，那么并不会获得该策略的好处。</li>
+<li>预算策略涉及的公共 API：
+<ul>
+<li><a href="https://docs.rs/tokio/latest/tokio/task/fn.unconstrained.html"><code>unconstrained</code></a> 用于退出 tokio 的预算策略机制，tokio 对该函数的参数
+Future 不施加任何预算，因此对它不自动 yield。</li>
+<li><a href="https://docs.rs/tokio/latest/tokio/task/fn.consume_budget.html"><code>consume_budget</code></a> 用于消耗 1 个预算，可供外部类型接入预算策略。</li>
+</ul>
+</li>
+</ul>
+<p><code>consume_budget</code> API 不仅适用于资源类型，也适用于计算密集的代码。虽然通常情况下，建议把计算密集的代码放到 blocking 线程，但利用该
+API，可以将同步代码变成协作式的任务：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>async fn sum_iterator(input: &amp;mut impl std::iter::Iterator&lt;Item=i64&gt;) -&gt; i64 {
+    let mut sum: i64 = 0;
+    while let Some(i) = input.next() {
+        sum += i;
+
+        // 减少一个预算：当任务的预算减少到 0 时，执行权交给其他任务。
+        tokio::task::consume_budget().await
+    
+        // 当然，也可以不基于预算策略移交执行权，那么使用 yield_now 直接移交。
+        // tokio::task::yield_now().await
+    }
+    sum
+}
+<span class="boring">}</span></code></pre></pre>
+<p>这个预算策略实现的收益：（来自《<a href="https://tokio.rs/blog/2020-04-preemption">Reducing tail latencies with automatic cooperative task yielding (2020)</a>》）</p>
+<p><img src="https://user-images.githubusercontent.com/176295/73222456-4a103300-4131-11ea-9131-4e437ecb9a04.png" alt="" /></p>
+<p>master 表示实现前，preempt 表示实现后，延迟最高几乎降低 3 倍。</p>
+<h2 id="其他资料"><a class="header" href="#其他资料">其他资料</a></h2>
+<ul>
+<li>
+<p><a href="https://www.ihcblog.com/rust-runtime-design-1/">Rust Runtime 设计与实现-科普篇</a>： monoio 作者</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=EFkpmFt61Jo&amp;ab_channel=ChariotSolutions">Journey to the Centre of the JVM — Daniel Spiewak</a>：
+一个异步运行时作者分享他的跨CPU架构debug经历，涉及到汇编, L1/2/3缓存, 内存屏障等等底层概念, 跨物理线程(CPU)的协程间通信。
+Cats-Effect的IO Monad不是poll-based, 意味着取消的时候需要一个信号扔过去告诉它该cancel了。
+他的框架在x86上跑得好好的, 在arm上会随机死锁. 因为arm版jdk的atomic内存屏障跟x86不一样, x86语义更强一些。</p>
+</li>
+<li>
+<p><a href="https://redixhumayun.github.io/concurrency/">Zaid Humayun's Blog: Concurrency</a>：以及最后的资料清单</p>
+</li>
+<li>
+<p><a href="https://redixhumayun.github.io/async/2024/09/18/async-runtimes-part-ii.html">Zaid Humayun's Blog: Async Runtimes Part II</a> </p>
+<ul>
+<li><a href="https://github.com/redixhumayun/async-rust">示例：异步运行时</a></li>
+<li><a href="https://github.com/redixhumayun/rs-examples">示例：手写 channel 和 mutex 原语</a></li>
+</ul>
+</li>
+</ul>
+<p>tokio 分析：</p>
+<ul>
+<li>⭐ 官方公告《<a href="https://tokio.rs/blog/2019-10-scheduler">Making the Tokio scheduler 10x faster</a>》（2019 年）：
+对调度程序设计进行了高级概述，包括工作窃取调度程序和各种优化。</li>
+<li>⭐ 官方公告《<a href="https://tokio.rs/blog/2020-04-preemption">Reducing tail latencies with automatic cooperative task yielding</a>》（2020 年）：
+解释了 tokio 源码里那个奇怪的 budget 设计。</li>
+<li><a href="https://tony612.github.io/tokio-internals">Tokio Internals</a> （2021 年）</li>
+<li>源码阅读会（2021 年，视频）：
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1uT4y1R75U">https://www.bilibili.com/video/BV1uT4y1R75U</a></li>
+<li><a href="https://www.bilibili.com/video/BV1yq4y1q7Jc">https://www.bilibili.com/video/BV1yq4y1q7Jc</a></li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../2024-winter/io_uring.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../2024-winter/io_uring.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

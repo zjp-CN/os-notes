@@ -1,0 +1,463 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>embassy - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html" class="active"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li><li class="chapter-item expanded "><a href="2024-winter/tokio.html"><strong aria-hidden="true">7.2.</strong> tokio 源码阅读</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/embassy.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <blockquote>
+<p>子模块 embassy 是修改过的 <a href="https://github.com/embassy-rs/embassy">embassy</a> fork。</p>
+</blockquote>
+<blockquote>
+<p>本文主要记录如何分析 embassy 仓库代码，而不是介绍具体的分析结果。</p>
+<p>关于 embassy 分析结果，见我的 <code>embassy: </code> 开头的训练营笔记文章。</p>
+</blockquote>
+<h1 id="rust-toolchaintoml"><a class="header" href="#rust-toolchaintoml"><code>rust-toolchain.toml</code></a></h1>
+<p><code>rust-toolchain.toml</code> 和 <code>rust-toolchain-nightly.toml</code> 是用来设置和固定 Rust 工具链版本号的。</p>
+<p>有两个文件是因为 embassy 分别在 stable Rust 和 nightly Rust 上提供支持。</p>
+<pre><code class="language-toml">[toolchain]
+channel = &quot;1.79&quot;
+components = [ &quot;rust-src&quot;, &quot;rustfmt&quot;, &quot;llvm-tools&quot; ]
+targets = [
+    &quot;thumbv7em-none-eabi&quot;,
+    &quot;thumbv7m-none-eabi&quot;,
+    &quot;thumbv6m-none-eabi&quot;,
+    &quot;thumbv7em-none-eabihf&quot;,
+    &quot;thumbv8m.main-none-eabihf&quot;,
+    &quot;riscv32imac-unknown-none-elf&quot;,
+    &quot;wasm32-unknown-unknown&quot;,
+]
+</code></pre>
+<p>对本地分析源码，这基本没什么用，因为它主要用来进行 CI 测试。</p>
+<p>我通常都会把这些工具链配置删除，当需要某个编译目标时（比如 <code>thumbv7em-none-eabi</code>），才通过
+<code>rustup target add thumbv7em-none-eabi</code> 添加。</p>
+<p>对于新手，如果你觉得手动设置这些很麻烦，可以不用动它，但代价是它会给你下载这整套工具链，需要安装时间和存储空间。</p>
+<h1 id="vscodesettingsjson"><a class="header" href="#vscodesettingsjson"><code>.vscode/settings.json</code></a></h1>
+<p>对于 vscode 用户，首先查看 embassy 根目录的 <code>.vscode/settings.json</code> 配置文件，里面主要是用来配置 rust-analyzer (RA)。</p>
+<p>根据我的经验，embassy 仓库的项目结构已经属于中大型规模，如果你对 Rust 的 <a href="https://doc.rust-lang.org/cargo/">cargo</a>
+组织方式不够熟悉，那么很难进行随心所欲地变动和配置。</p>
+<p>我不会在这深入分析 embassy 的项目结构。但项目结构会决定你怎么配置 RA，比如说默认开启的 </p>
+<ul>
+<li>
+<p><code>&quot;rust-analyzer.cargo.target&quot;: &quot;thumbv7em-none-eabi&quot;</code>：它要求你的工具链安装了 <code>thumbv7em-none-eabi</code> 目标，它会在每个被分析到的库上，给
+cargo 传递 <code>--target thumbv7em-none-eabi</code> 来让 RA 获取 rustc 发出的诊断。这对于代码分析不是必要的，至少在我分析某些库的时候 （executor、
+time），我不需要指定它。但它可能会影响内联汇编，因为汇编语法与编译目标相关（我没有尝试分析那部分，这只是猜测）。</p>
+</li>
+<li>
+<p><code>&quot;rust-analyzer.linkedProjects&quot;: [...]</code>：这实质上是手动指定一些项目让 RA 分析；它有多种使用方式，最常用的一种是指向子目录中的
+<code>Cargo.toml</code>，这是因为 <code>Cargo.toml</code> 代表所在的目录是一个 package。</p>
+<blockquote>
+<p><strong>rust-analyzer.linkedProjects (default: [])</strong></p>
+<p>Disable project auto-discovery in favor of explicitly specified set of projects.</p>
+<p>Elements must be paths pointing to Cargo.toml, rust-project.json, .rs files (which will be treated as standalone files) or JSON objects in rust-project.json format.</p>
+<p>src: <a href="https://rust-analyzer.github.io/manual.html">RA user manual</a></p>
+</blockquote>
+</li>
+<li>
+<p><code>&quot;rust-analyzer.cargo.features&quot;: [...]</code>：这与你分析的项目有关，由于 embassy 默认设置 <code>embassy-stm32/Cargo.toml</code> 作为分析，embassy 帮你填了
+<code>embassy-stm32/Cargo.toml</code> 内的一些 features；如果你修改 <code>linkedProjects</code> 到别的库，那么填那个库的 features。</p>
+<pre><code class="language-json">  &quot;rust-analyzer.cargo.features&quot;: [
+    // Comment out these features when working on the examples. Most example crates do not have any cargo features.
+    &quot;stm32f446re&quot;,
+    &quot;time-driver-any&quot;,
+    &quot;unstable-pac&quot;,
+    &quot;exti&quot;,
+    &quot;rt&quot;,
+  ],
+</code></pre>
+</li>
+</ul>
+<h1 id="neovim"><a class="header" href="#neovim">neovim</a></h1>
+<blockquote>
+<p>vscode 用户可以不必阅读这一节，你们只需要上面的步骤，然后右键选择一下就能看到宏展开。</p>
+<p>但这里的介绍流程和细节并不会因为编辑器/开发环境的不同而完全割裂。</p>
+</blockquote>
+<p>我并不是 vscode 用户，而是长期通过终端使用 neovim 编码。</p>
+<p>但我也不会在这从头讲如何基于 neovim 搭建开发环境；如果你想知道我的配置，见 <a href="https://github.com/zjp-CN/nvim-config">此处</a>。</p>
+<p>neovim 中 Rust LSP 插件主要是 <a href="https://github.com/mrcjkb/rustaceanvim">rustaceanvim</a>，一些要点：</p>
+<ul>
+<li>项目布局：
+<ul>
+<li>方式一：你可以使用上面 vscode 那样的 linkedProjects 配置，那么想办法让插件读取 RA 的配置文件就好</li>
+<li>方式二：由于 embassy 根目录不是 workspace 布局，所以我通常从终端进入某个库开始对它分析，把 <code>rust-analyzer.json</code> 放置在那个库的根目录</li>
+</ul>
+</li>
+<li>RA 配置：
+<ul>
+<li><code>&quot;rust-analyzer.cargo.allFeatures&quot;: false</code>：因为 embassy 是重度条件编译和 feature 控制的，它的库不需要 allFeatures
+<ul>
+<li>其实 allFeatures 已经被弃用，这里只是防止插件给你设置（我得到 <a href="https://github.com/rust-lang/rust-analyzer/issues/17371">教训</a>）</li>
+</ul>
+</li>
+<li><code>&quot;rust-analyzer.cargo.features&quot;: [...]</code>：（可选的）填写这个库所需的 features</li>
+</ul>
+</li>
+<li>embassy 同时也是重度使用宏的，尤其一些结合 build.rs + <code>include!</code> 进行编译时生成和展开源码的地方，更需要上面影响条件编译的选项配置正确
+<ul>
+<li>在想要展开的宏上，调用 <code>:RustLsp expandMacro</code> 命令展开宏</li>
+<li>如果你想要通过 <code>cargo expand</code>，那么需要通过 <code>-F</code> 传递 features</li>
+</ul>
+</li>
+</ul>
+<h1 id="条件编译和宏展开示例"><a class="header" href="#条件编译和宏展开示例">条件编译和宏展开示例</a></h1>
+<p>综合示例：在 <code>embassy-stm32/src/lib.rs</code> 中，有一个 <code>include!(concat!(env!(&quot;OUT_DIR&quot;), &quot;/_generated.rs&quot;))</code>，如果你没有传递 <code>stm32</code> 开头的 
+feature，那么 RA 无法展开和分析其内部的代码。所以你需要类似于下面的配置</p>
+<pre><code class="language-json">{
+  &quot;rust-analyzer.cargo.features&quot;: [&quot;time-driver-tim1&quot;, &quot;stm32c011d6&quot;]
+}
+</code></pre>
+<p>才直接展开这个 <code>include!</code> 宏，得到 <code>_generated</code> 模块的实际内容<sup class="footnote-reference"><a href="#_generated">1</a></sup>：</p>
+<div class="footnote-definition" id="_generated"><sup class="footnote-definition-label">1</sup>
+<p>如果通过 <code>cargo expand</code>，示例为 <code>cargo expand _generated -F stm32c011d6 | bat -l rust</code> 来展开 <code>_generated</code> 模块</p>
+</div>
+<p><img src="./img/neovim-embassy-cfg-include.gif" alt="" /></p>
+<p>并获得只对 <code>time_driver_tim1</code> 条件编译的分析结果：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// embassy-stm32/src/time_driver.rs
+// 其中 peripherals 模块由 _generated.rs 编译时生成，它在源码中不存在
+   40   #[cfg(time_driver_tim1)]
+   41   type T = peripherals::TIM1;
+  42   #[cfg(time_driver_tim2)]     ● code is inactive due to #[cfg] directives: time_driver_tim2 is disabled
+   43   type T = peripherals::TIM2;
+  44   #[cfg(time_driver_tim3)]     ● code is inactive due to #[cfg] directives: time_driver_tim3 is disabled
+   45   type T = peripherals::TIM3;
+<span class="boring">}</span></code></pre></pre>
+<p>这里有一个有趣的细节：cargo 的 <code>time-driver-tim1</code> feature 实际上只影响 <code>#[cfg(feature = &quot;time-driver-tim1&quot;)]</code>
+来进行条件编译，但我们并没有指定额外的 cfgs（比如 RA 配置 <code>&quot;rust-analyzer.cargo.cfgs&quot;: [&quot;time_driver_tim1&quot;]</code>），那么
+RA 是如何识别到 <code>#[cfg(time_driver_tim1)] type T = peripherals::TIM1;</code> 被启用呢？</p>
+<p>答案在 build.rs 脚本里面，它在 Rust 编译前期编译和运行，主要帮助 package 做一些配置工作或者生成一些产物（代码文件/构建 C 库/等）。
+它有一个重要的使用方式，是通过环境变量读取或者设置一些东西。</p>
+<p>具体来说，在 embassy-stm32 的 build.rs 里会检查用户有没有开启 <code>time_driver</code> 开头的 feature，然后去除这个前缀，保留后面的
+<code>tim1</code>，通过向标准输出打印 <code>cargo:rustc-cfg=time_driver_tim1</code> 达到开启 <code>time_driver_tim1</code> 这个 cfg flag 的目的。</p>
+<p>这是 cargo 一个巧妙的设计：使用者可以只需要指定 <code>time-driver-tim1</code> feature，而无需再指定 <code>time_driver_tim1</code> cfg flag ——
+这相当于向使用者隐藏了 cfg flag（使用者可以对它毫不知情），但同时给予库的编写者编写更复杂的条件编译的余地。虽然使用者依然可以设置
+cfg flag（如果他们知道名称的话），但在实际情况中，这个设计减少了版本不兼容的风险，因为库会告知和鼓励使用 features，而不是 cfg 
+flags。从这个角度看，单个 feature 可以视为多个 cfg flags 的集合（但 embassy-stm32 似乎并没有完全利用这一点，它只关联了一个 cfg flag）。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// src: https://github.com/embassy-rs/embassy/blob/86c48dde4192cabcad22faa10cabb4dc5f035c0a/embassy-stm32/build.rs#L182
+
+// Handle time-driver-XXXX features.
+
+let time_driver = match env::vars()
+    .map(|(a, _)| a)
+    .filter(|x| x.starts_with(&quot;CARGO_FEATURE_TIME_DRIVER_&quot;))
+    .get_one()
+{
+    Ok(x) =&gt; Some(
+        x.strip_prefix(&quot;CARGO_FEATURE_TIME_DRIVER_&quot;)
+            .unwrap()
+            .to_ascii_lowercase(),
+    ),
+    Err(GetOneError::None) =&gt; None,
+    Err(GetOneError::Multiple) =&gt; panic!(&quot;Multiple stm32xx Cargo features enabled&quot;),
+};
+
+let time_driver_singleton = match time_driver.as_ref().map(|x| x.as_ref()) {
+    None =&gt; &quot;&quot;,
+    Some(&quot;tim1&quot;) =&gt; &quot;TIM1&quot;,
+    ...
+    _ =&gt; panic!(&quot;unknown time_driver {:?}&quot;, time_driver),
+};
+
+if !time_driver_singleton.is_empty() {
+    cfgs.enable(format!(&quot;time_driver_{}&quot;, time_driver_singleton.to_lowercase()));
+}
+
+// src: https://github.com/embassy-rs/embassy/blob/86c48dde4192cabcad22faa10cabb4dc5f035c0a/embassy-stm32/build_common.rs#L36-L40
+impl CfgSet {
+    /// Enable a config, which can then be used in `#[cfg(...)]` for conditional compilation.
+    ///
+    /// All configs that can potentially be enabled should be unconditionally declared using
+    /// [`Self::declare()`].
+    pub fn enable(&amp;mut self, cfg: impl AsRef&lt;str&gt;) {
+        if self.enabled.insert(cfg.as_ref().to_owned()) {
+            println!(&quot;cargo:rustc-cfg={}&quot;, cfg.as_ref());
+        }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h1 id="features"><a class="header" href="#features">features</a></h1>
+<p>首先要明确的是，当我们在 Rust 中谈论 feature，需要确定上下文：</p>
+<ul>
+<li>nightly/unstable feature 通常指 nightly Rust 中才可用的、实验性的功能，你可以在 <a href="https://doc.rust-lang.org/unstable-book/the-unstable-book.html">unstable book</a>
+查阅到这个列表。它可以划分为 language feature 和 library feature 两部分，但都使用 <code>#![feature(...)]</code> 语法启用功能。
+<ul>
+<li>language feature：由 <a href="https://github.com/rust-lang/lang-team">lang team</a> 负责来设计 Rust 语言（语法、语义、规范），比如 <a href="https://doc.rust-lang.org/unstable-book/language-features/lang-items.html"><code>#![feature(lang_items)]</code></a></li>
+<li>library feature：由 <a href="https://github.com/rust-lang/libs-team">library team</a> 负责，在标准库（含 core lib）添加新的 APIs，比如 <a href="https://doc.rust-lang.org/unstable-book/library-features/waker-getters.html"><code>#![feature(waker_getters)]</code></a></li>
+</ul>
+</li>
+<li>在使用一个库的时候，<a href="https://doc.rust-lang.org/cargo/reference/features.html">feature</a> 通常指这个 <a href="https://doc.rust-lang.org/cargo/appendix/glossary.html#crate">crate</a> （库或者可执行程序） 在其 Cargo.toml 文件中定义的内容，用于条件编译或者指定可选依赖 
+<ul>
+<li>features 的定义具有两部分来源：
+<ul>
+<li><code>[features]</code> 中定义的键：因此一个 feature 可以是多个其他 feature 的集合</li>
+<li>被指定为 <code>optional = true</code> 的依赖</li>
+</ul>
+</li>
+<li>库的编写者在源码中使用 <code>#[cfg(feature = &quot;...&quot;)]</code> 将代码进行条件编译控制，而库的使用者在 Cargo.toml 中，在这个依赖声明时指定 features </li>
+<li>示例：库 a 包含 <code>#[cfg(feature = &quot;gated&quot;)] pub fn f() {}</code> 函数，使用者想使用 <code>a::f()</code>，必须在配置文件中启用（比如直接写
+<code>[dependencies] a = { version = &quot;...&quot;, features = [&quot;gated&quot;] }]</code> 或者其他间接方式）</li>
+<li>所以库的 features 改动应该视为公共 API 的一部分，需要进行版本兼容性的考虑 (<a href="https://doc.rust-lang.org/cargo/reference/features.html#semver-compatibility">SemVer</a>)
+<ul>
+<li>在 embassy 中，存在一些 <code>_</code> 开头的 features，这是一种社区做法，用于表明这些 features 不应被使用者直接使用，从而作为库内部的细节而不遵循版本语义</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>这里讨论库的 features（也指 Cargo features）。</p>
+<p>可以说 features 是 <a href="https://doc.rust-lang.org/reference/conditional-compilation.html#set-configuration-options">cfg</a> 在 Cargo 的一个特殊化：</p>
+<ul>
+<li>features 被设计为累加式的，这意味着库应该尽量将默认开启的 features 降到最低</li>
+<li>cargo 有一系列 features 的细节设计：不限于
+<ul>
+<li>命令行选择参数 <code>--features a,b,c</code>、<code>--all-features</code>、<code>--no-default-features</code></li>
+<li><code>[features]</code> 中支持的 <code>dep:</code> 和 <code>?</code> 语法</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2024/06/19/this-development-cycle-in-cargo-1.80.html#-zcheck-cfg">check-cfg</a>：这是 2024 年 Cargo 重点推进的一个大功能（对应于 2020 年创建的 <a href="https://github.com/rust-lang/rfcs/pull/3013">RFC#3013</a>）</li>
+</ul>
+</li>
+</ul>
+<p><code>check-cfg</code> 解决的问题很直观：检查 cfg 选项的 key 和 value 是否有效，即如果源码中写了 <code>cfg(key)</code> 或 <code>cfg(key = value)</code>，那么 <code>key</code> 和 <code>value</code> 应该被定义。</p>
+<p>比如当你过去直接写 <code>#[cfg(aaa)]</code>，Rust 不会对这个 <code>aaa</code> 选项名做任何检查，显然这会带来风险；现在（目前在 nightly Rust
+中），你会碰到来自 rustc 友好的提示（也会出现在 IDE 中），告知你当前有效的名称和处理它的方式：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[cfg(aaa)] // 自定义的 cfg flag
+fn f() {}
+
+warning: unexpected `cfg` condition name: `aaa`
+  --&gt; src/bin/borrow.rs:38:7
+   |
+38 | #[cfg(aaa)]
+   |       ^^^
+   |
+   = help: expected names are: `clippy`, `debug_assertions`, `doc`, `docsrs`, `doctest`, `feature`, `miri`, `overflow_checks`, `panic`, `proc_macro`, `relocation_model`, `r
+ustfmt`, `sanitize`, `sanitizer_cfi_generalize_pointers`, `sanitizer_cfi_normalize_integers`, `target_abi`, `target_arch`, `target_endian`, `target_env`, `target_family`, `
+target_feature`, `target_has_atomic`, `target_has_atomic_equal_alignment`, `target_has_atomic_load_store`, `target_os`, `target_pointer_width`, `target_thread_local`, `targ
+et_vendor`, `test`, `ub_checks`, `unix`, and `windows`
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = &quot;warn&quot;, check-cfg = ['cfg(aaa)'] }
+   = help: or consider adding `println!(&quot;cargo::rustc-check-cfg=cfg(aaa)&quot;);` to the top of the `build.rs`
+   = note: see &lt;https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html&gt; for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+<span class="boring">}</span></code></pre></pre>
+<p>查找这个选项定义的地方有：</p>
+<ul>
+<li>rustc's list of &quot;well known&quot; cfgs (generally first party compilation toolchains)：比如上面 target 开头和相关的名称</li>
+<li>cargo's list of &quot;well known&quot; cfgs：比如 clippy、doc、docsrs、miri</li>
+<li><a href="https://doc.rust-lang.org/cargo/reference/features.html"><code>[features]</code></a>：在 Cargo.toml 中定义</li>
+<li><a href="https://doc.rust-lang.org/nightly/cargo/reference/build-scripts.html#rustc-check-cfg"><code>cargo::rustc-check-cfg</code></a>：通过 build.rs 传递编译时的环境变量</li>
+<li>Passing <code>--check-cfg</code> through <code>RUSTFLAGS</code></li>
+</ul>
+<p>如果你确认想忽略这个检查 cfg 选项的噪音，则采用以下一种方式：</p>
+<ul>
+<li>模块内使用 <code>#![allow(unexpected_cfgs)]</code> （貌似暂不能识别 item 上的 <code>#[allow(unexpected_cfgs)]</code>）</li>
+<li>在 Cargo.toml 中 <code>[lints.rust]</code> 定义 <code>unexpected_cfgs</code>，help 信息已经给了示例</li>
+</ul>
+<p>目前这是一个夜间功能，不过预计在 7 月 Rust 1.80 上稳定。（见 <a href="https://blog.rust-lang.org/inside-rust/2024/06/19/this-development-cycle-in-cargo-1.80.html#-zcheck-cfg">cargo 1.80 开发报告</a>）</p>
+<p>embassy 在 5 月合并了添加 check-cfg 功能的 <a href="https://github.com/embassy-rs/embassy/pull/3005">PR#3005</a>，它是一个很好的示例，尤其值得学习在 build.rs 中把
+<code>cargo::rustc-check-cfg</code> （定义选项） 和 <code>cargo::rustc-cfg</code> （开启选项）结合起来使用的技巧。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="rCore-embassy-timer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="embassy-usage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="rCore-embassy-timer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="embassy-usage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>

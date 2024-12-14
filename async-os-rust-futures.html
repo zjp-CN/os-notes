@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust 的 Future - 开源操作系统训练营笔记</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> rCore / RISC-V</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-instruction-binary.html"><strong aria-hidden="true">2.1.</strong> 指令的二进制格式</a></li><li class="chapter-item expanded "><a href="rcore-function-call.html"><strong aria-hidden="true">2.2.</strong> 函数调用与调用栈</a></li><li class="chapter-item expanded "><a href="rcore-memory-layout.html"><strong aria-hidden="true">2.3.</strong> 程序的内存布局</a></li><li class="chapter-item expanded "><a href="rcore-privilege.html"><strong aria-hidden="true">2.4.</strong> 特权级</a></li><li class="chapter-item expanded "><a href="rcore-os-multiprograms.html"><strong aria-hidden="true">2.5.</strong> 抢占式 OS 与中断机制</a></li><li class="chapter-item expanded "><a href="rcore-virtual-memory.html"><strong aria-hidden="true">2.6.</strong> 虚拟内存</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.7.</strong> 工具使用记录</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="rcore-gdb.html"><strong aria-hidden="true">2.7.1.</strong> gdb</a></li><li class="chapter-item expanded "><a href="rcore-tmux.html"><strong aria-hidden="true">2.7.2.</strong> tmux</a></li><li class="chapter-item expanded "><a href="rcore-qemu.html"><strong aria-hidden="true">2.7.3.</strong> qemu</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="async-os.html"><strong aria-hidden="true">3.</strong> 项目六：异步操作系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="async-os-rust-futures.html" class="active"><strong aria-hidden="true">3.1.</strong> Rust 的 Future</a></li><li class="chapter-item expanded "><a href="async-os-dev-log_rCore-N.html"><strong aria-hidden="true">3.2.</strong> rCore-N (共享调度器 fork) 搭建和踩坑</a></li><li class="chapter-item expanded "><a href="embassy-task.html"><strong aria-hidden="true">3.3.</strong> embassy: TaskStorage</a></li><li class="chapter-item expanded "><a href="embassy-timer.html"><strong aria-hidden="true">3.4.</strong> embassy: timer</a></li><li class="chapter-item expanded "><a href="embassy-integrated-timers.html"><strong aria-hidden="true">3.5.</strong> embassy: integrated-timers 和任务机制</a></li><li class="chapter-item expanded "><a href="embassy-interrupt.html"><strong aria-hidden="true">3.6.</strong> embassy: interrupt</a></li><li class="chapter-item expanded "><a href="embassy-sync.html"><strong aria-hidden="true">3.7.</strong> embassy: sync</a></li></ol></li><li class="chapter-item expanded "><a href="submodules.html"><strong aria-hidden="true">4.</strong> 子模块项目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rCore-embassy-timer.html"><strong aria-hidden="true">4.1.</strong> rCore-embassy-timer</a></li><li class="chapter-item expanded "><a href="embassy.html"><strong aria-hidden="true">4.2.</strong> embassy</a></li><li class="chapter-item expanded "><a href="embassy-usage.html"><strong aria-hidden="true">4.3.</strong> embassy-usage</a></li><li class="chapter-item expanded "><a href="cortex-m-quickstart.html"><strong aria-hidden="true">4.4.</strong> cortex-m-quickstart</a></li><li class="chapter-item expanded "><a href="green-thread.html"><strong aria-hidden="true">4.5.</strong> green-thread</a></li><li class="chapter-item expanded "><a href="shared-scheduler.html"><strong aria-hidden="true">4.6.</strong> shared-scheduler</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> 基础知识</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="terminology.html"><strong aria-hidden="true">5.1.</strong> 专业名词集锦</a></li><li class="chapter-item expanded "><a href="terminology2.html"><strong aria-hidden="true">5.2.</strong> 专业名词集锦 2</a></li><li class="chapter-item expanded "><a href="terminology3.html"><strong aria-hidden="true">5.3.</strong> 专业名词集锦 3</a></li><li class="chapter-item expanded "><a href="riscv-timer.html"><strong aria-hidden="true">5.4.</strong> RISC-V 定时器</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/index.html"><strong aria-hidden="true">6.</strong> 衍生拓展</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">6.1.</strong> 已阅读清单</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/read-list/RTIC-embassyHAL.html"><strong aria-hidden="true">6.1.1.</strong> RTIC & embassy</a></li><li class="chapter-item expanded "><a href="after-class/read-list/embassy-speech.html"><strong aria-hidden="true">6.1.2.</strong> embassy 作者演讲</a></li><li class="chapter-item expanded "><a href="after-class/read-list/posts.html"><strong aria-hidden="true">6.1.3.</strong> 短篇博客文章</a></li><li class="chapter-item expanded "><a href="after-class/read-list/videos.html"><strong aria-hidden="true">6.1.4.</strong> 视频</a></li></ol></li><li class="chapter-item expanded "><a href="after-class/todo-readling-list.html"><strong aria-hidden="true">6.2.</strong> 待阅读清单</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> 杂项</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="after-class/board.html"><strong aria-hidden="true">6.3.1.</strong> 板子</a></li><li class="chapter-item expanded "><a href="after-class/rust-embedded.html"><strong aria-hidden="true">6.3.2.</strong> Rust Embedded</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> 冬季训练营</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="2024-winter/io_uring.html"><strong aria-hidden="true">7.1.</strong> io_uring</a></li><li class="chapter-item expanded "><a href="2024-winter/tokio.html"><strong aria-hidden="true">7.2.</strong> tokio 源码阅读</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源操作系统训练营笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/zjp-CN/os-notes" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/zjp-CN/os-notes/edit/main/src/async-os-rust-futures.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="200-行代码讲透-rust-futures"><a class="header" href="#200-行代码讲透-rust-futures">《200 行代码讲透 Rust Futures》</a></h1>
+<p>时间：2024-05-19</p>
+<h2 id="背景唠嗑"><a class="header" href="#背景唠嗑">背景/唠嗑</a></h2>
+<p>《<a href="https://stevenbai.top/rust/futures_explained_in_200_lines_of_rust/">200 行代码讲透 Rust Futures</a> 》
+已经是我三年前就找到的文章，当时我还翻译过这个外国作者的 Rust 异步系列的另一本书籍
+《<a href="https://github.com/Rust-Chinese-Translation/exploring-async-basics-with-rust_zh">The Node Experiment - Exploring Async Basics with Rust</a>》
+（这是个半成品，因为讲的太过啰嗦，翻译了一半还没看到重点）。</p>
+<p>只是，那个时候我对 async Rust 不熟。Rust 和 async Rust 完全是两个世界，这已经是 Rust 社区的共识，所有人都认可
+async Rust 给 Rust 带来巨大的复杂性和极高的门槛。对我来说，我学习 Rust 整理的<a href="https://www.yuque.com/zhoujiping/programming/rust-materials">资料</a>中，至少 1/4 与异步 Rust 有关，
+在我翻译的零碎 Rust <a href="https://zjp-cn.github.io/translation/">文章</a>中，至少 1/3 是 async Rust。</p>
+<p>小插曲 0：作为一个每日关注 Rust 社区动态的观察者，我知道原外国作者已经把 Rust 异步系列的电子书和仓库链接都删除了，
+然后几个月前正式发布了新书《<a href="https://www.amazon.com/Asynchronous-Programming-Rust-asynchronous-programming/dp/1805128132">Asynchronous Programming in Rust: Learn asynchronous programming by building
+working examples of futures, green threads, and runtimes</a>》（<a href="https://www.reddit.com/r/rust/comments/1amlro1/new_rust_book_asynchronous_programming_in_rust_is/">原帖</a>）</p>
+<p>小插曲 1：在这篇文章中提及的“stejpang 的文章”，也消失在互联网上了，stejpang 曾经是 Rust 多个重要异步生态基础库的作者
+—— 我关注到这个情况的时候，互联网上已经鲜有对此的讨论 —— 但 ta 的消失是 Rust 社区都知道的事情。</p>
+<p>小插曲 2：该文章还提及了 <a href="https://without.boats/">without.boats</a>，他是 Rust 异步设计中的一个重要人物，我学习 Rust 
+的时候，他已经渐渐退出了对 Rust 的贡献。据说是出于他的工作原因，他不太被允许对开源项目做具体贡献。
+但至今，依然可以看见他在关注异步 Rust，并且经常发布优质的异步 Rust 博客；在 zulichat/github 之类的讨论中，总是附带“非贡献”免责声明。</p>
+<h2 id="文章总结"><a class="header" href="#文章总结">文章总结</a></h2>
+<h3 id="其他并发方式"><a class="header" href="#其他并发方式">其他并发方式</a></h3>
+<p>操作系统级别的线程：</p>
+<ul>
+<li>优点：通常是多任务的正确解决方案；相对简单易用；多核机器上，直接利用它得到并行</li>
+<li>缺点：任务数量太大时，切换线程的成本会高于其他并发方式（比如系统调用的成本、堆栈成本、内存占用成本）</li>
+</ul>
+<p>用户级别的线程（绿色线程）：</p>
+<ul>
+<li>优点：切换上下文的成本低于操作系统级别的线程</li>
+<li>缺点：
+<ul>
+<li>栈的大小随任务数量而增长（栈拷贝等问题）</li>
+<li>不是零成本抽象</li>
+<li>很难在支持多平台上正确实现</li>
+</ul>
+</li>
+<li>应用： goroutine</li>
+</ul>
+<p>事件循环：通过注册一系列事件，在所有事件上循环迭代，处理已经通知循环的待处理的事件。当所有触发的事件处理完毕，事件循环再开始，然后处理新的触发事件。</p>
+<ul>
+<li>优点：适合单线程模型、异步、非阻塞 IO </li>
+<li>缺点：回调地狱（回调层级太多导致代码难以阅读和维护）、不适合 CPU 密集型任务</li>
+<li>应用：libuv（node.js、neovim）、Rust 的 mio（tokio）</li>
+</ul>
+<p>Future/Promise + async/await 语法：</p>
+<ul>
+<li>优点：通过把嵌套调用转化成链式调用、把异步逻辑分解成函数或者模块，在语法上看起来像同步调用</li>
+<li>缺点：不适合 CPU 密集型任务</li>
+</ul>
+<h1 id="rust-的-asm-语法"><a class="header" href="#rust-的-asm-语法">Rust 的 <code>asm!</code> 语法</a></h1>
+<ul>
+<li><a href="https://rust-lang.github.io/rfcs/1548-global-asm.html">RFC 1458: <code>global_asm!</code></a>：模块级别的汇编</li>
+<li><a href="https://rust-lang.github.io/rfcs/2873-inline-asm.html">RFC 2873: <code>asm!</code></a>：内联汇编，将手写的汇编嵌入编译器生成的汇编输出中
+<ul>
+<li>官方示例：<a href="https://doc.rust-lang.org/stable/rust-by-example/unsafe/asm.html">Rust By Example: <code>asm!</code></a></li>
+<li><code>global_asm!</code> 与 <code>asm!</code> 识别一样的语法，前者可以写在模块内，后者写在函数内</li>
+</ul>
+</li>
+<li><a href="https://doc.rust-lang.org/stable/reference/inline-assembly.html">Reference: inline assembly</a>：这是最新的内容，应该重点阅读，因为有时 RFC
+会过时（比如当时的 RFC 2873 没有设计 clobber_abi，但这已经实现，在 Reference 中有介绍）</li>
+</ul>
+<h2 id="基础写法"><a class="header" href="#基础写法">基础写法</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 注意：编写汇编是 unsafe 操作
+use core::arch::asm;
+
+// 基本写法：汇编指令
+asm!(&quot;nop&quot;);
+
+// 类似 format! 宏的变量插值写法
+
+// * 通常需要指定寄存器，在下面指定了 reg，表示编译器会选择一个通用寄存器，
+//   当然也可以指定特定的寄存器，比如 `in(&quot;eax&quot;)`
+// * `out(reg) x` 表示对这个寄存器进行输出操作，即从 reg 寄存器中写出到变量 x
+let x: u64;
+asm!(&quot;mov {}, 5&quot;, out(reg) x); // mov 指令写入立即数 5 到寄存器，然后寄存器写出到变量 x
+assert_eq!(x, 5);
+
+// mov dst, src 指令用于将数据从源操作数传送到目标操作数。以下代码经历几个步骤：
+// 1. 源寄存器 {1}：对它进行写入操作，把变量 i 的值写入 {1} 寄存器，此时 {1} 内的值为 3
+// 2. 执行 mov 指令，此时目标寄存器 {0} 内的值为 3
+// 4. 执行 add 指令，{0} 内的值 +5 变成了 8
+// 5. {0} 写出到 o，最终变量 o 的值为 8
+let i: u64 = 3;
+let o: u64;
+asm!(
+    &quot;mov {0}, {1}&quot;,
+    &quot;add {0}, 5&quot;,
+    out(reg) o,
+    in(reg) i,
+);
+assert_eq!(o, 8);
+
+// 上面的写法可以简化如下写法：`inout(reg) x`
+// 先把 x 的值写入到寄存器，然后执行 add，最后从寄存器写出到 x；
+// 与上面有一点不同，inout 会确保写入和写出的寄存器为同一个。
+let mut x: u64 = 3;
+asm!(&quot;add {0}, 5&quot;, inout(reg) x); // x -&gt; reg; instruction; reg -&gt; x
+assert_eq!(x, 8);
+
+// 与上面的不同指定不同的写入和写出变量：从 x 写入到寄存器，然后执行 add，最后从寄存器写出到 y
+let x: u64 = 3;
+let y: u64;
+asm!(&quot;add {0}, 5&quot;, inout(reg) x =&gt; y); // x -&gt; reg; instruction; reg -&gt; y
+assert_eq!(y, 8);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="late-output-operands"><a class="header" href="#late-output-operands">Late output operands</a></h2>
+<p>使用 late 一类的操作，编译器会尽可能优化到使用尽可能最少的寄存器，也就是说，额外寄存器可能被优化掉。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut a: u64 = 4;
+let b: u64 = 4;
+let c: u64 = 4;
+// 在优化的情况下：
+// * 由于 b 和 c 相等，指定的 reg 寄存器可能为同一个；
+// * 又由于使用 inlateout 操作，c 和 a 的寄存器可能为同一个；最终导致 a b c 共用一个寄存器
+asm!(
+    &quot;add {0}, {1}&quot;, // a -&gt; {0}; add {0}, {0} 此时 a (= 4+4) = 8 
+    &quot;add {0}, {2}&quot;, // add {0}, {0}; {0} -&gt; a 此时 a (= 8+8) = 16
+    inlateout(reg) a,
+    in(reg) b,
+    in(reg) c,
+);
+assert_eq!(a, 12); // assertion fail: unexpected
+<span class="boring">}</span></code></pre></pre>
+<p>如果这种优化需要避免，则不应该使用 late 操作，而是直接读取寄存器</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut a: u64 = 4;
+let b: u64 = 4;
+let c: u64 = 4;
+asm!(
+    &quot;add {0}, {1}&quot;, // b -&gt; {1}; a -&gt; {0}; add; {0} -&gt; a 此时 a (= 4+4) = 8 
+    &quot;add {0}, {2}&quot;, // c -&gt; {2}; a -&gt; {0}; add; {0} -&gt; a 此时 a (= 4+8) = 12
+    inout(reg) a,
+    in(reg) b,
+    in(reg) c, 
+);
+// 即使 {2} 与 {1} 为同一个寄存器，也不影响结果，因为 c 和 a 不再是
+assert_eq!(a, 12); // expected: good
+<span class="boring">}</span></code></pre></pre>
+<h2 id="显式指定寄存器"><a class="header" href="#显式指定寄存器">显式指定寄存器</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>asm!(&quot;out 0x64, eax&quot;, in(&quot;eax&quot;) cmd);
+
+fn mul(a: u64, b: u64) -&gt; u128 {
+    let lo: u64;
+    let hi: u64;
+
+    // a -&gt; reg; b -&gt; rax; rax -&gt; lo; rad -&gt; hi
+    unsafe {
+        asm!(
+            // The x86 mul instruction takes rax as an implicit input and writes
+            // the 128-bit result of the multiplication to rax:rdx.
+            &quot;mul {}&quot;, 
+            in(reg) a,
+            // 注意：显式指定的寄存器必须放置在其他操作类型之后
+            inlateout(&quot;rax&quot;) b =&gt; lo,
+            lateout(&quot;rdx&quot;) hi
+        );
+    }
+
+    ((hi as u128) &lt;&lt; 64) + lo as u128
+}
+<span class="boring">}</span></code></pre></pre>
+<p>其他资料：</p>
+<ul>
+<li><a href="https://blog.seadraw.top/2023/11/18/%E5%8D%8F%E7%A8%8B%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E4%BA%8C/">协程异步操作系统-学习记录二</a></li>
+</ul>
+<h2 id="intel-vs-att-语法"><a class="header" href="#intel-vs-att-语法">Intel vs AT&amp;T 语法</a></h2>
+<p>对于 x86-64， <code>asm!</code> 默认使用 Intel 语法，因此不要在asm 字符串内使用 <code>.intel_syntax</code> 或者 <code>.att_syntax</code>。
+切换到 AT&amp;T 语法，只需添加一个 <code>att_syntax</code> 设置， 即 <code>asm!(&quot;...&quot;, other, params, options(att_syntax))</code>。</p>
+<p>在 GCC 上，这会造成混乱，因为 GCC 默认采用 AT&amp;T 语法。（GCC 可通过 <code>-masm=intel</code> 参数来生成 Intel 语法的汇编）</p>
+<p>此外，GDB 默认以 AT&amp;T 语法显式汇编，所以需要使用 <code>set disassembly-flavor intel</code> 命令来显式 Intel 语法。
+这个转换不会对已经执行和展示的指令生效，必须执行下条指令，才可以看到新语法格式。
+不过，在 GDB 中显式的 Intel 语法为 <code>mov QWORD PTR [rsi+0x38],rdi</code>，它比实际写的 <code>mov [rsi+0x38], rdi</code> 要啰嗦多了：）</p>
+<p>AT&amp;T 语法 <code>mov %rdi, 0x38(%rsi)</code> 对应的 Intel 语法为 <code>mov [rsi+0x38], rdi</code> Intel 语法。
+嗯，注意到了吗，它们在源操作数和目标操作数上是相反的！</p>
+<p>Intel 语法和 AT&amp;T 语法的主要区别在于：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Intel 语法</th><th>AT&amp;T 语法</th></tr></thead><tbody>
+<tr><td>操作数顺序</td><td>“目标，源”，<br>即先写目标操作数，后写源操作数</td><td>“源，目标”，<br>即先写源操作数，后写目标操作数</td></tr>
+<tr><td>内存引用表示</td><td>使用方括号，例如 <code>[eax]</code></td><td>使用圆括号，例如 <code>(%eax)</code></td></tr>
+<tr><td>相对寻址表示</td><td>偏移量在寄存器后，例如 <code>[eax+0x10]</code><sup class="footnote-reference"><a href="#offset-intel">1</a></sup></td><td>偏移量在寄存器前，例如 <code>0x10(%eax)</code></td></tr>
+<tr><td>寄存器前缀</td><td>无前缀</td><td>寄存器名称前使用 <code>%</code> 前缀</td></tr>
+<tr><td>立即数表示</td><td>无前缀</td><td>立即数前使用 <code>$</code> 前缀</td></tr>
+<tr><td>指令前缀</td><td>无前缀</td><td>指令名前使用 <code>.</code> 前缀</td></tr>
+</tbody></table>
+</div>
+<div class="footnote-definition" id="offset-intel"><sup class="footnote-definition-label">1</sup>
+<p><code>asm!</code> 还支持某些非标准的 Intel 语法：<code>mov rdi, 0x38[rsi]</code>（标准写法为 <code>mov rdi, [rsi+0x38]</code>
+或者 <code>mov rdi, qword ptr [rsi + 0x38]</code>）。</p>
+</div>
+<p>整体来说，<code>asm!</code> 采用 GNU assembler (GAS) 的汇编语法，具体的语法是特定于目标架构的。在 x86 上，使用 <code>.intel_syntax noprefix</code>
+模式；在 ARM 上，使用 <code>.syntax unified</code> 模式。更多细节，需要去查阅上述我列的 RFC。</p>
+<h1 id="通过迭代-webserver-逐步深入-rust-异步编程"><a class="header" href="#通过迭代-webserver-逐步深入-rust-异步编程">《通过迭代 WebServer 逐步深入 Rust 异步编程》</a></h1>
+<p>《<a href="https://blog.windeye.top/rust_async/learningrustasyncwithwebserver">通过迭代 WebServer 逐步深入 Rust 异步编程</a>》</p>
+<p>处理 TCP：从 单线程 👉 多线程 👉 非阻塞 👉 多路复用 👉 异步编程范式 的演进</p>
+<div class="table-wrapper"><table><thead><tr><th>演进</th><th>演进前的缺点</th><th>演进后的优点</th></tr></thead><tbody>
+<tr><td>单线程 👉 多线程</td><td>执行每个 TCP 都是阻塞的，等待每个 TCP 处理完才能进行下一个</td><td>处理多个 TCP 是并发的</td></tr>
+<tr><td>多线程 👉 非阻塞</td><td>等待 TCP 的控制权在内核，用户态程序在等待过程中无法干预</td><td>请求不必等待，并且程序决定 TCP 被内核阻塞时，干什么</td></tr>
+<tr><td>非阻塞 👉 多路复用</td><td>每个活跃连接在每个循环中发出一次系统调用，循环是低效的</td><td>内核跟踪所有活跃连接，一次循环只有一次系统调用</td></tr>
+<tr><td>多路复用 👉 异步编程</td><td>用户程序手写事件循环来管理状态，代码混乱且难以拓展</td><td>用户程序编写独立的任务，并且事件处理和任务调度解耦合</td></tr>
+</tbody></table>
+</div>
+<p>在 Linux 上实现多路复用是通过 epoll 这个 I/O 事件通知机制做到的，核心系统调用 <code>epoll_wait</code> 会等待以下一个事件发生：</p>
+<ul>
+<li>文件描述符传递了一个事件</li>
+<li>调用被信号处理器中断</li>
+<li>超时到期</li>
+</ul>
+<p>如果这些事件都没发生，那么 epoll_wait 在用户态程序是阻塞的，不会往下执行；</p>
+<p>如果其中一个事件发生，那么 epoll_wait 返回，程序往下执行，从而实现一次系统调用跟踪多个连接、减少循环中无用的系统调用。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="async-os.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="async-os-dev-log_rCore-N.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="async-os.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="async-os-dev-log_rCore-N.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+
+
+    </body>
+</html>
