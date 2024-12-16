@@ -29,7 +29,7 @@ struct SharedState {
     waker: Option<Waker>,
 }
 
-struct TimerFuture {
+pub struct TimerFuture {
     state: Arc<Mutex<SharedState>>,
 }
 
@@ -54,7 +54,7 @@ impl Future for TimerFuture {
 }
 
 impl TimerFuture {
-    fn new(secs: f32) -> Self {
+    pub fn new(secs: f32) -> Self {
         let state = Arc::new(Mutex::new(SharedState {
             duration: secs,
             complete: false,
