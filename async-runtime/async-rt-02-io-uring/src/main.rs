@@ -108,14 +108,13 @@ struct Op {
 }
 
 struct File {
-    file: ManuallyDrop<StdFile>,
+    file: Option<StdFile>,
     op: Op,
 }
 
 impl File {
     /// Read from pos 0 with a fixed-capacity buffer.
     fn read(path: &str) -> impl Future<Output = Result<Vec<u8>>> {
-        DRIVER.with(|_| {});
         let mut file = {
             let file = OpenOptions::new()
                 .read(true)
@@ -133,7 +132,7 @@ impl File {
             let index = DRIVER.with(|d| d.borrow_mut().submit(sqe));
 
             File {
-                file: ManuallyDrop::new(file),
+                file: Some(file),
                 op: Op {
                     index,
                     buffer: Some(buffer),
@@ -171,6 +170,7 @@ impl File {
                 let mut buffer = file.op.buffer.take().unwrap();
                 unsafe { buffer.set_len(len) };
 
+                drop(file.file.take().unwrap());
                 Poll::Ready(Ok(buffer))
             } else {
                 Poll::Pending
