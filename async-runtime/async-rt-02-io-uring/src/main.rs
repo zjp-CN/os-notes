@@ -1,22 +1,25 @@
-use io_uring::{IoUring, cqueue::Entry as CQE, squeue::Entry as SQE};
+#![allow(unused)]
+
+use io_uring::{IoUring, cqueue::Entry as CQE, opcode, squeue::Entry as SQE, types};
 use slab::Slab;
-use std::{io::prelude::*, task::Waker};
+use std::{
+    cell::RefCell,
+    fs::{File as StdFile, OpenOptions},
+    future::poll_fn,
+    io::{self, Result, prelude::*},
+    mem::ManuallyDrop,
+    os::fd::AsRawFd,
+    task::{Poll, Waker},
+};
 
-fn main() -> std::io::Result<()> {
-    let mut stream = std::net::TcpStream::connect("127.0.0.1:3456")?;
+mod executor;
 
-    dbg!(stream.write(&[1, 2, 3])?);
-
-    for x in 5..10 {
-        std::thread::sleep(std::time::Duration::from_secs(1));
-        dbg!(stream.write(&[x])?);
-    }
-
-    let mut var_name = vec![0; 10];
-    dbg!(stream.read(&mut var_name)?, &var_name);
-
-    drop(stream);
-    std::thread::sleep(std::time::Duration::from_secs(3));
+fn main() -> Result<()> {
+    executor::Executor::block_on(|_| async {
+        let buf = File::read("Cargo.toml").await.unwrap();
+        let content = String::from_utf8(buf).unwrap();
+        println!("{content}");
+    });
 
     Ok(())
 }
@@ -24,6 +27,10 @@ fn main() -> std::io::Result<()> {
 struct Driver {
     uring: IoUring,
     slab: Slab<LifeCycle>,
+}
+
+thread_local! {
+    static DRIVER: RefCell<Driver> = RefCell::new(Driver::new());
 }
 
 impl Driver {
@@ -35,9 +42,9 @@ impl Driver {
     }
 
     /// Submit an IO request: user_data is set up the same as slab index.
-    fn submit(&mut self, entry: SQE) -> usize {
+    fn submit(&mut self, sqe: SQE) -> usize {
         let index = self.slab.insert(LifeCycle::Submitted);
-        let entry = entry.user_data(index as u64);
+        let entry = sqe.user_data(index as u64);
 
         // safety: must ensure entry is valid
         unsafe {
@@ -51,17 +58,19 @@ impl Driver {
 
     /// Block the thread until at least one IO complets.
     fn wait(&self) {
+        dbg!(self.uring.as_raw_fd());
         self.uring.submit_and_wait(1).unwrap();
     }
 
     fn completion(&mut self) {
         for cqe in self.uring.completion() {
             let index = cqe.user_data() as usize;
+            dbg!(index);
             let life_cycle = &mut self.slab[index];
             match life_cycle {
                 LifeCycle::Submitted => (),
                 LifeCycle::Waiting(waker) => waker.wake_by_ref(),
-                LifeCycle::Completed(entry) => todo!(),
+                LifeCycle::Completed(entry) => println!("index={index} already completed"),
             }
             *life_cycle = LifeCycle::Completed(cqe);
         }
@@ -72,6 +81,19 @@ impl Driver {
     }
 }
 
+// fn reactor() -> impl Future<Output = ()> {
+//     poll_fn(|cx| {
+//     DRIVER.with(|d| {
+//         if let Ok(driver) = d.try_borrow_mut() {
+//             driver.uring.submitter().wa
+//         } else {
+//                 cx.waker().wake_by_ref();
+//             }
+//     })
+//     })
+// }
+
+#[derive(Debug)]
 enum LifeCycle {
     Submitted,
     Waiting(Waker),
@@ -85,4 +107,74 @@ struct Op {
     buffer: Option<Vec<u8>>,
 }
 
-struct File {}
+struct File {
+    file: ManuallyDrop<StdFile>,
+    op: Op,
+}
+
+impl File {
+    /// Read from pos 0 with a fixed-capacity buffer.
+    fn read(path: &str) -> impl Future<Output = Result<Vec<u8>>> {
+        DRIVER.with(|_| {});
+        let mut file = {
+            let file = OpenOptions::new()
+                .read(true)
+                .write(true)
+                .open(path)
+                .unwrap();
+            let offset = 0;
+            let mut buffer = Vec::with_capacity(1024);
+            let ptr = dbg!(buffer.as_mut_ptr());
+            let len = buffer.capacity();
+
+            let sqe = opcode::Read::new(types::Fd(dbg!(file.as_raw_fd())), ptr, len as _)
+                .offset(offset as _)
+                .build();
+            let index = DRIVER.with(|d| d.borrow_mut().submit(sqe));
+
+            File {
+                file: ManuallyDrop::new(file),
+                op: Op {
+                    index,
+                    buffer: Some(buffer),
+                },
+            }
+        };
+
+        poll_fn(move |cx| {
+            let cqe = DRIVER.with(|d| {
+                let driver = &mut *d.borrow_mut();
+                let life_cycle = driver.slab.get_mut(file.op.index).unwrap();
+                dbg!(&life_cycle);
+                let cx_waker = cx.waker();
+                match life_cycle {
+                    LifeCycle::Submitted => *life_cycle = LifeCycle::Waiting(cx_waker.clone()),
+                    LifeCycle::Waiting(waker) if waker.will_wake(cx_waker) => (),
+                    LifeCycle::Waiting(waker) => *life_cycle = LifeCycle::Waiting(cx_waker.clone()),
+                    // LifeCycle::Waiting(waker) => waker.wake_by_ref(),
+                    LifeCycle::Completed(entry) => return Some(entry.clone()),
+                };
+                driver.wait();
+                // dbg!(driver.uring.submitter().submit());
+                driver.completion();
+                None
+            });
+            if let Some(cqe) = cqe {
+                let res = cqe.result();
+
+                let len = if res < 0 {
+                    return Poll::Ready(Err(io::Error::from_raw_os_error(-res)));
+                } else {
+                    res as usize
+                };
+
+                let mut buffer = file.op.buffer.take().unwrap();
+                unsafe { buffer.set_len(len) };
+
+                Poll::Ready(Ok(buffer))
+            } else {
+                Poll::Pending
+            }
+        })
+    }
+}

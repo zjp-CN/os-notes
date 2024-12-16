@@ -1,4 +1,5 @@
 use io_uring::{IoUring, opcode, types};
+// use std::fs::OpenOptions;
 use std::os::unix::io::AsRawFd;
 use std::{fs, io};
 
@@ -6,12 +7,18 @@ fn main() -> io::Result<()> {
     let mut ring = IoUring::new(8)?;
 
     let fd = fs::File::open("Cargo.toml")?;
+    // let fd = OpenOptions::new().read(true).open("Cargo.toml").unwrap();
     let mut buf = vec![0; 1024];
 
-    let read_e = opcode::Read::new(types::Fd(fd.as_raw_fd()), buf.as_mut_ptr(), buf.len() as _)
-        .build()
-        .user_data(0x42);
+    let read_e = opcode::Read::new(
+        types::Fd(dbg!(fd.as_raw_fd())),
+        buf.as_mut_ptr(),
+        buf.len() as _,
+    )
+    .build()
+    .user_data(0x42);
 
+    // drop(fd);
     // Note that the developer needs to ensure
     // that the entry pushed into submission queue is valid (e.g. fd, buffer).
     unsafe {
@@ -25,7 +32,12 @@ fn main() -> io::Result<()> {
     let cqe = ring.completion().next().expect("completion queue is empty");
 
     assert_eq!(cqe.user_data(), 0x42);
-    assert!(cqe.result() >= 0, "read error: {}", cqe.result());
+    assert!(
+        cqe.result() >= 0,
+        "read error: {:?}",
+        io::Error::from_raw_os_error(-cqe.result())
+    );
+    dbg!(cqe);
 
     Ok(())
 }
