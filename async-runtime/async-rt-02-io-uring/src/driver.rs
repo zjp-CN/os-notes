@@ -51,6 +51,10 @@ impl CqeAlloc {
         };
         None
     }
+
+    fn remove(&mut self, index: usize) {
+        self.slab.remove(index);
+    }
 }
 
 #[derive(Clone)]
@@ -71,6 +75,10 @@ impl Driver {
                 condvar: Condvar::new(),
             }),
         }
+    }
+
+    fn with<T>(&self, f: impl FnOnce(&mut Data) -> T) -> T {
+        f(&mut self.inner.data.lock().unwrap())
     }
 
     pub fn submit(&self, sqe: SQE) -> usize {
@@ -153,6 +161,9 @@ pub fn submit(sqe: SQE) -> usize {
 }
 
 pub fn poll(index: usize, cx_waker: &Waker) -> Option<CQE> {
-    let mut data = driver().inner.data.lock().unwrap();
-    data.alloc.poll(index, cx_waker)
+    driver().with(|data| data.alloc.poll(index, cx_waker))
+}
+
+pub fn remove(index: usize) {
+    driver().with(|data| data.alloc.remove(index));
 }
