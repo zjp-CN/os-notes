@@ -6,15 +6,18 @@ use std::{
     io::{self, Result},
     os::fd::AsRawFd,
     task::Poll,
+    time::Duration,
 };
 
 mod driver;
 mod executor;
 
-fn main() -> Result<()> {
+fn main() {
     const PATH: &str = "Cargo.toml";
+
     executor::Executor::block_on(|spawner| async move {
         spawner.spawn(TimerFuture::new(1.0));
+        spawner.spawn(timeout(Duration::from_millis(500)));
 
         spawner.spawn(async {
             let mut buf = vec![0; 1024];
@@ -30,8 +33,6 @@ fn main() -> Result<()> {
             );
         });
     });
-
-    Ok(())
 }
 
 struct Op {
@@ -135,3 +136,46 @@ fn test_probe() {
     );
 }
 
+fn timeout(dur: Duration) -> impl Future<Output = ()> {
+    let index = {
+        dbg!(dur);
+        let time_spec = types::Timespec::new()
+            .sec(dur.as_secs())
+            .nsec(dur.subsec_nanos());
+        let sqe = opcode::Timeout::new(&time_spec)
+            // .count(1)
+            // .flags(types::TimeoutFlags::BOOTTIME)
+            .build();
+        driver::submit(sqe)
+    };
+
+    poll_fn(move |cx| {
+        println!("Poll Timeout: {dur:?}");
+        let Some(cqe) = driver::poll(index, cx.waker()) else {
+            println!("Pending Timeout: {dur:?}");
+            return Poll::Pending;
+        };
+        let res = cqe.result();
+        if res > 0 {
+            return Poll::Pending;
+        }
+
+        driver::remove(index);
+        println!(
+            "Ready Timeout: {dur:?}\t {:?}",
+            std::io::Error::from_raw_os_error(-cqe.result())
+        );
+        Poll::Ready(())
+    })
+}
+
+#[test]
+fn test_timeout() {
+    executor::Executor::block_on(|spawner| async move {
+        spawner.spawn(timeout(Duration::from_secs(1)));
+        spawner.spawn(timeout(Duration::from_millis(500)));
+        spawner.spawn(timeout(Duration::from_millis(100)));
+        std::thread::sleep(Duration::from_secs(1));
+        spawner.spawn(timeout(Duration::from_millis(200)));
+    });
+}

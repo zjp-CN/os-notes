@@ -22,8 +22,8 @@ impl CqeAlloc {
     /// Submit an IO request: user_data is set up the same as slab index.
     fn submit(&mut self, sqe: SQE) -> (usize, SQE) {
         let index = self.slab.insert(LifeCycle::Submitted);
-        let cqe = sqe.user_data(index as u64);
-        (index, cqe)
+        let sqe = sqe.user_data(index as u64);
+        (index, sqe)
     }
 
     fn completion(&mut self, v_cqe: &[CQE]) {
@@ -34,7 +34,7 @@ impl CqeAlloc {
             match life_cycle {
                 LifeCycle::Submitted => (),
                 LifeCycle::Waiting(waker) => waker.wake_by_ref(),
-                LifeCycle::Completed(_entry) => println!("index={index} already completed"),
+                LifeCycle::Completed(_) => println!("index={index} already completed"),
             }
             *life_cycle = LifeCycle::Completed(cqe.clone());
         }
@@ -128,19 +128,33 @@ impl Reactor {
                 let mut uring = IoUring::new(128).expect("Failed to initialize io uring.");
                 loop {
                     // handle submission
-                    let v_sqe = driver.wait_v_sqe();
-                    // safety: must ensure entries are valid
-                    unsafe {
-                        uring
-                            .submission()
-                            .push_multiple(&v_sqe)
-                            .expect("Submission queue is full.")
-                    };
+                    {
+                        let v_sqe = driver.wait_v_sqe();
+                        // safety: must ensure entries are valid
+                        for sqe in v_sqe {
+                            unsafe {
+                                uring
+                                    .submission()
+                                    .push(dbg!(&sqe))
+                                    .expect("Submission queue is full.")
+                            };
+                        }
+                        // unsafe {
+                        //     uring
+                        //         .submission()
+                        //         .push_multiple(dbg!(&v_sqe))
+                        //         .expect("Submission queue is full.")
+                        // };
+                    }
+
+                    // FIXME: split submission and completion operation into two threads
 
                     // handle completion
-                    let completed_n = uring.submit_and_wait(1).unwrap();
-                    dbg!(completed_n);
+                    println!("before submit_and_wait");
+                    let submitted_n = uring.submit_and_wait(1).unwrap();
+                    dbg!(uring.completion().is_empty());
                     v_cqe.extend(uring.completion());
+                    dbg!(submitted_n, &v_cqe);
                     driver.completion(&v_cqe);
                     v_cqe.clear();
                 }
