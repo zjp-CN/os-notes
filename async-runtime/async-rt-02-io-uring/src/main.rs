@@ -115,3 +115,23 @@ pub async fn read_to_string(path: &str) -> Result<String> {
     // println!("[read_to_string] ret");
     Ok(String::from_utf8(buf).expect("Content contains non UTF8 bytes."))
 }
+
+#[test]
+fn test_probe() {
+    let mut probe = io_uring::Probe::new();
+
+    let ring = io_uring::IoUring::new(1).unwrap();
+    if ring.submitter().register_probe(&mut probe).is_err() {
+        eprintln!("No probe supported");
+    }
+
+    assert!(
+        probe.is_supported(opcode::Read::CODE),
+        "Read event is not supported in io uring"
+    );
+    assert!(
+        probe.is_supported(opcode::Timeout::CODE),
+        "Timeout event is not supported in io uring"
+    );
+}
+
