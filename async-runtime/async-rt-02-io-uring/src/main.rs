@@ -71,25 +71,24 @@ impl File {
         };
 
         poll_fn(move |cx| {
-            if let Some(cqe) = driver::poll(file.op.index, cx.waker()) {
-                driver::remove(file.op.index);
-                let res = cqe.result();
-                let read_len = if res < 0 {
-                    return Poll::Ready(Err(io::Error::from_raw_os_error(-res)));
-                } else {
-                    res as usize
-                };
-
-                assert!(
-                    read_len <= file.op.buffer_len,
-                    "Bytes filled exceed the buffer length."
-                );
-                drop(file.file.take().expect("File has been closed."));
-
-                Poll::Ready(Ok(read_len))
+            let Some(cqe) = driver::poll(file.op.index, cx.waker()) else {
+                return Poll::Pending;
+            };
+            driver::remove(file.op.index);
+            let res = cqe.result();
+            let read_len = if res < 0 {
+                return Poll::Ready(Err(io::Error::from_raw_os_error(-res)));
             } else {
-                Poll::Pending
-            }
+                res as usize
+            };
+
+            assert!(
+                read_len <= file.op.buffer_len,
+                "Bytes filled exceed the buffer length."
+            );
+            drop(file.file.take().expect("File has been closed."));
+
+            Poll::Ready(Ok(read_len))
         })
     }
 }
@@ -114,5 +113,5 @@ pub async fn read_to_string(path: &str) -> Result<String> {
     }
 
     // println!("[read_to_string] ret");
-    Ok(String::from_utf8(buf).unwrap())
+    Ok(String::from_utf8(buf).expect("Content contains non UTF8 bytes."))
 }
