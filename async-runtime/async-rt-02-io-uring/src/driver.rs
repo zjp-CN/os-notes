@@ -70,7 +70,7 @@ impl Driver {
                     alloc: CqeAlloc {
                         slab: Slab::with_capacity(64),
                     },
-                    sqe: None,
+                    v_sqe: Vec::new(),
                 }),
                 condvar: Condvar::new(),
             }),
@@ -84,17 +84,17 @@ impl Driver {
     pub fn submit(&self, sqe: SQE) -> usize {
         let mut lock = self.inner.data.lock().unwrap();
         let (index, sqe) = lock.alloc.submit(sqe);
-        lock.sqe = Some(sqe);
+        lock.v_sqe.push(sqe);
         drop(lock);
         self.inner.condvar.notify_all();
         index
     }
 
-    fn wait_sqe(&self) -> Option<SQE> {
+    fn wait_v_sqe(&self) -> Vec<SQE> {
         let guard = self.inner.data.lock().unwrap();
         let dur = Duration::from_millis(100);
         let wait_timeout = self.inner.condvar.wait_timeout(guard, dur);
-        wait_timeout.unwrap().0.sqe.take()
+        std::mem::take(&mut wait_timeout.unwrap().0.v_sqe)
     }
 
     fn completion(&self, v_cqe: &[CQE]) {
@@ -109,7 +109,7 @@ struct Inner {
 
 struct Data {
     alloc: CqeAlloc,
-    sqe: Option<SQE>,
+    v_sqe: Vec<SQE>,
 }
 
 #[allow(dead_code)]
@@ -128,15 +128,14 @@ impl Reactor {
                 let mut uring = IoUring::new(128).expect("Failed to initialize io uring.");
                 loop {
                     // handle submission
-                    if let Some(sqe) = driver.wait_sqe() {
-                        // safety: must ensure entry is valid
-                        unsafe {
-                            uring
-                                .submission()
-                                .push(&sqe)
-                                .expect("submission queue is full")
-                        };
-                    }
+                    let v_sqe = driver.wait_v_sqe();
+                    // safety: must ensure entries are valid
+                    unsafe {
+                        uring
+                            .submission()
+                            .push_multiple(&v_sqe)
+                            .expect("Submission queue is full.")
+                    };
 
                     // handle completion
                     let completed_n = uring.submit_and_wait(1).unwrap();
