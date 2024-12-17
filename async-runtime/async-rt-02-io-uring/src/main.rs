@@ -136,18 +136,22 @@ fn test_probe() {
     );
 }
 
+fn timeout_dur(dur: Duration) -> io_uring::squeue::Entry {
+    let time_spec = types::Timespec::new()
+        .sec(dur.as_secs())
+        .nsec(dur.subsec_nanos());
+    opcode::Timeout::new(&time_spec)
+        // .flags(types::TimeoutFlags::empty())
+        .build()
+        .user_data(u64::MAX)
+}
+
 fn timeout(dur: Duration) -> impl Future<Output = ()> {
     let index = {
-        dbg!(dur);
-        let time_spec = types::Timespec::new()
-            .sec(dur.as_secs())
-            .nsec(dur.subsec_nanos());
-        let sqe = opcode::Timeout::new(&time_spec)
-            // .count(1)
-            // .flags(types::TimeoutFlags::BOOTTIME)
-            .build();
+        let sqe = timeout_dur(dur);
         driver::submit(sqe)
     };
+    // dbg!(dur, index);
 
     poll_fn(move |cx| {
         println!("Poll Timeout: {dur:?}");
@@ -173,9 +177,10 @@ fn timeout(dur: Duration) -> impl Future<Output = ()> {
 fn test_timeout() {
     executor::Executor::block_on(|spawner| async move {
         spawner.spawn(timeout(Duration::from_secs(1)));
-        spawner.spawn(timeout(Duration::from_millis(500)));
-        spawner.spawn(timeout(Duration::from_millis(100)));
-        std::thread::sleep(Duration::from_secs(1));
-        spawner.spawn(timeout(Duration::from_millis(200)));
+        // spawner.spawn(timeout(Duration::from_millis(500)));
+        // spawner.spawn(timeout(Duration::from_millis(100)));
+        // spawner.spawn(timeout(Duration::from_millis(200)));
+        // std::thread::sleep(Duration::from_secs(1));
+        // spawner.spawn(timeout(Duration::from_millis(200)));
     });
 }

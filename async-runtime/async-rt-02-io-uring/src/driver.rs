@@ -28,6 +28,11 @@ impl CqeAlloc {
 
     fn completion(&mut self, v_cqe: &[CQE]) {
         for cqe in v_cqe {
+            if cqe.user_data() == u64::MAX {
+                // skip timeout
+                continue;
+            }
+
             let index = cqe.user_data() as usize;
             dbg!(index);
             let life_cycle = &mut self.slab[index];
@@ -126,25 +131,22 @@ impl Reactor {
             move || {
                 let mut v_cqe = Vec::new();
                 let mut uring = IoUring::new(128).expect("Failed to initialize io uring.");
+                let mut once = Some(crate::timeout_dur(Duration::from_millis(100)));
                 loop {
                     // handle submission
                     {
                         let v_sqe = driver.wait_v_sqe();
                         // safety: must ensure entries are valid
-                        for sqe in v_sqe {
-                            unsafe {
-                                uring
-                                    .submission()
-                                    .push(dbg!(&sqe))
-                                    .expect("Submission queue is full.")
-                            };
+                        unsafe {
+                            uring
+                                .submission()
+                                .push_multiple(dbg!(&v_sqe))
+                                .expect("Submission queue is full.");
+                            if let Some(sqe) = once.take() {
+                                uring.submission().push(&sqe).unwrap();
+                            }
                         }
-                        // unsafe {
-                        //     uring
-                        //         .submission()
-                        //         .push_multiple(dbg!(&v_sqe))
-                        //         .expect("Submission queue is full.")
-                        // };
+                        println!("submited: {}", v_sqe.len());
                     }
 
                     // FIXME: split submission and completion operation into two threads
