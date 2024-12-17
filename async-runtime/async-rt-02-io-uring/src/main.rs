@@ -143,7 +143,7 @@ fn timeout_dur(dur: Duration) -> io_uring::squeue::Entry {
     opcode::Timeout::new(&time_spec)
         // .flags(types::TimeoutFlags::empty())
         .build()
-        .user_data(u64::MAX)
+        .user_data(0)
 }
 
 fn timeout(dur: Duration) -> impl Future<Output = ()> {

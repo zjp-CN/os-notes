@@ -131,7 +131,7 @@ impl Reactor {
             move || {
                 let mut v_cqe = Vec::new();
                 let mut uring = IoUring::new(128).expect("Failed to initialize io uring.");
-                let mut once = Some(crate::timeout_dur(Duration::from_millis(100)));
+                // let mut once = Some(crate::timeout_dur(Duration::from_millis(100)));
                 loop {
                     // handle submission
                     {
@@ -142,9 +142,9 @@ impl Reactor {
                                 .submission()
                                 .push_multiple(dbg!(&v_sqe))
                                 .expect("Submission queue is full.");
-                            if let Some(sqe) = once.take() {
-                                uring.submission().push(&sqe).unwrap();
-                            }
+                            // if let Some(sqe) = once.take() {
+                            //     uring.submission().push(&sqe).unwrap();
+                            // }
                         }
                         println!("submited: {}", v_sqe.len());
                     }
