@@ -11,6 +11,7 @@ use std::{
 
 mod driver;
 mod executor;
+mod tcp;
 
 fn main() {
     const PATH: &str = "Cargo.toml";

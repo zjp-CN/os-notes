@@ -131,4 +131,19 @@ impl Spawner {
         });
         self.sender.send(my_waker).unwrap();
     }
+
+    pub fn spawn_result<E: std::error::Error>(
+        &self,
+        fut: impl 'static + Send + Future<Output = Result<(), E>>,
+    ) {
+        let my_waker = Arc::new(MyWaker {
+            task: Mutex::new(Box::pin(async {
+                if let Err(err) = fut.await {
+                    eprintln!("Future returns an error:\n{err}");
+                }
+            })),
+            sender: self.sender.clone(),
+        });
+        self.sender.send(my_waker).unwrap();
+    }
 }
