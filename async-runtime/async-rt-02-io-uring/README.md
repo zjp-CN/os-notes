@@ -1,4 +1,17 @@
 
+## 设计
+
+目标：简单实现，没有复杂的数据结构和任何优化，不考虑高并发，仅仅是一个练习。
+
+* 定时器：
+  - [x] 在一个单独的线程上调用 sleep，时间到了之后调用 `waker.wake()` —— Async Rust Book 中最朴素的 [唤醒][arb-wakeups]；
+  - [x] 利用 [`io_uring::Timeout`]，注册超时事件；
+  - [ ] （未实现）时间轮
+
+[arb-wakeups]: https://rust-lang.github.io/async-book/02_execution/03_wakeups.html
+[`io_uring::Timeout`]: https://docs.rs/io-uring/latest/io_uring/opcode/struct.Timeout.html
+
+
 ## 注意：应基于缓冲区所有权来编写健全的面向完成的 API
 
 `tokio_uring` 的 [buffer](https://docs.rs/tokio-uring/0.5.0/tokio_uring/buf/index.html) 抽象排除了 `&'a [u8]`
