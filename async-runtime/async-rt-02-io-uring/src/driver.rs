@@ -85,10 +85,11 @@ impl Driver {
     }
 
     pub fn submit(&self, sqe: SQE) -> usize {
-        let mut lock = self.inner.data.lock().unwrap();
-        let (index, sqe) = lock.alloc.submit(sqe);
-        lock.v_sqe.push(sqe);
-        drop(lock);
+        let index = self.with(|data| {
+            let (index, sqe) = data.alloc.submit(sqe);
+            data.v_sqe.push(sqe);
+            index
+        });
         self.inner.condvar.notify_all();
         index
     }
@@ -101,7 +102,7 @@ impl Driver {
     }
 
     fn completion(&self, v_cqe: &[CQE]) {
-        self.inner.data.lock().unwrap().alloc.completion(v_cqe);
+        self.with(|data| data.alloc.completion(v_cqe));
     }
 }
 

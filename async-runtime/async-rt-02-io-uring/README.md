@@ -24,8 +24,8 @@ $ find src -name '*.rs' | xargs wc -l | sort -n
   102 src/bad.rs
   128 src/timer.rs
   153 src/async_io.rs
-  172 src/driver.rs
-  743 total
+  173 src/driver.rs
+  744 total
 ```
 
 ## 开发记录
