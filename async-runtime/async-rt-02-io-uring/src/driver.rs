@@ -34,7 +34,6 @@ impl CqeAlloc {
             }
 
             let index = cqe.user_data() as usize;
-            dbg!(index);
             let life_cycle = &mut self.slab[index];
             match life_cycle {
                 LifeCycle::Submitted => (),
@@ -47,7 +46,6 @@ impl CqeAlloc {
 
     fn poll(&mut self, index: usize, cx_waker: &Waker) -> Option<CQE> {
         let life_cycle = self.slab.get_mut(index).unwrap();
-        dbg!(index, &life_cycle);
         match life_cycle {
             LifeCycle::Submitted => *life_cycle = LifeCycle::Waiting(cx_waker.clone()),
             LifeCycle::Waiting(waker) if waker.will_wake(cx_waker) => (),
@@ -139,18 +137,14 @@ impl Reactor {
                         unsafe {
                             uring
                                 .submission()
-                                .push_multiple(dbg!(&v_sqe))
+                                .push_multiple(&v_sqe)
                                 .expect("Submission queue is full.");
                         }
-                        println!("submited: {}", v_sqe.len());
                     }
 
                     // handle completion
-                    println!("before submit_and_wait");
-                    let submitted_n = uring.submit_and_wait(1).unwrap();
-                    dbg!(uring.completion().is_empty());
+                    let _submitted_n = uring.submit_and_wait(1).unwrap();
                     v_cqe.extend(uring.completion());
-                    dbg!(submitted_n, &v_cqe);
                     driver.completion(&v_cqe);
                     v_cqe.clear();
                 }
