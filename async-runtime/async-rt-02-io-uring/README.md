@@ -3,6 +3,8 @@
 
 目标：简单实现，没有复杂的数据结构和任何优化，不考虑高并发，仅仅是一个练习。
 
+* 单线程执行器：通知+任务队列 ❌ =\> MPSC ✅
+* 额外的一个线程操作 io_uring (reactor/事件循环)：通知+任务队列 ❌ =\> Mutex+Condvar ✅
 * 定时器：
   - [x] 在一个单独的线程上调用 sleep，时间到了之后调用 `waker.wake()` —— Async Rust Book 中最朴素的 [唤醒][arb-wakeups]；
   - [x] 利用 [`io_uring::Timeout`]，注册超时事件；
