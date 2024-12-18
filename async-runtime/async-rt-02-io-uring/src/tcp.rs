@@ -68,7 +68,7 @@ impl File {
     }
 }
 
-pub struct Op {
+struct Op {
     index: usize,
     buf: Option<Vec<u8>>,
     fd: Option<ArcFd>,
@@ -150,59 +150,4 @@ fn io_err<T>(neg: i32, buf: Vec<u8>) -> Poll<(Result<T>, Vec<u8>)> {
 fn custom_io_err<T>(err: impl Into<String>, buf: Vec<u8>) -> Poll<(Result<T>, Vec<u8>)> {
     let err = Err(io::Error::new(io::ErrorKind::Other, err.into()));
     Poll::Ready((err, buf))
-}
-
-// ***************** TESTING *****************
-
-pub async fn test_tcp_fut() -> Result<()> {
-    let stream = TcpStream::connect("127.0.0.1:3456".parse().unwrap())?;
-    let data: Vec<u8> = (1..10).collect();
-    let len = data.len();
-
-    let (res, buf) = stream.write(data.clone()).await;
-    assert_eq!(res?, len);
-    assert_eq!(buf, data);
-
-    let (res, buf) = stream.read(vec![0; len]).await;
-    assert_eq!(res?, len);
-    assert_eq!(buf, data);
-
-    Ok(())
-}
-
-#[test]
-fn test_tcp() {
-    crate::executor::Executor::block_on(|_| async { test_tcp_fut().await.unwrap() });
-}
-
-pub async fn test_file_read() -> Result<()> {
-    use std::str::from_utf8;
-    let file = File::open("Cargo.toml", |_| {})?;
-    let (res, buf) = file.read(vec![0; 24]).await;
-    let read_len = dbg!(res?);
-    println!("[task 1] read:\n{}", from_utf8(&buf[..read_len]).unwrap());
-    Ok(())
-}
-
-#[test]
-fn test_file() {
-    crate::executor::Executor::block_on(|spawner| async move {
-        spawner.spawn_result(test_file_read());
-        test_file_write_and_read().await.unwrap();
-    });
-}
-
-pub async fn test_file_write_and_read() -> Result<()> {
-    use std::str::from_utf8;
-    const TMP: &str = "tmp.txt";
-
-    let file = File::open(TMP, |opt| _ = opt.write(true).create(true).append(true))?;
-    let (res, _) = file.write("Hello world!".as_bytes().to_owned()).await;
-    dbg!(res?);
-
-    let (res, buf) = file.read(vec![0; 1024]).await;
-    let read_len = dbg!(res?);
-    println!("[task 2] read:\n{}", from_utf8(&buf[..read_len]).unwrap());
-
-    std::fs::remove_file(TMP)
 }

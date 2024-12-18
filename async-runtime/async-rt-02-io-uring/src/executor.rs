@@ -132,10 +132,7 @@ impl Spawner {
         self.sender.send(my_waker).unwrap();
     }
 
-    pub fn spawn_result<E: std::error::Error>(
-        &self,
-        fut: impl 'static + Send + Future<Output = Result<(), E>>,
-    ) {
+    pub fn spawn_result(&self, fut: impl 'static + Send + Future<Output = crate::Result<()>>) {
         let my_waker = Arc::new(MyWaker {
             task: Mutex::new(Box::pin(async {
                 if let Err(err) = fut.await {
