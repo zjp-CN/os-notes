@@ -84,7 +84,7 @@ impl Driver {
         f(&mut self.inner.data.lock().unwrap())
     }
 
-    pub fn submit(&self, sqe: SQE) -> usize {
+    fn submit(&self, sqe: SQE) -> usize {
         let index = self.with(|data| {
             let (index, sqe) = data.alloc.submit(sqe);
             data.v_sqe.push(sqe);
