@@ -8,8 +8,12 @@ use std::{
     task::Poll,
 };
 
-/// Bad practice with borrowed buffer!!! (Though it seems to work.)
-pub fn read_at(path: &str, offset: u64, buf: &mut [u8]) -> impl Future<Output = Result<usize>> {
+/// Bad practice with borrowed buffer!!! (Though it works.)
+pub fn read_at<'buf>(
+    path: &str,
+    offset: u64,
+    buf: &'buf mut [u8],
+) -> impl use<'buf> + Future<Output = Result<usize>> {
     struct File {
         file: Option<StdFile>,
         index: usize,
@@ -62,7 +66,6 @@ pub async fn read_to_string(path: &str) -> Result<String> {
 
     loop {
         let read_len = read_at(path, pos as u64, &mut buf[pos..pos + BLOCK]).await?;
-        // println!("pos = {pos}, read_len = {read_len}");
         if read_len == 0 {
             // EOF
             break;
@@ -73,7 +76,6 @@ pub async fn read_to_string(path: &str) -> Result<String> {
         buf.resize(pos + BLOCK, 0);
     }
 
-    // println!("[read_to_string] ret");
     Ok(String::from_utf8(buf).expect("Content contains non UTF8 bytes."))
 }
 

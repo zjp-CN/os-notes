@@ -23,50 +23,9 @@
 <summary>不良示例</summary>
 
 ```rust
-/// Bad practice with borrowed buffer!!! (Though it seems to work.)
+/// Bad practice with borrowed buffer!!! (Though it works.)
 fn read_at(path: &str, offset: u64, buf: &mut [u8]) -> impl Future<Output = Result<usize>> {
-    struct File {
-        file: Option<StdFile>,
-        index: usize,
-        buffer_len: usize,
-    }
-
-    let mut file = {
-        let file = StdFile::open(path).unwrap();
-        let ptr = buf.as_mut_ptr();
-        let len = buf.len();
-
-        let fd = types::Fd(file.as_raw_fd());
-        let sqe = opcode::Read::new(fd, ptr, len as _).offset(offset).build();
-        File {
-            file: Some(file),
-            index: driver::submit(sqe),
-            buffer_len: len,
-        }
-    };
-
-    poll_fn(move |cx| {
-        let Some(cqe) = driver::poll(file.index, cx.waker()) else {
-            return Poll::Pending;
-        };
-
-        driver::remove(file.index);
-        drop(file.file.take().expect("File has been closed."));
-
-        let res = cqe.result();
-        let read_len = if res < 0 {
-            return Poll::Ready(Err(io::Error::from_raw_os_error(-res)));
-        } else {
-            res as usize
-        };
-
-        assert!(
-            read_len <= file.buffer_len,
-            "Bytes filled exceed the buffer length."
-        );
-
-        Poll::Ready(Ok(read_len))
-    })
+  ...
 }
 ```
 
