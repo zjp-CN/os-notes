@@ -1,6 +1,6 @@
 use crate::{
     Result,
-    tcp::{File, TcpStream},
+    async_io::{File, TcpStream},
 };
 use std::str::from_utf8;
 

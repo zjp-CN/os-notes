@@ -1,6 +1,6 @@
+mod async_io;
 mod driver;
 mod executor;
-mod tcp;
 mod timer;
 
 #[cfg(test)]
