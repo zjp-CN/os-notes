@@ -76,3 +76,22 @@ pub async fn read_to_string(path: &str) -> Result<String> {
     // println!("[read_to_string] ret");
     Ok(String::from_utf8(buf).expect("Content contains non UTF8 bytes."))
 }
+
+#[test]
+fn test_bad_read_api() {
+    const PATH: &str = "Cargo.toml";
+    crate::executor::Executor::block_on(|spawner| async move {
+        spawner.spawn_result(async {
+            let mut buf = vec![0; 1024];
+            let read_len = read_at("Cargo.toml", 0, &mut buf).await?;
+            let content = std::str::from_utf8(&buf[..read_len]).unwrap();
+            println!("Cargo.toml:\n{content}");
+            Ok(())
+        });
+
+        spawner.spawn_result(async {
+            println!("async read_to_string:\n{}", read_to_string(PATH).await?);
+            Ok(())
+        });
+    });
+}
