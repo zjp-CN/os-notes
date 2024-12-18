@@ -29,11 +29,11 @@ struct SharedState {
     waker: Option<Waker>,
 }
 
-pub struct TimerFuture {
+pub struct NaïveTimer {
     state: Arc<Mutex<SharedState>>,
 }
 
-impl Future for TimerFuture {
+impl Future for NaïveTimer {
     type Output = ();
 
     fn poll(
@@ -53,7 +53,7 @@ impl Future for TimerFuture {
     }
 }
 
-impl TimerFuture {
+impl NaïveTimer {
     pub fn new(secs: f32) -> Self {
         let state = Arc::new(Mutex::new(SharedState {
             duration: secs,
@@ -73,7 +73,7 @@ impl TimerFuture {
                 println!("Completed for {secs} sec");
             }
         });
-        TimerFuture { state }
+        NaïveTimer { state }
     }
 }
 
