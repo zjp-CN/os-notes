@@ -47,7 +47,7 @@ struct File {
 }
 
 impl File {
-    /// Read from pos 0 with a fixed-capacity buffer.
+    /// Bad practice with borrowed buffer!!! (Though it seems to work.)
     fn read_at(path: &str, offset: u64, buf: &mut [u8]) -> impl Future<Output = Result<usize>> {
         let mut file = {
             let file = OpenOptions::new()
