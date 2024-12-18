@@ -129,11 +129,19 @@ impl Reactor {
             let driver = driver.clone();
             move || {
                 let mut v_cqe = Vec::new();
+                let time_spec = io_uring::types::Timespec::new()
+                    .nsec(Duration::from_millis(100).subsec_nanos());
                 let mut uring = IoUring::new(128).expect("Failed to initialize io uring.");
                 loop {
                     // handle submission
                     {
-                        let v_sqe = driver.wait_v_sqe();
+                        let mut v_sqe = driver.wait_v_sqe();
+                        // timeout for submit_and_wait
+                        v_sqe.push(
+                            io_uring::opcode::Timeout::new(&time_spec)
+                                .build()
+                                .user_data(u64::MAX),
+                        );
                         // safety: must ensure entries are valid
                         unsafe {
                             uring
