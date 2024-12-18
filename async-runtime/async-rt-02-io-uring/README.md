@@ -23,11 +23,12 @@
 | 难点/踩坑                                      | 解决方式                                                            |
 |------------------------------------------------|---------------------------------------------------------------------|
 | 不熟悉各种文件描述符的 flags                   | 阅读 `tokio-uring` 源码；但实际未编写它们                           |
-| [闭包不相交捕获字段时的 drop 顺序][drop-order] | 在闭包内使用需要控制 drop 的字段                                    |
+| [闭包不相交捕获字段时的 drop 顺序][drop-order] | 在闭包内使用需要控制 drop 的字段 ([fix][fix-drop])                  |
 | 诡异的超时（不发生、错误地发生、随机发生）     | [`*const Timespec`] 必须一直存活直到超时完成  ([fix][fix-Timespec]) |
 
 [drop-order]: https://doc.rust-lang.org/stable/edition-guide/rust-2021/disjoint-capture-in-closures.html#drop-order
 [`*const Timespec`]: https://docs.rs/io-uring/latest/io_uring/opcode/struct.Timeout.html#method.new
+[fix-drop]: https://github.com/zjp-CN/os-notes/commit/7f4022adda920280008fdaa08e436b001d00e264
 [fix-Timespec]: https://github.com/zjp-CN/os-notes/commit/b8647ba049e3f1f2defd8434a9a3965b5916e7df#diff-47455ac29522bfd90d8bb00f886371ef393deeb90980e3d1a99b08893e7e1f6f
 
 ### 应基于缓冲区所有权来编写健全的面向完成的 API
@@ -101,3 +102,4 @@ pub struct Slice {
 
 如果没有这个 owned `Slice` 来管理写入缓冲区的位置，那么实现类似 bad.rs 中的 `read_to_string` 只能在每个循环中传入新的缓冲区，这会很低效。
 
+（当我试图把 read_to_string 实现放到基于 Vec 的 read_at 的接口上才意识到抽象缓冲区很重要，但最终并没有编写这部分代码。）
