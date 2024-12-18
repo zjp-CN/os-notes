@@ -16,6 +16,18 @@
 [`io_uring::Timeout`]: https://docs.rs/io-uring/latest/io_uring/opcode/struct.Timeout.html
 [tcp_echo]: https://github.com/tokio-rs/io-uring/blob/c1c37735f3f94f12c773bbec6726d6d3db5ef14e/examples/tcp_echo.rs
 
+```rust
+$ find src -name '*.rs' | xargs wc -l | sort -n
+   21 src/main.rs
+   77 src/tests.rs
+   90 src/executor.rs
+  102 src/bad.rs
+  128 src/timer.rs
+  153 src/async_io.rs
+  172 src/driver.rs
+  743 total
+```
+
 ## 开发记录
 
 ### 难点与解决方式
