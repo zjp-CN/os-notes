@@ -136,7 +136,7 @@ impl Spawner {
         let my_waker = Arc::new(MyWaker {
             task: Mutex::new(Box::pin(async {
                 if let Err(err) = fut.await {
-                    eprintln!("Future returns an error:\n{err}");
+                    eprintln!("Future returns an error:\n{err:?}");
                 }
             })),
             sender: self.sender.clone(),

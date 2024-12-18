@@ -76,6 +76,7 @@ pub async fn read_to_string(path: &str) -> Result<String> {
         buf.resize(pos + BLOCK, 0);
     }
 
+    buf.resize(pos, 0);
     Ok(String::from_utf8(buf).expect("Content contains non UTF8 bytes."))
 }
 
@@ -92,7 +93,9 @@ fn test_bad_read_api() {
         });
 
         spawner.spawn_result(async {
-            println!("async read_to_string:\n{}", read_to_string(PATH).await?);
+            let content = read_to_string(PATH).await?;
+            println!("async read_to_string:\n{content}");
+            assert_eq!(content, std::fs::read_to_string(PATH)?);
             Ok(())
         });
     });
