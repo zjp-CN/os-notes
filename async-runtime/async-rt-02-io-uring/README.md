@@ -6,15 +6,71 @@
 * 单线程执行器：通知+任务队列 ❌ =\> MPSC ✅
 * 额外的一个线程操作 io_uring (reactor/事件循环)：通知+任务队列 ❌ =\> Mutex+Condvar ✅
 * 定时器：
-  - [x] 在一个单独的线程上调用 sleep，时间到了之后调用 `waker.wake()` —— Async Rust Book 中最朴素的 [唤醒][arb-wakeups]；
-  - [x] 利用 [`io_uring::Timeout`]，注册超时事件；
+  - [x] （实现 1）在一个单独的线程上调用 sleep，时间到了之后调用 `waker.wake()` —— Async Rust Book 中最朴素的 [唤醒][arb-wakeups]；
+  - [x] （实现 2）利用 [`io_uring::Timeout`]，注册超时事件；
   - [ ] （未实现）时间轮
 
 [arb-wakeups]: https://rust-lang.github.io/async-book/02_execution/03_wakeups.html
 [`io_uring::Timeout`]: https://docs.rs/io-uring/latest/io_uring/opcode/struct.Timeout.html
 
 
-## 注意：应基于缓冲区所有权来编写健全的面向完成的 API
+## 踩坑
+
+### 应基于缓冲区所有权来编写健全的面向完成的 API
+
+<details>
+
+<summary>不良示例</summary>
+
+```rust
+/// Bad practice with borrowed buffer!!! (Though it seems to work.)
+fn read_at(path: &str, offset: u64, buf: &mut [u8]) -> impl Future<Output = Result<usize>> {
+    struct File {
+        file: Option<StdFile>,
+        index: usize,
+        buffer_len: usize,
+    }
+
+    let mut file = {
+        let file = StdFile::open(path).unwrap();
+        let ptr = buf.as_mut_ptr();
+        let len = buf.len();
+
+        let fd = types::Fd(file.as_raw_fd());
+        let sqe = opcode::Read::new(fd, ptr, len as _).offset(offset).build();
+        File {
+            file: Some(file),
+            index: driver::submit(sqe),
+            buffer_len: len,
+        }
+    };
+
+    poll_fn(move |cx| {
+        let Some(cqe) = driver::poll(file.index, cx.waker()) else {
+            return Poll::Pending;
+        };
+
+        driver::remove(file.index);
+        drop(file.file.take().expect("File has been closed."));
+
+        let res = cqe.result();
+        let read_len = if res < 0 {
+            return Poll::Ready(Err(io::Error::from_raw_os_error(-res)));
+        } else {
+            res as usize
+        };
+
+        assert!(
+            read_len <= file.buffer_len,
+            "Bytes filled exceed the buffer length."
+        );
+
+        Poll::Ready(Ok(read_len))
+    })
+}
+```
+
+</details>
 
 `tokio_uring` 的 [buffer](https://docs.rs/tokio-uring/0.5.0/tokio_uring/buf/index.html) 抽象排除了 `&'a [u8]`
 （除非 `'a = 'static`）和 `&'a mut [u8]`。
