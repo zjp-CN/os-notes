@@ -17,15 +17,14 @@ fn main() -> io::Result<()> {
     let now = Instant::now();
 
     let dur = Duration::from_secs(2);
-    let sqe = {
-        let time_spec = types::Timespec::new()
-            .sec(dur.as_secs())
-            .nsec(dur.subsec_nanos());
-        opcode::Timeout::new(&time_spec)
-            .count(1)
-            .build()
-            .user_data(0x42)
-    };
+    // NOTE: 必须保证 &time_spec 在其 cqe 之前存活，否则会导致悬空指针和 UB
+    let time_spec = types::Timespec::new()
+        .sec(dur.as_secs())
+        .nsec(dur.subsec_nanos());
+    let sqe = opcode::Timeout::new(&time_spec)
+        .count(1)
+        .build()
+        .user_data(0x42);
 
     // drop(fd);
     // Note that the developer needs to ensure
