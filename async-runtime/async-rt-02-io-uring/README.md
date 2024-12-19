@@ -3,12 +3,11 @@
 
 目标：简单实现，没有复杂的数据结构和任何优化，不考虑高并发，仅仅是一个练习。
 
-* 单线程执行器：MPSC。
-* 额外的一个线程操作 io_uring (reactor/事件循环)：通知+任务队列 (Condvar+Mutex)。
+* 单线程执行器：MPSC —— 只是为了简单。
+* 额外的一个线程操作 io_uring (proactor/事件循环)：通知+任务队列 (Condvar+Mutex)。
 * 定时器：
   - [x] （实现 1）在一个单独的线程上调用 sleep，时间到了之后调用 `waker.wake()` —— Async Rust Book 中最朴素的 [唤醒][arb-wakeups]；
   - [x] （实现 2）利用 [`io_uring::Timeout`]，注册超时事件；
-  - [ ] （未实现）时间轮。
 * tcp 和文件仅有最基础的读写接口：在 `TcpStream::{read,write}` 和 `File::{read,write}` 背后共享同一个 Op Future 的实现。
 * 测试 tcp 读写需要先运行 `cargo r --example tcp_echo`（该代码来自 io-uring crate [示例][tcp_echo]）。
 
@@ -43,7 +42,7 @@ $ find src -name '*.rs' | xargs wc -l | sort -n
 [fix-drop]: https://github.com/zjp-CN/os-notes/commit/7f4022adda920280008fdaa08e436b001d00e264
 [fix-Timespec]: https://github.com/zjp-CN/os-notes/commit/b8647ba049e3f1f2defd8434a9a3965b5916e7df#diff-47455ac29522bfd90d8bb00f886371ef393deeb90980e3d1a99b08893e7e1f6f
 
-### 应基于缓冲区所有权来编写健全的面向完成的 API
+### 应基于缓冲区所有权来编写健全的、面向完成的 API
 
 <details>
 
@@ -58,12 +57,9 @@ fn read_at(path: &str, offset: u64, buf: &mut [u8]) -> impl Future<Output = Resu
 
 </details>
 
-`tokio-uring` 的 [buffer](https://docs.rs/tokio-uring/0.5.0/tokio_uring/buf/index.html) 抽象排除了 `&'a [u8]`
-（除非 `'a = 'static`）和 `&'a mut [u8]`。
-
 ```rust
+// 所有基于 io uring 的成熟库都不会直接支持 referenced slices：
 error[E0597]: `a` does not live long enough
-  --> examples/tcp_stream.rs:22:41
    |
 21 |         let a = [0; 4];
    |             - binding `a` declared here
@@ -77,41 +73,20 @@ error[E0597]: `a` does not live long enough
    |     - `a` dropped here while still borrowed
 ```
 
-
-《[IRLO: Forgetting futures with borrowed data (2019)](https://internals.rust-lang.org/t/forgetting-futures-with-borrowed-data/10824)》
-
 **The problem: completion, cancellation and buffer management.**
 
-> 逻辑所有权是在 Rust 当前类型系统中实现此功能的唯一方法：内核必须拥有缓冲区。
-> 没有可靠的方法可以获取借用的切片，将其传递给内核，并等待内核完成其上的 IO，
-> 从而保证并发运行的用户程序不会以不同步的方式访问缓冲区。
-> Rust 的类型系统除了传递所有权之外无法对内核的行为进行建模。
-> 我强烈鼓励每个人转向基于所有权的模型，因为我非常有信心这是创建 API 的唯一健全方法。
->
-> 而且，这实际上是有利的。io-uring 有很多 API，它们的数量和复杂性都在不断增长，都是围绕允许内核为您管理缓冲区而设计的。
-> 通过所有权传递缓冲区允许我们访问这些 API，并且从长远来看无论如何这将是性能最高的解决方案。
-> 让我们接受内核拥有缓冲区的事实，并在该接口之上设计高性能 API。
-> 
-> src: 《[Notes on io-uring by without.boats (2020)](https://without.boats/blog/io-uring/)》
+* [IRLO: Forgetting futures with borrowed data (2019)](https://internals.rust-lang.org/t/forgetting-futures-with-borrowed-data/10824)
+* [Notes on io-uring by without.boats (2020)](https://without.boats/blog/io-uring/)
+* [hyper#2140: Use io_uring for io operations](https://github.com/hyperium/hyper/issues/2140#issuecomment-1869526753)
+* [monoio io-cancel](https://github.com/bytedance/monoio/blob/eac666015e3e6d2b6ef235e94b70a9f43a0d3870/docs/zh/io-cancel.md)
 
+缓冲区抽象和设计是一个重要的基础，因为：
+* 每种 io-uring 操作需要不同语义的缓冲区 （示例 [`tokio_uring::buf`]、[`monoio::buf`]、[`compio-buf`] ）；
+* 必须基于所有权而不是引用来设计接口：在 CQE 完成之前，内核拥有缓冲区的所有权 —— 基于引用的缓冲区在取消任务时容易导致引用失效；
+* 严格设计缓冲区的释放时机：Future 拥有缓冲区，并不意味着 drop Future 就释放缓冲区 —— 必须在 CQE 完成之后才能释放它。
 
-`tokio-uring` 的异步 IO API 完全基于 `<T: BoundedBufMut>` 👍 所有权缓冲区设计，这是必要的。例如：
+[`tokio_uring::buf`]: https://docs.rs/tokio-uring/0.5.0/tokio_uring/buf/index.html
+[`monoio::buf`]: https://docs.rs/monoio/0.2.4/monoio/buf/index.html
+[`compio-buf`]: https://docs.rs/compio-buf
 
-```rust
-// src: https://docs.rs/tokio-uring/0.5.0/tokio_uring/buf/struct.Slice.html
-pub struct Slice<T> {
-    buf: T,
-    begin: usize,
-    end: usize,
-}
-// 👇
-pub struct Slice {
-    buf: Vec<u8>,
-    begin: usize,
-    end: usize,
-}
-```
-
-如果没有这个 owned `Slice` 来管理写入缓冲区的位置，那么实现类似 bad.rs 中的 `read_to_string` 只能在每个循环中传入新的缓冲区，这会很低效。
-
-（当我试图把 read_to_string 实现放到基于 Vec 的 read_at 的接口上才意识到抽象缓冲区很重要，但最终并没有编写这部分代码。）
+（但本项目只使用一种 `Vec<u8>` 作为缓冲区，没有编写缓冲区抽象，也没有设计缓冲区严格在 CQE 完成后释放。）
