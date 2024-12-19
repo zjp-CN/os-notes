@@ -117,12 +117,12 @@ struct Data {
 }
 
 #[allow(dead_code)]
-struct Reactor {
+struct Proactor {
     handle: thread::JoinHandle<()>,
     driver: Driver,
 }
 
-impl Reactor {
+impl Proactor {
     fn new() -> Self {
         let driver = Driver::new();
         let handle = thread::spawn({
@@ -159,12 +159,12 @@ impl Reactor {
                 }
             }
         });
-        Reactor { handle, driver }
+        Proactor { handle, driver }
     }
 }
 
 fn driver() -> &'static Driver {
-    static DRIVER: LazyLock<Reactor> = LazyLock::new(Reactor::new);
+    static DRIVER: LazyLock<Proactor> = LazyLock::new(Proactor::new);
     &DRIVER.driver
 }
 
