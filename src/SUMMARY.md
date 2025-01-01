@@ -30,11 +30,6 @@
   - [green-thread](./green-thread.md)
   - [shared-scheduler](./shared-scheduler.md)
 
-- [基础知识]()
-  - [专业名词集锦](./terminology.md)
-  - [专业名词集锦 2](./terminology2.md)
-  - [专业名词集锦 3](./terminology3.md)
-  - [RISC-V 定时器](riscv-timer.md)
 
 - [衍生拓展](./after-class/index.md)
   - [已阅读清单]()
@@ -44,9 +39,15 @@
     - [视频](./after-class/read-list/videos.md)
   - [待阅读清单](./after-class/todo-readling-list.md)
   - [杂项]()
+    - [专业名词集锦](./terminology.md)
+    - [专业名词集锦 2](./terminology2.md)
+    - [专业名词集锦 3](./terminology3.md)
+    - [RISC-V 定时器](riscv-timer.md)
     - [板子](./after-class/board.md)
     - [Rust Embedded](./after-class/rust-embedded.md)
 
 - [冬季训练营]()
   - [io_uring](./2024-winter/io_uring.md)
   - [tokio 源码阅读](./2024-winter/tokio.md)
+
+- [记录]()
