@@ -117,6 +117,14 @@ rustup target add riscv64gc-unknown-linux-gnu
 
 </details>
 
+
+## 更新 naked function
+
+* [codegen `#[naked]` functions using global asm](https://github.com/rust-lang/rust/pull/128004)
+* [naked function tracing issue](https://github.com/rust-lang/rust/issues/90957)
+  * [update reference pr](https://github.com/rust-lang/reference/pull/1689/files)
+* [a proc macro version of the `#[naked]` attribute which can be used on stable Rust](https://github.com/Amanieu/naked-function)
+
 # 名词解释
 
 <details>
