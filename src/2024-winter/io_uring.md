@@ -151,7 +151,7 @@ to a given submission request. Hence, a completion event will always be associat
 
 ## 其他资料
 
-* 《[[译] Linux 异步 I/O 框架 io_uring：基本原理、程序示例与性能压测（2020）](https://arthurchiao.art/blog/intro-to-io-uring-zh)》
+* 《【译】Linux 异步 I/O 框架 io_uring：基本原理、程序示例与性能压测（2020）](https://arthurchiao.art/blog/intro-to-io-uring-zh)》
 
 
 ## 名词解释
