@@ -53,3 +53,4 @@
 - [记录]()
   - [Computer Systems: An Integrated Approach to Architecture and Operating Systems]()
     - [Intro](./computer-systems/intro.md)
+    - [Processor Design](./computer-systems/processor.md)
