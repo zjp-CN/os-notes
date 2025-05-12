@@ -30,6 +30,10 @@
   - [green-thread](./green-thread.md)
   - [shared-scheduler](./shared-scheduler.md)
 
+- [2024 年秋冬季训练营]()
+  - [io_uring](./2024-winter/io_uring.md)
+  - [tokio 源码阅读](./2024-winter/tokio.md)
+
 
 - [衍生拓展](./after-class/index.md)
   - [已阅读清单]()
@@ -45,10 +49,6 @@
     - [RISC-V 定时器](riscv-timer.md)
     - [板子](./after-class/board.md)
     - [Rust Embedded](./after-class/rust-embedded.md)
-
-- [冬季训练营]()
-  - [io_uring](./2024-winter/io_uring.md)
-  - [tokio 源码阅读](./2024-winter/tokio.md)
 
 - [记录]()
   - [Computer Systems: An Integrated Approach to Architecture and Operating Systems]()
