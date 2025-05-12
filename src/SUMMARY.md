@@ -34,6 +34,8 @@
   - [io_uring](./2024-winter/io_uring.md)
   - [tokio 源码阅读](./2024-winter/tokio.md)
 
+- [2025 年春夏季训练营]()
+  - [async-uring](./2025-spring/async-uring.md)
 
 - [衍生拓展](./after-class/index.md)
   - [已阅读清单]()
