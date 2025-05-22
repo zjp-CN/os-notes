@@ -6,9 +6,11 @@
 
 原作者的仓库：<https://github.com/r58Playz/async-uring>
 
-## 修改记录
+2025-05-17 PPT：<https://os-checker.github.io/bench-uring/2025-05-17.html>
 
-### bench.sh 注释掉 Turbo Boost 操作
+## 踩坑记录
+
+### bench.sh 注释掉 Turbo Boost
 
 注释掉 bensh.sh 脚本中的如下行：
 
@@ -61,7 +63,7 @@ Not Available
 
 它不支持 boost。
 
-### 修复 echo 示例
+### 支持的内核版本
 
 我遇到如下错误：
 
