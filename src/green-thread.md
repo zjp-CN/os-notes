@@ -1,6 +1,10 @@
 
 # 背景
 
+<details>
+
+<summary>不重要</summary>
+
 由于原作者 cfsamson 写这些代码的时候依赖当时不稳定的 Rust 功能（比如
 `asm!`、`#[naked]`），这些功能已经随着时间而发生了巨大的变化。
 
@@ -16,13 +20,15 @@
 《[Asynchronous Programming in Rust: Learn asynchronous programming by building working examples of futures, green threads, and runtimes][cfsamson-book]》（[原帖]），
 将他以往的异步系列书整合到了一起，有条件的小伙伴可以支持他。
 
-值得注意的是，两百行讲解绿色线程的代码其实在两年前就由原作者本人更新了一次（[帖子][post-update]），上面的存档记录了当时更新过的代码版本，它们是直接可以被运行了。
+值得注意的是，两百行讲解绿色线程的代码其实在两年前就由原作者本人更新了一次（[帖子][post-update]、[代码仓库](https://github.com/PacktPublishing/Asynchronous-Programming-in-Rust)），上面的存档记录了当时更新过的代码版本，它们是直接可以被运行了。
 
 <details>
 
 <summary>点击展开/收起原作者发布代码更新的帖子的截图</summary>
 
 ![](./img/green-thread-update.png)
+
+</details>
 
 </details>
 
