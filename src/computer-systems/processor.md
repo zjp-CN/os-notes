@@ -1421,3 +1421,37 @@ add $s1, $s2, $t0 ; $s1 = $s2 + $t0
 ```
 
 </details>
+
+23. Suppose you design a computer called the Big Looper 2000 that will never be used to
+call procedures and that will automatically jump back to the beginning of memory
+when it reaches the end. Do you need a program counter? Justify your answer.
+
+<details>
+
+<summary>Answer.</summary>
+
+In the hypothetical scenario of the Big Looper 2000, a program counter (PC) might not be necessary, but it depends on the specific design and functionality of the computer.
+
+Arguments Against Needing a Program Counter:
+
+1. **Automatic Looping Mechanism**: If the Big Looper 2000 is designed to automatically jump back to the beginning of memory when it reaches the end, this implies that the control flow is inherently circular and deterministic. In such a case, the computer does not need to keep track of the current instruction address dynamically, as it will always follow a fixed sequence of instructions in a loop.
+
+2. **No Procedure Calls**: Since the Big Looper 2000 will never be used to call procedures, there is no need to manage different execution contexts or return addresses. Procedure calls typically require a stack and a program counter to keep track of the return address, but this is not applicable here.
+
+3. **Simplified Control Flow**: The absence of procedure calls and the fixed looping behavior suggest a very simplified control flow. The computer can simply fetch and execute instructions in sequence without needing to dynamically update a program counter.
+
+Arguments for Including a Program Counter:
+
+1. **Flexibility and Future Proofing**: Even though the current design specifies no procedure calls and automatic looping, including a program counter might provide flexibility for future modifications. For example, if the design is ever changed to allow conditional branching or procedure calls, a program counter would be essential.
+
+2. **Error Handling and Debugging**: A program counter can be useful for debugging and error handling. If the computer encounters an error or needs to be paused for inspection, knowing the current instruction address (via the program counter) can help in diagnosing the issue.
+
+3. **Instruction Fetching Mechanism**: In most computer architectures, the program counter is used to fetch the next instruction from memory. Even in a looping scenario, having a program counter can simplify the instruction fetch cycle. The program counter can be incremented after each instruction fetch, and when it reaches the end of memory, it can be reset to the beginning.
+
+Conclusion:
+
+In the strictest sense, given the current design constraints (no procedure calls and automatic looping), the Big Looper 2000 might not need a program counter. However, including a program counter would provide additional flexibility and utility for potential future enhancements, error handling, and debugging. Therefore, while it might not be strictly necessary, it would be a prudent design choice to include a program counter.
+
+</details>
+
+
