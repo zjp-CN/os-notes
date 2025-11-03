@@ -1,4 +1,4 @@
-# Processor Design
+# Processor Architecture
 
 ## Two architectural issues
 
