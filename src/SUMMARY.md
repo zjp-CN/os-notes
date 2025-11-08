@@ -12,6 +12,7 @@
     - [gdb](rcore-gdb.md)
     - [tmux](rcore-tmux.md)
     - [qemu](rcore-qemu.md)
+    - [make](./tools/make.md)
 
 - [项目六：异步操作系统](async-os.md)
   - [Rust 的 Future](async-os-rust-futures.md)
