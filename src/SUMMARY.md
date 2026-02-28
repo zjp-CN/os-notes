@@ -56,3 +56,4 @@
     - [Intro](./computer-systems/1-intro.md)
     - [Processor Architecture](./computer-systems/2-processor-architecture.md)
     - [Processor Implementation](./computer-systems/3-processor-implementation.md)
+  - [MentOS 笔记](./after-class/MentOS.md)
