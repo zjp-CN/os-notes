@@ -171,3 +171,65 @@ execvp("printenv", arg);
 * list 和 array 都应该以 NULL 结尾
 * 第一个命令行参数通常是程序的名字
 * 所有 exec 在成功时不返回，失败时才返回 -1
+
+# IPC
+
+* [Slides: System V and Semaphores](https://mentos-team.github.io/doc/5_IPC_semaphores_shared_memory.pdf)
+* [Slides: Shared Memory and Message Queue](https://mentos-team.github.io/doc/6_IPC_system_v_message_queue.pdf)
+* [Slides: Signal, Pipe, and Fifo](https://mentos-team.github.io/doc/7_IPC_signal_pipe_fifo.pdf)
+
+## System V
+
+System V (aka SysV)
+* the fifth edition of commercial versions of the Unix operating system
+* originally developed by AT&T and released in 1983
+
+SysV IPC:
+* Mechanisms that coordinate activities (like managing access to a given system
+  resource) among cooperating processes
+  * Semaphores: synchronize actions among processes
+  * Message queues: pass messages among processes
+  * Shared memory
+  * Signals
+  * Pipes
+  * FIFOs
+* IPC 系统调用
+  * 创建/打开：msgget、semget、shmget
+  * 键：IPC_PRIVATE （内核创建）、ftok（基于文件、用户创建）
+  * 数据结构：msqid_ds、semid_ds、shmid_ds（都含有 ipc_perm）
+  * 更新状态：msgctl、semctl、shmctl
+  * 信号量：
+    * semop：执行连续的信号量操作（原子性）
+  * 共享内存：
+    * shmat：将共享内存段附加到进程的地址空间，使进程可以访问共享内存中的数据
+    * shmdt：进程分离指定的共享内存段
+    * 子进程继承父进程的共享内存
+    * 自动分离：exec 和进程终结的时候，共享内存自动从进程分离
+  * 消息队列：
+    * msgsnd：发送一条消息到消息队列
+    * msgrcv：从消息队列中读取一条消息，并移除它
+      * 参数 msgtype 的含义：0 表示第一条消息；大于 0 表示与发送时 mtype 相等的第一条；小于 0 
+        表示其绝对值小于或等于发送时的 mtype 、取最小的、第一条
+* IPC 命令行工具
+  * 列出：ipcs
+  * 移除：ipcrm
+
+## 实时调度器
+
+[Slides: Real-time Scheduler](https://mentos-team.github.io/doc/8_real_time_scheduler_basics.pdf)
+
+RTOS (real-time operating system)：受时间约束的 OS
+* Soft RTOS：通常或大致满足最后期限
+  * Event-driven：基于优先级切换任务
+* Hard RTOS：确定性地满足最后期限
+  * Time-sharing：基于时钟中断切换任务
+
+Time consistency：任务从接受到完成所花费的时间应该一致
+* 时间长度的变化被称为 jitter
+* hard RTOS 不应该有 jitter，因为它会破坏确定性
+
+Linux 系统调用
+* sched_setscheduler 设置进程的调度策略和优先级
+  * 调度策略：SCHED_OTHER（RR+Time-sharing）、SCHED_FIFO（Event-driven）、SCHED_RR（Event-driven）、SCHED_BATCH、SCHED_IDLE
+  * 值越小，优先级越高：0 最高优先级
+  * Time quantum：将 CPU 让给另一个同优先级的进程的最大连续时间
